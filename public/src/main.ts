@@ -1,5 +1,6 @@
 import "./styles/style.scss";
 import "./styles/homescreen.scss";
+import "./styles/gaming-screen.scss";
 
 init();
 

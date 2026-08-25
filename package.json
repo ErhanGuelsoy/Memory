@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vite --open /settings.html",
+  "dev": "vite --open /settings.html",
     "build": "tsc -noEmit && vite build",
     "preview": "vite preview"
   },

@@ -1,0 +1,160 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(48, 49, 49, 1);
+}
+
+.gaming {
+
+    &__main-container {
+        position: relative;
+        width: 1217px;
+        height: 644px;
+        background-color: rgba(48, 49, 49, 1);
+        box-sizing: border-box;
+    }
+
+    &__header {
+        width: 100%;
+        height: 62px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+    }
+
+    &__header-left-part {
+        width: 687px;
+        height: 62px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+    }
+
+    &__blue-orange-box {
+        display: flex;
+        align-items: center;
+        width: 292px;
+        height: 62px;
+        gap: 20px;
+        padding: 0 20px;
+        box-sizing: border-box;
+        background-color: rgba(134, 233, 214, 0.2);
+    }
+
+    &__blue-orange-box img {
+        width: auto;
+        height: auto;
+    }
+
+    &__blue-orange-box h1 {
+        margin: 0;
+        font-family: "Red Rose";
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 100%;
+    }
+
+    &__blue-orange-box h1:nth-of-type(1) {
+        color: rgba(43, 177, 255, 1);
+    }
+
+    &__blue-orange-box h1:nth-of-type(2) {
+        color: rgba(245, 142, 57, 1);
+    }
+
+    &__header-current-player {
+        width: 188px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-right: 20px;
+        box-sizing: border-box;
+    }
+
+    &__header-current-player span {
+        font-family: "Red Rose";
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 100%;
+        letter-spacing: 0;
+        color: rgba(255, 255, 255, 1);
+        white-space: nowrap;
+    }
+
+    &__header-current-player img {
+        width: auto;
+        height: auto;
+    }
+
+    &__header-right-part-exit-game {
+        width: 207px;
+        height: 62px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px 24px;
+        border: 2px solid black;
+        box-sizing: border-box;
+        background: rgba(134, 233, 214, 0.2);
+
+        h1 {
+            margin: 0;
+
+            font-family: "Red Rose";
+            font-weight: 400;
+            font-size: 26px;
+            line-height: 100%;
+            color: white;
+        }
+
+        img {
+            width: auto;
+            height: auto;
+        }
+    }
+}
+
+.memory {
+    width: 100%;
+    height: calc(100% - 62px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+    &__card-container {
+        box-sizing: border-box;
+        display: grid;
+        width: 529px;
+        height: 528px;
+        border: 2px solid black;
+        grid-template-columns: repeat(4, 120px);
+        grid-template-rows: repeat(4, 120px);
+        column-gap: 14px;
+        row-gap: 14px;
+        align-content: start;
+        justify-content: start;
+    }
+
+    &__card {
+        width: 120px;
+        height: 120px;
+        box-sizing: border-box;
+
+        img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    }
+}
