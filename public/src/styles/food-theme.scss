@@ -1,3 +1,4 @@
+
 body {
     box-sizing: border-box;
     margin: 0;
@@ -26,11 +27,11 @@ body {
         align-items: center;
         justify-content: space-between;
         box-sizing: border-box;
+        background-color: rgba(240, 229, 217, 1);
     }
 
     &__header-left-part {
         width: 687px;
-        height: 62px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -45,27 +46,12 @@ body {
         gap: 20px;
         padding: 0 20px;
         box-sizing: border-box;
+        background-color: rgba(240, 229, 217, 1);
     }
 
     &__blue-orange-box img {
         width: auto;
         height: auto;
-    }
-
-    &__blue-orange-box h1 {
-        margin: 0;
-        font-family: "Red Rose";
-        font-weight: 400;
-        font-size: 26px;
-        line-height: 100%;
-    }
-
-    &__blue-orange-box h1:nth-of-type(1) {
-        color: rgba(43, 177, 255, 1);
-    }
-
-    &__blue-orange-box h1:nth-of-type(2) {
-        color: rgba(245, 142, 57, 1);
     }
 
     &__header-current-player {
@@ -79,16 +65,6 @@ body {
         box-sizing: border-box;
     }
 
-    &__header-current-player span {
-        font-family: "Red Rose";
-        font-weight: 400;
-        font-size: 26px;
-        line-height: 100%;
-        letter-spacing: 0;
-        color: rgba(255, 255, 255, 1);
-        white-space: nowrap;
-    }
-
     &__header-current-player img {
         width: auto;
         height: auto;
@@ -96,30 +72,18 @@ body {
 
     &__header-right-part-exit-game {
         width: 207px;
-        height: 62px;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
         padding: 16px 24px;
-        border: 2px solid black;
         box-sizing: border-box;
-        background: rgba(134, 233, 214, 0.2);
         cursor: pointer;
+    }
 
-        h1 {
-            margin: 0;
-            font-family: "Red Rose";
-            font-weight: 400;
-            font-size: 26px;
-            line-height: 100%;
-            color: white;
-        }
-
-        img {
-            width: auto;
-            height: auto;
-        }
+    &__header-right-part-exit-game img {
+        width: auto;
+        height: auto;
     }
 }
 
@@ -185,6 +149,13 @@ body {
         transform: rotateY(0deg);
     }
 
+    &__card-back {
+        transform: rotateY(180deg);
+        background-repeat: no-repeat;
+        background-size: 120px 240px;
+        background-position: center bottom;
+    }
+
     &__card-front img {
         display: block;
         width: 120px;
@@ -194,82 +165,42 @@ body {
         object-fit: cover;
     }
 
-    &__card-back {
-        transform: rotateY(180deg);
-        background-repeat: no-repeat;
-        background-size: 120px 240px;
-        background-position: center bottom;
-    }
-
     &__card-back.card-1 {
-        background-image: url("/public/assets/images/Code vibes card 1.png");
+        background-image: url("/public/assets/images/food card 01.png");
     }
 
     &__card-back.card-2 {
-        background-image: url("/public/assets/images/Code vibes card 2.png");
+        background-image: url("/public/assets/images/food card 02.png");
     }
 
     &__card-back.card-3 {
-        background-image: url("/public/assets/images/Code vibes card 3.png");
+        background-image: url("/public/assets/images/food card 03.png");
     }
 
     &__card-back.card-4 {
-        background-image: url("/public/assets/images/Code vibes card 4.png");
+        background-image: url("/public/assets/images/food card 04.png");
     }
 
     &__card-back.card-5 {
-        background-image: url("/public/assets/images/Code vibes card 5.png");
+        background-image: url("/public/assets/images/food card 05.png");
     }
 
     &__card-back.card-6 {
-        background-image: url("/public/assets/images/Code vibes card 6.png");
+        background-image: url("/public/assets/images/food card 06.png");
     }
 
     &__card-back.card-7 {
-        background-image: url("/public/assets/images/Code vibes card 7.png");
+        background-image: url("/public/assets/images/food card 07.png");
     }
 
     &__card-back.card-8 {
-        background-image: url("/public/assets/images/Code vibes card 8.png");
-    }
-
-    &__card-back.card-9 {
-        background-image: url("/public/assets/images/Code vibes card 9.png");
-    }
-
-    &__card-back.card-10 {
-        background-image: url("/public/assets/images/Code vibes card 10.png");
-    }
-
-    &__card-back.card-11 {
-        background-image: url("/public/assets/images/Code vibes card 11.png");
-    }
-
-    &__card-back.card-12 {
-        background-image: url("/public/assets/images/Code vibes card 12.png");
-    }
-
-    &__card-back.card-13 {
-        background-image: url("/public/assets/images/Code vibes card 13.png");
-    }
-
-    &__card-back.card-14 {
-        background-image: url("/public/assets/images/Code vibes card 14.png");
-    }
-
-    &__card-back.card-15 {
-        background-image: url("/public/assets/images/Code vibes card 15.png");
-    }
-
-    &__card-back.card-16 {
-        background-image: url("/public/assets/images/Code vibes card 16.png");
+        background-image: url("/public/assets/images/food card 08.png");
     }
 
     &__card:hover {
         transform: scale(1.02);
     }
 }
-
 
 /* =========================================
    EXIT POPUP
@@ -292,11 +223,6 @@ body {
     display: flex;
 }
 
-
-/* =========================================
-   POPUP
-   ========================================= */
-
 .exit-popup {
     position: relative;
     width: 500px;
@@ -315,9 +241,8 @@ body {
     height: auto;
 }
 
-
 /* =========================================
-   UNSICHTBARE KLICKBEREICHE
+   UNSICHTBARE KLICKFLÄCHEN
    ========================================= */
 
 .exit-popup__back-area,
@@ -338,7 +263,6 @@ body {
     top: 77%;
     height: 13%;
 }
-
 
 /* =========================================
    POPUP ANIMATION
