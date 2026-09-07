@@ -112,6 +112,8 @@
 
         <div class="winner-popup">
 
+            <!-- CONFETTI -->
+
             <img class="winner-popup__confetti" src="/public/assets/images/Confetti.png" alt="Confetti">
 
 
@@ -123,18 +125,15 @@
                     alt="Blue player winner">
 
                 <div class="
-                        winner-popup__score
-                        winner-popup__score--blue
-                    ">
+                    winner-popup__score
+                    winner-popup__score--blue
+                ">
 
                     <span id="blueWinnerScore">
                         0
                     </span>
 
                 </div>
-
-            </div>
-
 
             <!-- ORANGE WINNER -->
 
@@ -143,24 +142,28 @@
                     winner-popup__container--orange
                 " id="orangeWinner">
 
-                <img class="
-                        winner-popup__text--orange
-                    " src="/public/assets/images/winner_text_orange.png" alt="Orange winner">
+                <img class="winner-popup__text--orange" src="/public/assets/images/winner_text_orange.png"
+                    alt="Orange winner">
 
-                <img class="
-                        winner-popup__player--orange
-                    " src="/public/assets/images/winner_player_orange.png" alt="Orange player winner">
+                <img class="winner-popup__player--orange" src="/public/assets/images/winner_player_orange.png"
+                    alt="Orange player winner">
 
                 <div class="
-                        winner-popup__score
-                        winner-popup__score--orange
-                    ">
+                    winner-popup__score
+                    winner-popup__score--orange
+                ">
 
                     <span id="orangeWinnerScore">
                         0
                     </span>
 
                 </div>
+
+
+                <!-- ONLY ONE ORANGE BUTTON -->
+
+                <img class="winner-popup__back-home" id="orangeBackHome" src="/public/assets/images/back_to_start.png"
+                    alt="Back to start">
 
             </div>
 
@@ -188,6 +191,38 @@
         </div>
 
     </div>
+
+
+    <!-- WINNER BUTTON LOGIC -->
+
+    <script>
+
+        const blueBackHome =
+            document.getElementById("blueBackHome");
+
+        const orangeBackHome =
+            document.getElementById("orangeBackHome");
+
+
+        function goBackHome() {
+
+            window.location.href =
+                "/index.html";
+        }
+
+
+        blueBackHome?.addEventListener(
+            "click",
+            goBackHome
+        );
+
+
+        orangeBackHome?.addEventListener(
+            "click",
+            goBackHome
+        );
+
+    </script>
 
 
     <script type="module" src="/public/src/gaming.ts"></script>
