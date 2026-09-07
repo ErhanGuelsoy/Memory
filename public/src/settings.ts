@@ -1,4 +1,3 @@
-
 import "./styles/style.scss";
 import "./styles/settings-page.scss";
 
@@ -10,6 +9,7 @@ init();
 function init(): void {
     setupThemeSelection();
     setupThemePreview();
+    setupCardSelection();
     setupStartButton();
 }
 
@@ -17,12 +17,16 @@ function init(): void {
  * Sets up the theme selection.
  */
 function setupThemeSelection(): void {
-    const themes = document.querySelectorAll<HTMLElement>("[data-theme]");
+    const themes =
+        document.querySelectorAll<HTMLElement>(
+            "[data-theme]"
+        );
 
-    themes.forEach((theme) => {
-        theme.addEventListener("click", () => {
-            selectTheme(theme);
-        });
+    themes.forEach((theme: HTMLElement) => {
+        theme.addEventListener(
+            "click",
+            () => selectTheme(theme)
+        );
     });
 }
 
@@ -30,32 +34,80 @@ function setupThemeSelection(): void {
  * Stores the selected theme.
  */
 function selectTheme(theme: HTMLElement): void {
-    const selectedTheme = theme.dataset.theme;
+    const selectedTheme =
+        theme.dataset.theme;
 
     if (!selectedTheme) {
         return;
     }
 
-    localStorage.setItem("selectedTheme", selectedTheme);
+    localStorage.setItem(
+        "selectedTheme",
+        selectedTheme
+    );
 }
 
 /**
- * Sets up the preview image.
+ * Sets up the board size selection.
+ */
+function setupCardSelection(): void {
+    const cardOptions =
+        document.querySelectorAll<HTMLElement>(
+            "[data-cards]"
+        );
+
+    cardOptions.forEach(
+        (option: HTMLElement) => {
+            option.addEventListener(
+                "click",
+                () => selectCardCount(option)
+            );
+        }
+    );
+}
+
+/**
+ * Stores the selected board size.
+ */
+function selectCardCount(
+    option: HTMLElement
+): void {
+    const cardCount =
+        option.dataset.cards;
+
+    if (!cardCount) {
+        return;
+    }
+
+    localStorage.setItem(
+        "cardCount",
+        cardCount
+    );
+}
+
+/**
+ * Sets up the theme preview.
  */
 function setupThemePreview(): void {
-    const themes = document.querySelectorAll<HTMLElement>("[data-theme]");
-    const preview = document.querySelector<HTMLImageElement>(
-        ".game__component-container img"
-    );
+    const themes =
+        document.querySelectorAll<HTMLElement>(
+            "[data-theme]"
+        );
+
+    const preview =
+        document.querySelector<HTMLImageElement>(
+            ".game__component-container img"
+        );
 
     if (!preview) {
         return;
     }
 
-    themes.forEach((theme) => {
-        theme.addEventListener("mouseenter", () => {
-            updatePreview(theme, preview);
-        });
+    themes.forEach((theme: HTMLElement) => {
+        theme.addEventListener(
+            "mouseenter",
+            () => updatePreview(theme, preview)
+        );
     });
 }
 
@@ -66,14 +118,17 @@ function updatePreview(
     theme: HTMLElement,
     preview: HTMLImageElement
 ): void {
-    const themeName = theme.dataset.theme;
+    const themeName =
+        theme.dataset.theme;
 
     if (themeName === "code-vibes") {
-        preview.src = "/public/assets/images/Frame 629.png";
+        preview.src =
+            "/assets/images/Frame 629.png";
     }
 
     if (themeName === "foods") {
-        preview.src = "/public/assets/images/food_frame.png";
+        preview.src =
+            "/assets/images/food_frame.png";
     }
 }
 
@@ -81,41 +136,51 @@ function updatePreview(
  * Sets up the start button.
  */
 function setupStartButton(): void {
-    const startButton = document.getElementById("start-button");
+    const startButton =
+        document.querySelector<HTMLButtonElement>(
+            "#start-button"
+        );
 
     if (!startButton) {
         return;
     }
 
-    startButton.addEventListener("click", navigateToGame);
+    startButton.addEventListener(
+        "click",
+        navigateToGame
+    );
 }
 
 /**
- * Navigates to the selected game theme.
+ * Navigates to the selected game.
  */
 function navigateToGame(): void {
-    const selectedTheme = localStorage.getItem("selectedTheme");
+    const selectedTheme =
+        localStorage.getItem("selectedTheme");
 
-    if (selectedTheme === "code-vibes") {
-        window.location.href = "/gaming-page.html";
-        return;
+    if (!localStorage.getItem("cardCount")) {
+        localStorage.setItem(
+            "cardCount",
+            "16"
+        );
     }
 
     if (selectedTheme === "foods") {
-        window.location.href = "/food-theme.html";
+        window.location.href =
+            "/food-theme.html";
         return;
     }
 
-    if (selectedTheme === "gaming") {
-        window.location.href = "/gaming-theme.html";
+    if (
+        selectedTheme === "gaming" ||
+        selectedTheme === "code-vibes" ||
+        selectedTheme === "da-projects"
+    ) {
+        window.location.href =
+            "/gaming-theme.html";
         return;
     }
 
-    if (selectedTheme === "da-projects") {
-        window.location.href = "/gaming-page.html";
-        return;
-    }
-
-    window.location.href = "/gaming-page.html";
+    window.location.href =
+        "/gaming-theme.html";
 }
-

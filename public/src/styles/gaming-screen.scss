@@ -1,269 +1,386 @@
 body {
     box-sizing: border-box;
+
     margin: 0;
+
     width: 100%;
     min-height: 100vh;
+
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     background-color: rgba(48, 49, 49, 1);
 }
+
 
 .gaming {
 
     &__main-container {
         position: relative;
+
         width: 1217px;
         height: 644px;
+
         background-color: rgba(48, 49, 49, 1);
+
         box-sizing: border-box;
     }
+
 
     &__header {
         width: 100%;
         height: 62px;
+
         display: flex;
+
         align-items: center;
         justify-content: space-between;
+
         box-sizing: border-box;
     }
+
 
     &__header-left-part {
         width: 687px;
         height: 62px;
+
         display: flex;
+
         align-items: center;
         justify-content: space-between;
+
         box-sizing: border-box;
     }
+
 
     &__blue-orange-box {
-        display: flex;
-        align-items: center;
         width: 292px;
         height: 62px;
-        gap: 20px;
-        padding: 0 20px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 17px 20px;
+
         box-sizing: border-box;
+
+        border-radius: 10px;
+
+        background: rgba(134, 233, 214, 0.2);
     }
 
-    &__blue-orange-box img {
-        width: auto;
-        height: auto;
+
+    &__player-score {
+        width: 106px;
+        height: 30px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 4px;
+
+        box-sizing: border-box;
+
+        flex-shrink: 0;
     }
 
-    &__blue-orange-box h1 {
-        margin: 0;
-        font-family: "Red Rose";
-        font-weight: 400;
-        font-size: 26px;
+
+    &__label {
+        display: block;
+
+        width: 36px;
+        height: 30px;
+
+        object-fit: contain;
+
+        flex-shrink: 0;
+    }
+
+
+    &__player-name {
+        width: 52px;
+        height: 30px;
+
+        display: flex;
+
+        align-items: center;
+
+        font-family: "Delius Unicase", cursive;
+
+        font-weight: 700;
+        font-style: normal;
+
+        font-size: 14px;
+
         line-height: 100%;
+
+        letter-spacing: 0%;
+
+        white-space: nowrap;
+
+        box-sizing: border-box;
+
+        flex-shrink: 0;
     }
 
-    &__blue-orange-box h1:nth-of-type(1) {
-        color: rgba(43, 177, 255, 1);
+
+    &__player-score > span:last-child {
+        min-width: 14px;
+        width: 14px;
+
+        font-family: "Delius Unicase", cursive;
+
+        font-weight: 700;
+        font-style: normal;
+
+        font-size: 24px;
+
+        line-height: 100%;
+
+        letter-spacing: 0%;
+
+        text-align: right;
+
+        box-sizing: border-box;
+
+        flex-shrink: 0;
     }
 
-    &__blue-orange-box h1:nth-of-type(2) {
-        color: rgba(245, 142, 57, 1);
+
+    &__player-score--orange {
+        color: rgba(245, 126, 58, 1);
     }
+
+
+    &__player-score--orange > span:last-child {
+        margin-left: 8px;
+    }
+
+
+    &__player-score--blue {
+        color: rgba(55, 125, 214, 1);
+    }
+
+
+    &__player-score--blue > span:last-child {
+        margin-left: -14px;
+    }
+
 
     &__header-current-player {
         width: 188px;
         height: 32px;
+
         display: flex;
+
         align-items: center;
         justify-content: flex-end;
+
         gap: 8px;
+
         margin-right: 20px;
+
         box-sizing: border-box;
     }
 
-    &__header-current-player span {
-        font-family: "Red Rose";
-        font-weight: 400;
-        font-size: 26px;
-        line-height: 100%;
-        letter-spacing: 0;
-        color: rgba(255, 255, 255, 1);
-        white-space: nowrap;
-    }
 
     &__header-current-player img {
         width: auto;
         height: auto;
     }
 
+
     &__header-right-part-exit-game {
         width: 207px;
-        height: 62px;
+
         display: flex;
+
         align-items: center;
         justify-content: center;
+
         gap: 10px;
+
         padding: 16px 24px;
-        border: 2px solid black;
+
         box-sizing: border-box;
-        background: rgba(134, 233, 214, 0.2);
+
         cursor: pointer;
+    }
 
-        h1 {
-            margin: 0;
-            font-family: "Red Rose";
-            font-weight: 400;
-            font-size: 26px;
-            line-height: 100%;
-            color: white;
-        }
 
-        img {
-            width: auto;
-            height: auto;
-        }
+    &__header-right-part-exit-game img {
+        width: auto;
+        height: auto;
     }
 }
+
+
+/* MEMORY */
 
 .memory {
     width: 100%;
     height: calc(100% - 62px);
+
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     box-sizing: border-box;
+
 
     &__card-container {
         box-sizing: border-box;
+
         display: grid;
-        width: 529px;
-        height: 528px;
-        border: 2px solid black;
+
+        width: 522px;
+        height: 522px;
+
         grid-template-columns: repeat(4, 120px);
         grid-template-rows: repeat(4, 120px);
+
         column-gap: 14px;
         row-gap: 14px;
+
         align-content: start;
         justify-content: start;
     }
 
+
+    &__card-container[data-card-count="24"] {
+        width: 610px;
+        height: 402px;
+
+        grid-template-columns: repeat(6, 90px);
+        grid-template-rows: repeat(4, 90px);
+    }
+
+
+    &__card-container[data-card-count="36"] {
+        width: 550px;
+        height: 550px;
+
+        grid-template-columns: repeat(6, 80px);
+        grid-template-rows: repeat(6, 80px);
+    }
+
+
     &__card {
         position: relative;
+
         width: 120px;
         height: 120px;
+
         cursor: pointer;
+
         perspective: 1000px;
+
         box-sizing: border-box;
     }
 
+
+    &__card-container[data-card-count="24"]
+    &__card {
+        width: 90px;
+        height: 90px;
+    }
+
+
+    &__card-container[data-card-count="36"]
+    &__card {
+        width: 80px;
+        height: 80px;
+    }
+
+
     &__card-inner {
         position: relative;
+
         width: 100%;
         height: 100%;
+
         transform-style: preserve-3d;
+
         transition: transform 0.6s ease;
+
         box-sizing: border-box;
     }
+
 
     &__card.is-flipped &__card-inner {
         transform: rotateY(180deg);
     }
 
+
     &__card-front,
     &__card-back {
         position: absolute;
+
         inset: 0;
+
         width: 120px;
         height: 120px;
+
         margin: 0;
         padding: 0;
+
         box-sizing: border-box;
+
         overflow: hidden;
+
+        background-repeat: no-repeat;
+
+        background-size: 120px 240px;
+
         backface-visibility: hidden;
+
         -webkit-backface-visibility: hidden;
     }
 
+
     &__card-front {
+        background-position: center top;
+
         transform: rotateY(0deg);
     }
 
-    &__card-front img {
-        display: block;
-        width: 120px;
-        height: 120px;
-        margin: 0;
-        padding: 0;
-        object-fit: cover;
-    }
 
     &__card-back {
-        transform: rotateY(180deg);
-        background-repeat: no-repeat;
-        background-size: 120px 240px;
         background-position: center bottom;
+
+        transform: rotateY(180deg);
     }
 
-    &__card-back.card-1 {
-        background-image: url("/public/assets/images/Code vibes card 1.png");
+
+    &__card-container[data-card-count="24"]
+    &__card-front,
+
+    &__card-container[data-card-count="24"]
+    &__card-back {
+        width: 90px;
+        height: 90px;
+
+        background-size: 90px 180px;
     }
 
-    &__card-back.card-2 {
-        background-image: url("/public/assets/images/Code vibes card 2.png");
+
+    &__card-container[data-card-count="36"]
+    &__card-front,
+
+    &__card-container[data-card-count="36"]
+    &__card-back {
+        width: 80px;
+        height: 80px;
+
+        background-size: 80px 160px;
     }
 
-    &__card-back.card-3 {
-        background-image: url("/public/assets/images/Code vibes card 3.png");
-    }
-
-    &__card-back.card-4 {
-        background-image: url("/public/assets/images/Code vibes card 4.png");
-    }
-
-    &__card-back.card-5 {
-        background-image: url("/public/assets/images/Code vibes card 5.png");
-    }
-
-    &__card-back.card-6 {
-        background-image: url("/public/assets/images/Code vibes card 6.png");
-    }
-
-    &__card-back.card-7 {
-        background-image: url("/public/assets/images/Code vibes card 7.png");
-    }
-
-    &__card-back.card-8 {
-        background-image: url("/public/assets/images/Code vibes card 8.png");
-    }
-
-    &__card-back.card-9 {
-        background-image: url("/public/assets/images/Code vibes card 9.png");
-    }
-
-    &__card-back.card-10 {
-        background-image: url("/public/assets/images/Code vibes card 10.png");
-    }
-
-    &__card-back.card-11 {
-        background-image: url("/public/assets/images/Code vibes card 11.png");
-    }
-
-    &__card-back.card-12 {
-        background-image: url("/public/assets/images/Code vibes card 12.png");
-    }
-
-    &__card-back.card-13 {
-        background-image: url("/public/assets/images/Code vibes card 13.png");
-    }
-
-    &__card-back.card-14 {
-        background-image: url("/public/assets/images/Code vibes card 14.png");
-    }
-
-    &__card-back.card-15 {
-        background-image: url("/public/assets/images/Code vibes card 15.png");
-    }
-
-    &__card-back.card-16 {
-        background-image: url("/public/assets/images/Code vibes card 16.png");
-    }
 
     &__card:hover {
         transform: scale(1.02);
@@ -271,13 +388,204 @@ body {
 }
 
 
-/* =========================================
-   EXIT POPUP
-   ========================================= */
+/* WINNER POPUP */
+
+.winner-popup-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 10000;
+
+    display: none;
+
+    overflow: hidden;
+
+    background-color: rgba(48, 49, 49, 0.95);
+}
+
+
+.winner-popup-overlay.is-visible {
+    display: block;
+}
+
+
+.winner-popup {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+
+    transform: translateX(100px);
+}
+
+
+/* CONFETTI */
+
+.winner-popup__confetti {
+    position: absolute;
+
+    width: 1233.922607421875px;
+    height: 358.87921142578125px;
+
+    top: -32px;
+    left: 103px;
+
+    opacity: 1;
+
+    object-fit: contain;
+}
+
+
+/* WINNER CONTAINER */
+
+.winner-popup__container {
+    position: absolute;
+
+    top: 130px;
+    left: 507px;
+
+    width: auto;
+    height: auto;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+}
+
+
+.winner-popup__container.is-visible {
+    display: flex;
+}
+
+
+/* BLUE WINNER */
+
+.winner-popup__blue-player {
+    display: block;
+
+    width: 426px;
+    height: auto;
+
+    margin: 0;
+
+    object-fit: contain;
+}
+
+
+/* BLUE SCORE */
+
+.winner-popup__score--blue {
+    margin-left: 20px;
+}
+
+
+.winner-popup__score--blue span {
+    color: rgba(55, 125, 214, 1);
+}
+
+
+/* ORANGE WINNER */
+
+.winner-popup__container--orange {
+    top: 170px;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 0;
+}
+
+
+/* ORANGE WINNER TEXT */
+
+.winner-popup__text--orange {
+    display: block;
+
+    width: 426px;
+    height: auto;
+
+    margin: 0 0 10px 0;
+
+    object-fit: contain;
+}
+
+
+/* ORANGE PLAYER */
+
+.winner-popup__player--orange {
+    display: block;
+
+    width: 340px;
+    height: auto;
+
+    margin: 0;
+
+    object-fit: contain;
+}
+
+
+/* WINNER SCORE */
+
+.winner-popup__score {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 60px;
+
+    box-sizing: border-box;
+}
+
+
+/* ORANGE SCORE */
+
+.winner-popup__score--orange {
+    position: absolute;
+
+    left: 450px;
+    bottom: 100px;
+}
+
+
+.winner-popup__score--orange span {
+    color: rgba(245, 126, 58, 1);
+}
+
+
+/* SCORE NUMBER */
+
+.winner-popup__score span {
+    font-family: "Delius Unicase", cursive;
+
+    font-weight: 700;
+    font-style: normal;
+
+    font-size: 60px;
+
+    line-height: 100%;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+/* EXIT POPUP */
 
 .exit-popup-overlay {
     position: fixed;
+
     inset: 0;
+
     z-index: 9999;
 
     display: none;
@@ -288,61 +596,70 @@ body {
     background-color: rgba(0, 0, 0, 0.35);
 }
 
+
 .exit-popup-overlay.is-visible {
     display: flex;
 }
 
 
-/* =========================================
-   POPUP
-   ========================================= */
-
 .exit-popup {
     position: relative;
+
     width: 500px;
+
     margin: 0;
 
-    animation: exit-popup-slide-down 0.45s ease-out;
+    animation:
+        exit-popup-slide-down
+        0.45s
+        ease-out;
 }
 
+
 .exit-popup-overlay.is-closing .exit-popup {
-    animation: exit-popup-slide-up 0.45s ease-in forwards;
+    animation:
+        exit-popup-slide-up
+        0.45s
+        ease-in
+        forwards;
 }
+
 
 .exit-popup__image {
     display: block;
+
     width: 100%;
     height: auto;
 }
 
 
-/* =========================================
-   UNSICHTBARE KLICKBEREICHE
-   ========================================= */
-
 .exit-popup__back-area,
 .exit-popup__exit-area {
     position: absolute;
+
     left: 50%;
+
     width: 65%;
+
     cursor: pointer;
+
     transform: translateX(-50%);
 }
 
+
 .exit-popup__back-area {
     top: 62%;
+
     height: 13%;
 }
+
 
 .exit-popup__exit-area {
     top: 77%;
+
     height: 13%;
 }
 
-
-/* =========================================
-   POPUP ANIMATION
-   ========================================= */
 
 @keyframes exit-popup-slide-down {
 
@@ -354,6 +671,7 @@ body {
         transform: translateY(0);
     }
 }
+
 
 @keyframes exit-popup-slide-up {
 

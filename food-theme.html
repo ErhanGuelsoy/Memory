@@ -1,14 +1,24 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="/public/src/styles/food-theme.scss">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&display=swap" rel="stylesheet">
+
     <title>Food Theme</title>
+
 </head>
 
 <body>
@@ -20,176 +30,115 @@
             <div class="gaming__header-left-part">
 
                 <div class="gaming__blue-orange-box">
-                    <img src="/public/assets/images/Frame_player_result.png" alt="Player result">
+
+                    <div class="gaming__player-score gaming__player-score--orange">
+
+                        <img class="gaming__chess" src="/public/assets/images/chess_orange_left.png" alt="Orange chess">
+
+                        <span id="player1Score">
+                            0
+                        </span>
+
+                    </div>
+
+                    <div class="gaming__player-score gaming__player-score--blue">
+
+                        <img class="gaming__chess" src="/public/assets/images/chess_blue_right.png" alt="Blue chess">
+
+                        <span id="player2Score">
+                            0
+                        </span>
+
+                    </div>
+
                 </div>
 
                 <div class="gaming__header-current-player">
+
                     <img src="/public/assets/images/Frame_current_player.png" alt="Current player">
+
                 </div>
 
             </div>
 
             <div class="gaming__header-right-part-exit-game">
+
                 <img src="/public/assets/images/button_exit.png" alt="Exit game">
+
             </div>
 
         </header>
 
+
+        <!-- MEMORY CARDS -->
+
         <main class="memory">
 
-            <div class="memory__card-container">
-
-                <div class="memory__card" data-card="1">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-1"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="1">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-1"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="2">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-2"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="2">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-2"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="3">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-3"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="3">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-3"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="4">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-4"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="4">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-4"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="5">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-5"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="5">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-5"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="6">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-6"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="6">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-6"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="7">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-7"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="7">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-7"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="8">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-8"></div>
-                    </div>
-                </div>
-
-                <div class="memory__card" data-card="8">
-                    <div class="memory__card-inner">
-                        <div class="memory__card-front">
-                            <img src="/public/assets/images/food_card.png" alt="Card">
-                        </div>
-                        <div class="memory__card-back card-8"></div>
-                    </div>
-                </div>
-
+            <div class="memory__card-container" data-card-count="16">
             </div>
 
         </main>
 
     </section>
 
+
+    <!-- WINNER POPUP -->
+
+    <div class="winner-popup-overlay" id="winnerPopup">
+
+        <div class="winner-popup">
+
+            <img class="winner-popup__confetti" src="/public/assets/images/Confetti.png" alt="Confetti">
+
+
+            <!-- BLUE WINNER -->
+
+            <div class="winner-popup__container" id="blueWinner">
+
+                <img class="winner-popup__text" src="/public/assets/images/winner_blue_chess.png"
+                    alt="Blue player winner">
+
+                <div class="winner-popup__score winner-popup__score--blue">
+
+                    <img class="winner-popup__chess" src="/public/assets/images/winner_chess_blue_orange_layout.png"
+                        alt="Blue winner chess">
+
+                    <span id="blueWinnerScore">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ORANGE WINNER -->
+
+            <div class="winner-popup__container" id="orangeWinner">
+
+                <img class="winner-popup__text" src="/public/assets/images/winner_text_orange.png"
+                    alt="Orange player winner">
+
+                <div class="winner-popup__score winner-popup__score--orange">
+
+                    <img class="winner-popup__chess" src="/public/assets/images/winner_chess_orange.png"
+                        alt="Orange winner chess">
+
+                    <span id="orangeWinnerScore">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
     <!-- EXIT POPUP -->
+
     <div class="exit-popup-overlay" id="exitPopup">
 
         <div class="exit-popup">
@@ -206,184 +155,110 @@
 
     </div>
 
+
+    <script type="module" src="/public/src/food-theme.ts"></script>
+
+
+    <!-- WINNER LOGIC -->
+
     <script>
 
-        const cards = document.querySelectorAll(".memory__card");
+        const winnerPopup =
+            document.getElementById("winnerPopup");
 
-        const exitButton = document.querySelector(
-            ".gaming__header-right-part-exit-game"
-        );
+        const blueWinner =
+            document.getElementById("blueWinner");
 
-        const exitPopup = document.querySelector("#exitPopup");
+        const orangeWinner =
+            document.getElementById("orangeWinner");
 
-        const popup = document.querySelector(".exit-popup");
+        const player1Score =
+            document.getElementById("player1Score");
 
-        const backToGame = document.querySelector("#backToGame");
+        const player2Score =
+            document.getElementById("player2Score");
 
-        const exitGame = document.querySelector("#exitGame");
+        const blueWinnerScore =
+            document.getElementById("blueWinnerScore");
 
-        let firstCard = null;
-        let secondCard = null;
-        let lockBoard = false;
+        const orangeWinnerScore =
+            document.getElementById("orangeWinnerScore");
 
-        /**
-         * Shuffles the memory cards.
-         */
-        function shuffleCards() {
-            const container =
-                document.querySelector(".memory__card-container");
 
-            const cardArray = Array.from(cards);
+        function updateWinnerPopup() {
 
-            cardArray.sort(() => Math.random() - 0.5);
-
-            cardArray.forEach((card) => {
-                container.appendChild(card);
-            });
-        }
-
-        /**
-         * Flips the selected card.
-         *
-         * @param {HTMLElement} card selected card
-         */
-        function flipCard(card) {
-
-            if (lockBoard || card === firstCard) {
+            if (!player1Score || !player2Score) {
                 return;
             }
 
-            card.classList.add("is-flipped");
-
-            if (!firstCard) {
-                firstCard = card;
-                return;
-            }
-
-            secondCard = card;
-
-            checkMatch();
-        }
-
-        /**
-         * Checks whether the selected cards match.
-         */
-        function checkMatch() {
-
-            const isMatch =
-                firstCard.dataset.card === secondCard.dataset.card;
-
-            if (isMatch) {
-                resetBoard();
-                return;
-            }
-
-            unflipCards();
-        }
-
-        /**
-         * Turns unmatched cards back over.
-         */
-        function unflipCards() {
-
-            lockBoard = true;
-
-            setTimeout(() => {
-
-                firstCard.classList.remove("is-flipped");
-                secondCard.classList.remove("is-flipped");
-
-                resetBoard();
-
-            }, 1000);
-        }
-
-        /**
-         * Resets the selected cards.
-         */
-        function resetBoard() {
-
-            firstCard = null;
-            secondCard = null;
-            lockBoard = false;
-        }
-
-        /**
-         * Opens the exit popup.
-         */
-        function openExitPopup() {
-
-            exitPopup.classList.remove("is-closing");
-            exitPopup.classList.add("is-visible");
-        }
-
-        /**
-         * Closes the exit popup with slide-up animation.
-         */
-        function closeExitPopup() {
-
-            exitPopup.classList.add("is-closing");
-
-            setTimeout(() => {
-
-                exitPopup.classList.remove("is-visible");
-                exitPopup.classList.remove("is-closing");
-
-            }, 450);
-        }
-
-        /**
-         * Returns to the settings page.
-         */
-        function leaveGame() {
-
-            window.location.href = "settings.html";
-        }
-
-        /**
-         * Initializes the game.
-         */
-        function initGame() {
-
-            shuffleCards();
-
-            cards.forEach((card) => {
-
-                card.addEventListener(
-                    "click",
-                    () => flipCard(card)
-                );
-
-            });
-
-            exitButton.addEventListener(
-                "click",
-                openExitPopup
+            const orangeScore = Number(
+                player1Score.textContent?.trim() || 0
             );
 
-            backToGame.addEventListener(
-                "click",
-                closeExitPopup
+            const blueScore = Number(
+                player2Score.textContent?.trim() || 0
             );
 
-            exitGame.addEventListener(
-                "click",
-                leaveGame
-            );
 
-            exitPopup.addEventListener(
-                "click",
-                (event) => {
+            blueWinner?.classList.remove("is-visible");
 
-                    if (!popup.contains(event.target)) {
-                        closeExitPopup();
-                    }
+            orangeWinner?.classList.remove("is-visible");
+
+
+            if (orangeScore > blueScore) {
+
+                if (orangeWinnerScore) {
+
+                    orangeWinnerScore.textContent =
+                        String(orangeScore);
 
                 }
-            );
+
+                orangeWinner?.classList.add("is-visible");
+
+            } else if (blueScore > orangeScore) {
+
+                if (blueWinnerScore) {
+
+                    blueWinnerScore.textContent =
+                        String(blueScore);
+
+                }
+
+                blueWinner?.classList.add("is-visible");
+
+            }
+
         }
 
-        initGame();
+
+        if (winnerPopup) {
+
+            const winnerObserver =
+                new MutationObserver(() => {
+
+                    if (
+                        winnerPopup.classList.contains(
+                            "is-visible"
+                        )
+                    ) {
+
+                        updateWinnerPopup();
+
+                    }
+
+                });
+
+
+            winnerObserver.observe(
+                winnerPopup,
+                {
+                    attributes: true,
+                    attributeFilter: ["class"]
+                }
+            );
+
+        }
 
     </script>
 

@@ -1,23 +1,34 @@
-
 import "./styles/style.scss";
 import "./styles/homescreen.scss";
 import "./styles/gaming-screen.scss";
 
 init();
 
-function init() {
-    const fieldRef = document.getElementById("field");
+/**
+ * Initializes the home screen.
+ */
+function init(): void {
+    setupPlayButton();
+}
 
-    if (!fieldRef) {
+/**
+ * Sets up the Play button.
+ */
+function setupPlayButton(): void {
+    const playButton =
+        document.querySelector<HTMLButtonElement>(
+            ".play__style"
+        );
+
+    if (!playButton) {
         return;
     }
 
-    fieldRef.addEventListener("click", (event) => {
-        const target = event.target as HTMLElement;
-        const card = target.closest(".card");
-
-        if (card) {
-            card.classList.toggle("is-flipped");
+    playButton.addEventListener(
+        "click",
+        () => {
+            window.location.href =
+                "/settings.html";
         }
-    });
+    );
 }

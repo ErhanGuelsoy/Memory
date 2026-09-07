@@ -4,82 +4,163 @@ body {
     margin: 0;
     width: 100%;
     min-height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     background-color: rgba(48, 49, 49, 1);
 }
+
 
 .gaming {
 
     &__main-container {
         position: relative;
+
         width: 1217px;
         height: 644px;
+
         background-color: rgba(48, 49, 49, 1);
+
         box-sizing: border-box;
     }
+
 
     &__header {
         width: 100%;
         height: 62px;
+
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         box-sizing: border-box;
+
         background-color: rgba(240, 229, 217, 1);
     }
+
 
     &__header-left-part {
         width: 687px;
+        height: 62px;
+
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         box-sizing: border-box;
     }
+
 
     &__blue-orange-box {
+        height: 54px;
+
         display: flex;
         align-items: center;
-        width: 292px;
-        height: 62px;
-        gap: 20px;
-        padding: 0 20px;
+        justify-content: flex-start;
+
+        gap: 10px;
+        padding: 16px;
+
         box-sizing: border-box;
-        background-color: rgba(240, 229, 217, 1);
+
+        border-radius: 10px;
+
+        background: rgba(255, 255, 255, 1);
     }
 
-    &__blue-orange-box img {
-        width: auto;
-        height: auto;
+
+    &__player-score {
+        display: flex;
+        align-items: center;
+
+        gap: 4px;
+
+        box-sizing: border-box;
+
+        flex-shrink: 0;
     }
+
+
+    &__chess {
+        width: 44px;
+        height: 38px;
+
+        display: block;
+
+        object-fit: contain;
+
+        flex-shrink: 0;
+    }
+
+
+    &__player-score span {
+        min-width: 24px;
+
+        font-family: "Delius Unicase", cursive;
+
+        font-weight: 700;
+        font-style: normal;
+
+        font-size: 30px;
+        line-height: 100%;
+
+        letter-spacing: 0%;
+
+        text-align: right;
+
+        flex-shrink: 0;
+    }
+
+
+    &__player-score--orange {
+        color: rgba(245, 126, 58, 1);
+    }
+
+
+    &__player-score--blue {
+        color: rgba(55, 125, 214, 1);
+    }
+
 
     &__header-current-player {
         width: 188px;
         height: 32px;
+
         display: flex;
         align-items: center;
         justify-content: flex-end;
+
         gap: 8px;
+
         margin-right: 20px;
+
         box-sizing: border-box;
     }
+
 
     &__header-current-player img {
         width: auto;
         height: auto;
     }
 
+
     &__header-right-part-exit-game {
         width: 207px;
+
         display: flex;
         align-items: center;
         justify-content: center;
+
         gap: 10px;
         padding: 16px 24px;
+
         box-sizing: border-box;
+
         cursor: pointer;
     }
+
 
     &__header-right-part-exit-game img {
         width: auto;
@@ -87,128 +168,367 @@ body {
     }
 }
 
+
+/* MEMORY */
+
 .memory {
     width: 100%;
     height: calc(100% - 62px);
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     box-sizing: border-box;
+
 
     &__card-container {
         box-sizing: border-box;
+
         display: grid;
-        width: 529px;
-        height: 528px;
-        border: 2px solid black;
+
+        width: 522px;
+        height: 522px;
+
         grid-template-columns: repeat(4, 120px);
         grid-template-rows: repeat(4, 120px);
+
         column-gap: 14px;
         row-gap: 14px;
+
         align-content: start;
         justify-content: start;
     }
 
+
+    &__card-container[data-card-count="24"] {
+        width: 610px;
+        height: 402px;
+
+        grid-template-columns: repeat(6, 90px);
+        grid-template-rows: repeat(4, 90px);
+    }
+
+
+    &__card-container[data-card-count="36"] {
+        width: 550px;
+        height: 550px;
+
+        grid-template-columns: repeat(6, 80px);
+        grid-template-rows: repeat(6, 80px);
+    }
+
+
     &__card {
         position: relative;
+
         width: 120px;
         height: 120px;
+
         cursor: pointer;
+
         perspective: 1000px;
+
         box-sizing: border-box;
     }
 
+
+    &__card-container[data-card-count="24"] &__card {
+        width: 90px;
+        height: 90px;
+    }
+
+
+    &__card-container[data-card-count="36"] &__card {
+        width: 80px;
+        height: 80px;
+    }
+
+
     &__card-inner {
         position: relative;
+
         width: 100%;
         height: 100%;
+
         transform-style: preserve-3d;
+
         transition: transform 0.6s ease;
+
         box-sizing: border-box;
     }
+
 
     &__card.is-flipped &__card-inner {
         transform: rotateY(180deg);
     }
 
+
     &__card-front,
     &__card-back {
         position: absolute;
+
         inset: 0;
+
         width: 120px;
         height: 120px;
+
         margin: 0;
         padding: 0;
+
         box-sizing: border-box;
+
         overflow: hidden;
+
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
     }
+
+
+    &__card-container[data-card-count="24"]
+    &__card-front,
+
+    &__card-container[data-card-count="24"]
+    &__card-back {
+        width: 90px;
+        height: 90px;
+    }
+
+
+    &__card-container[data-card-count="36"]
+    &__card-front,
+
+    &__card-container[data-card-count="36"]
+    &__card-back {
+        width: 80px;
+        height: 80px;
+    }
+
 
     &__card-front {
         transform: rotateY(0deg);
     }
 
-    &__card-back {
-        transform: rotateY(180deg);
-        background-repeat: no-repeat;
-        background-size: 120px 240px;
-        background-position: center bottom;
-    }
 
     &__card-front img {
         display: block;
+
         width: 120px;
         height: 120px;
+
         margin: 0;
         padding: 0;
+
         object-fit: cover;
     }
 
-    &__card-back.card-1 {
-        background-image: url("/public/assets/images/food card 01.png");
+
+    &__card-container[data-card-count="24"]
+    &__card-front img {
+        width: 90px;
+        height: 90px;
     }
 
-    &__card-back.card-2 {
-        background-image: url("/public/assets/images/food card 02.png");
+
+    &__card-container[data-card-count="36"]
+    &__card-front img {
+        width: 80px;
+        height: 80px;
     }
 
-    &__card-back.card-3 {
-        background-image: url("/public/assets/images/food card 03.png");
+
+    &__card-back {
+        transform: rotateY(180deg);
+
+        background-image: var(--food-card);
+
+        background-repeat: no-repeat;
+
+        background-size: 120px 240px;
+
+        background-position: center bottom;
     }
 
-    &__card-back.card-4 {
-        background-image: url("/public/assets/images/food card 04.png");
+
+    &__card-container[data-card-count="24"]
+    &__card-back {
+        background-size: 90px 180px;
     }
 
-    &__card-back.card-5 {
-        background-image: url("/public/assets/images/food card 05.png");
+
+    &__card-container[data-card-count="36"]
+    &__card-back {
+        background-size: 80px 160px;
     }
 
-    &__card-back.card-6 {
-        background-image: url("/public/assets/images/food card 06.png");
-    }
-
-    &__card-back.card-7 {
-        background-image: url("/public/assets/images/food card 07.png");
-    }
-
-    &__card-back.card-8 {
-        background-image: url("/public/assets/images/food card 08.png");
-    }
 
     &__card:hover {
         transform: scale(1.02);
     }
 }
 
-/* =========================================
-   EXIT POPUP
-   ========================================= */
+
+/* WINNER POPUP */
+
+.winner-popup-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 10000;
+
+    display: none;
+
+    overflow: hidden;
+
+    background-color: rgba(48, 49, 49, 0.95);
+}
+
+
+.winner-popup-overlay.is-visible {
+    display: block;
+}
+
+
+.winner-popup {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+
+    transform: translateX(100px);
+}
+
+
+/* WINNER CONTAINER */
+
+.winner-popup__container {
+    position: absolute;
+
+    width: 540px;
+    height: 632px;
+
+    top: 192px;
+    left: 450px;
+
+    display: none;
+
+    flex-direction: column;
+    align-items: center;
+
+    gap: 64px;
+
+    box-sizing: border-box;
+
+    opacity: 1;
+}
+
+
+.winner-popup__container.is-visible {
+    display: flex;
+}
+
+
+/* WINNER TEXT */
+
+.winner-popup__text {
+    display: block;
+
+    width: auto;
+    height: auto;
+
+    margin: 0;
+
+    object-fit: contain;
+}
+
+
+/* WINNER SCORE */
+
+.winner-popup__score {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 18px;
+
+    width: auto;
+    height: auto;
+}
+
+
+/* WINNER CHESS */
+
+.winner-popup__chess {
+    display: block;
+
+    width: auto;
+    height: auto;
+
+    margin: 0;
+
+    object-fit: contain;
+}
+
+
+/* WINNER SCORE NUMBER */
+
+.winner-popup__score span {
+    font-family: "Delius Unicase", cursive;
+
+    font-weight: 700;
+    font-style: normal;
+
+    font-size: 60px;
+    line-height: 100%;
+
+    text-align: left;
+
+    min-width: 40px;
+}
+
+
+/* BLUE SCORE */
+
+.winner-popup__score--blue span {
+    color: rgba(55, 125, 214, 1);
+}
+
+
+/* ORANGE SCORE */
+
+.winner-popup__score--orange span {
+    color: rgba(245, 126, 58, 1);
+}
+
+
+/* CONFETTI */
+
+.winner-popup__confetti {
+    position: absolute;
+
+    width: 1233.922607421875px;
+    height: 358.87921142578125px;
+
+    top: -32px;
+    left: 103px;
+
+    opacity: 1;
+
+    object-fit: contain;
+}
+
+
+/* EXIT POPUP */
 
 .exit-popup-overlay {
     position: fixed;
+
     inset: 0;
+
     z-index: 9999;
 
     display: none;
@@ -219,54 +539,70 @@ body {
     background-color: rgba(0, 0, 0, 0.35);
 }
 
+
 .exit-popup-overlay.is-visible {
     display: flex;
 }
 
+
 .exit-popup {
     position: relative;
+
     width: 500px;
+
     margin: 0;
 
-    animation: exit-popup-slide-down 0.45s ease-out;
+    animation:
+        exit-popup-slide-down
+        0.45s
+        ease-out;
 }
 
+
 .exit-popup-overlay.is-closing .exit-popup {
-    animation: exit-popup-slide-up 0.45s ease-in forwards;
+    animation:
+        exit-popup-slide-up
+        0.45s
+        ease-in
+        forwards;
 }
+
 
 .exit-popup__image {
     display: block;
+
     width: 100%;
     height: auto;
 }
 
-/* =========================================
-   UNSICHTBARE KLICKFLÄCHEN
-   ========================================= */
 
 .exit-popup__back-area,
 .exit-popup__exit-area {
     position: absolute;
+
     left: 50%;
+
     width: 65%;
+
     cursor: pointer;
+
     transform: translateX(-50%);
 }
 
+
 .exit-popup__back-area {
     top: 62%;
+
     height: 13%;
 }
+
 
 .exit-popup__exit-area {
     top: 77%;
+
     height: 13%;
 }
 
-/* =========================================
-   POPUP ANIMATION
-   ========================================= */
 
 @keyframes exit-popup-slide-down {
 
@@ -279,6 +615,7 @@ body {
     }
 }
 
+
 @keyframes exit-popup-slide-up {
 
     from {
@@ -289,3 +626,4 @@ body {
         transform: translateY(-100vh);
     }
 }
+
