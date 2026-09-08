@@ -1,11 +1,13 @@
-
 body {
     box-sizing: border-box;
+
     margin: 0;
+
     width: 100%;
     min-height: 100vh;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -32,6 +34,7 @@ body {
         height: 62px;
 
         display: flex;
+
         align-items: center;
         justify-content: space-between;
 
@@ -46,6 +49,7 @@ body {
         height: 62px;
 
         display: flex;
+
         align-items: center;
         justify-content: space-between;
 
@@ -57,10 +61,12 @@ body {
         height: 54px;
 
         display: flex;
+
         align-items: center;
         justify-content: flex-start;
 
         gap: 10px;
+
         padding: 16px;
 
         box-sizing: border-box;
@@ -73,6 +79,7 @@ body {
 
     &__player-score {
         display: flex;
+
         align-items: center;
 
         gap: 4px;
@@ -104,6 +111,7 @@ body {
         font-style: normal;
 
         font-size: 30px;
+
         line-height: 100%;
 
         letter-spacing: 0%;
@@ -129,6 +137,7 @@ body {
         height: 32px;
 
         display: flex;
+
         align-items: center;
         justify-content: flex-end;
 
@@ -142,6 +151,7 @@ body {
 
     &__header-current-player img {
         width: auto;
+
         height: auto;
     }
 
@@ -150,10 +160,12 @@ body {
         width: 207px;
 
         display: flex;
+
         align-items: center;
         justify-content: center;
 
         gap: 10px;
+
         padding: 16px 24px;
 
         box-sizing: border-box;
@@ -164,6 +176,7 @@ body {
 
     &__header-right-part-exit-game img {
         width: auto;
+
         height: auto;
     }
 }
@@ -176,6 +189,7 @@ body {
     height: calc(100% - 62px);
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -191,6 +205,7 @@ body {
         height: 522px;
 
         grid-template-columns: repeat(4, 120px);
+
         grid-template-rows: repeat(4, 120px);
 
         column-gap: 14px;
@@ -206,6 +221,7 @@ body {
         height: 402px;
 
         grid-template-columns: repeat(6, 90px);
+
         grid-template-rows: repeat(4, 90px);
     }
 
@@ -215,6 +231,7 @@ body {
         height: 550px;
 
         grid-template-columns: repeat(6, 80px);
+
         grid-template-rows: repeat(6, 80px);
     }
 
@@ -233,13 +250,15 @@ body {
     }
 
 
-    &__card-container[data-card-count="24"] &__card {
+    &__card-container[data-card-count="24"]
+    &__card {
         width: 90px;
         height: 90px;
     }
 
 
-    &__card-container[data-card-count="36"] &__card {
+    &__card-container[data-card-count="36"]
+    &__card {
         width: 80px;
         height: 80px;
     }
@@ -281,6 +300,7 @@ body {
         overflow: hidden;
 
         backface-visibility: hidden;
+
         -webkit-backface-visibility: hidden;
     }
 
@@ -381,7 +401,7 @@ body {
 
     overflow: hidden;
 
-    background-color: rgba(48, 49, 49, 0.95);
+    background-color: rgba(255, 255, 255, 1);
 }
 
 
@@ -399,6 +419,8 @@ body {
     box-sizing: border-box;
 
     transform: translateX(100px);
+
+    background-color: rgba(255, 255, 255, 1);
 }
 
 
@@ -408,17 +430,19 @@ body {
     position: absolute;
 
     width: 540px;
-    height: 632px;
+    height: auto;
 
-    top: 192px;
+    top: 90px;
     left: 450px;
 
     display: none;
 
     flex-direction: column;
-    align-items: center;
 
-    gap: 64px;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 20px;
 
     box-sizing: border-box;
 
@@ -483,6 +507,7 @@ body {
     font-style: normal;
 
     font-size: 60px;
+
     line-height: 100%;
 
     text-align: left;
@@ -505,18 +530,23 @@ body {
 }
 
 
-/* CONFETTI */
+/* BACK HOME BUTTON */
 
-.winner-popup__confetti {
-    position: absolute;
+.winner-popup__back-home {
+    display: block;
 
-    width: 1233.922607421875px;
-    height: 358.87921142578125px;
+    width: 140px;
+    height: 65px;
 
-    top: -32px;
-    left: 103px;
+    box-sizing: border-box;
+
+    margin: -5px auto 0;
+
+    border-radius: 10px;
 
     opacity: 1;
+
+    cursor: pointer;
 
     object-fit: contain;
 }
@@ -626,4 +656,3 @@ body {
         transform: translateY(-100vh);
     }
 }
-

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -31,7 +30,12 @@
 
                 <div class="gaming__blue-orange-box">
 
-                    <div class="gaming__player-score gaming__player-score--orange">
+                    <!-- PLAYER 1 - ORANGE -->
+
+                    <div class="
+                        gaming__player-score
+                        gaming__player-score--orange
+                    ">
 
                         <img class="gaming__chess" src="/public/assets/images/chess_orange_left.png" alt="Orange chess">
 
@@ -41,7 +45,13 @@
 
                     </div>
 
-                    <div class="gaming__player-score gaming__player-score--blue">
+
+                    <!-- PLAYER 2 - BLUE -->
+
+                    <div class="
+                        gaming__player-score
+                        gaming__player-score--blue
+                    ">
 
                         <img class="gaming__chess" src="/public/assets/images/chess_blue_right.png" alt="Blue chess">
 
@@ -53,6 +63,7 @@
 
                 </div>
 
+
                 <div class="gaming__header-current-player">
 
                     <img src="/public/assets/images/Frame_current_player.png" alt="Current player">
@@ -60,6 +71,7 @@
                 </div>
 
             </div>
+
 
             <div class="gaming__header-right-part-exit-game">
 
@@ -88,8 +100,6 @@
 
         <div class="winner-popup">
 
-            <img class="winner-popup__confetti" src="/public/assets/images/Confetti.png" alt="Confetti">
-
 
             <!-- BLUE WINNER -->
 
@@ -98,7 +108,11 @@
                 <img class="winner-popup__text" src="/public/assets/images/winner_blue_chess.png"
                     alt="Blue player winner">
 
-                <div class="winner-popup__score winner-popup__score--blue">
+
+                <div class="
+                    winner-popup__score
+                    winner-popup__score--blue
+                ">
 
                     <img class="winner-popup__chess" src="/public/assets/images/winner_chess_blue_orange_layout.png"
                         alt="Blue winner chess">
@@ -108,6 +122,12 @@
                     </span>
 
                 </div>
+
+
+                <!-- BACK TO SETTINGS -->
+
+                <img class="winner-popup__back-home" id="blueBackHome" src="/public/assets/images/back_home_button.png"
+                    alt="Back to settings">
 
             </div>
 
@@ -119,7 +139,11 @@
                 <img class="winner-popup__text" src="/public/assets/images/winner_text_orange.png"
                     alt="Orange player winner">
 
-                <div class="winner-popup__score winner-popup__score--orange">
+
+                <div class="
+                    winner-popup__score
+                    winner-popup__score--orange
+                ">
 
                     <img class="winner-popup__chess" src="/public/assets/images/winner_chess_orange.png"
                         alt="Orange winner chess">
@@ -129,6 +153,12 @@
                     </span>
 
                 </div>
+
+
+                <!-- BACK TO SETTINGS -->
+
+                <img class="winner-popup__back-home" id="orangeBackHome"
+                    src="/public/assets/images/back_home_button.png" alt="Back to settings">
 
             </div>
 
@@ -145,8 +175,10 @@
 
             <img class="exit-popup__image" src="/public/assets/images/popup_exit_button_food.png" alt="Exit game popup">
 
+
             <div class="exit-popup__back-area" id="backToGame">
             </div>
+
 
             <div class="exit-popup__exit-area" id="exitGame">
             </div>
@@ -156,111 +188,9 @@
     </div>
 
 
+    <!-- FOOD THEME TYPESCRIPT -->
+
     <script type="module" src="/public/src/food-theme.ts"></script>
-
-
-    <!-- WINNER LOGIC -->
-
-    <script>
-
-        const winnerPopup =
-            document.getElementById("winnerPopup");
-
-        const blueWinner =
-            document.getElementById("blueWinner");
-
-        const orangeWinner =
-            document.getElementById("orangeWinner");
-
-        const player1Score =
-            document.getElementById("player1Score");
-
-        const player2Score =
-            document.getElementById("player2Score");
-
-        const blueWinnerScore =
-            document.getElementById("blueWinnerScore");
-
-        const orangeWinnerScore =
-            document.getElementById("orangeWinnerScore");
-
-
-        function updateWinnerPopup() {
-
-            if (!player1Score || !player2Score) {
-                return;
-            }
-
-            const orangeScore = Number(
-                player1Score.textContent?.trim() || 0
-            );
-
-            const blueScore = Number(
-                player2Score.textContent?.trim() || 0
-            );
-
-
-            blueWinner?.classList.remove("is-visible");
-
-            orangeWinner?.classList.remove("is-visible");
-
-
-            if (orangeScore > blueScore) {
-
-                if (orangeWinnerScore) {
-
-                    orangeWinnerScore.textContent =
-                        String(orangeScore);
-
-                }
-
-                orangeWinner?.classList.add("is-visible");
-
-            } else if (blueScore > orangeScore) {
-
-                if (blueWinnerScore) {
-
-                    blueWinnerScore.textContent =
-                        String(blueScore);
-
-                }
-
-                blueWinner?.classList.add("is-visible");
-
-            }
-
-        }
-
-
-        if (winnerPopup) {
-
-            const winnerObserver =
-                new MutationObserver(() => {
-
-                    if (
-                        winnerPopup.classList.contains(
-                            "is-visible"
-                        )
-                    ) {
-
-                        updateWinnerPopup();
-
-                    }
-
-                });
-
-
-            winnerObserver.observe(
-                winnerPopup,
-                {
-                    attributes: true,
-                    attributeFilter: ["class"]
-                }
-            );
-
-        }
-
-    </script>
 
 </body>
 

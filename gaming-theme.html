@@ -2,21 +2,17 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/public/src/styles/gaming-screen.scss">
 
     <title>Gaming Theme</title>
-
 </head>
 
 <body>
@@ -31,15 +27,10 @@
 
                     <!-- PLAYER 1 - ORANGE -->
 
-                    <div class="
-                        gaming__player-score
-                        gaming__player-score--orange
-                    ">
+                    <div class="gaming__player-score gaming__player-score--orange">
 
-                        <img class="
-                                gaming__label
-                                gaming__label--orange
-                            " src="/public/assets/images/label (2).png" alt="Orange player">
+                        <img class="gaming__label gaming__label--orange" src="/public/assets/images/label (2).png"
+                            alt="Orange player">
 
                         <span class="gaming__player-name">
                             orange
@@ -54,15 +45,10 @@
 
                     <!-- PLAYER 2 - BLUE -->
 
-                    <div class="
-                        gaming__player-score
-                        gaming__player-score--blue
-                    ">
+                    <div class="gaming__player-score gaming__player-score--blue">
 
-                        <img class="
-                                gaming__label
-                                gaming__label--blue
-                            " src="/public/assets/images/label.png" alt="Blue player">
+                        <img class="gaming__label gaming__label--blue" src="/public/assets/images/label.png"
+                            alt="Blue player">
 
                         <span class="gaming__player-name">
                             Blue
@@ -121,13 +107,13 @@
 
             <div class="winner-popup__container" id="blueWinner">
 
-                <img class="winner-popup__blue-player" src="/public/assets/images/winner_blue_player.png"
-                    alt="Blue player winner">
+                <img class="winner-popup__text--blue" src="/public/assets/images/winner_text_blue.png"
+                    alt="Blue winner">
 
-                <div class="
-                    winner-popup__score
-                    winner-popup__score--blue
-                ">
+                <img class="winner-popup__chess--blue" src="/public/assets/images/winner_chess_blue.png"
+                    alt="Blue chess winner">
+
+                <div class="winner-popup__score winner-popup__score--blue">
 
                     <span id="blueWinnerScore">
                         0
@@ -135,12 +121,18 @@
 
                 </div>
 
+
+                <!-- BACK TO START -->
+
+                <img class="winner-popup__back-home" id="blueBackHome" src="/public/assets/images/back_to_start.png"
+                    alt="Back to start">
+
+            </div>
+
+
             <!-- ORANGE WINNER -->
 
-            <div class="
-                    winner-popup__container
-                    winner-popup__container--orange
-                " id="orangeWinner">
+            <div class="winner-popup__container winner-popup__container--orange" id="orangeWinner">
 
                 <img class="winner-popup__text--orange" src="/public/assets/images/winner_text_orange.png"
                     alt="Orange winner">
@@ -148,10 +140,7 @@
                 <img class="winner-popup__player--orange" src="/public/assets/images/winner_player_orange.png"
                     alt="Orange player winner">
 
-                <div class="
-                    winner-popup__score
-                    winner-popup__score--orange
-                ">
+                <div class="winner-popup__score winner-popup__score--orange">
 
                     <span id="orangeWinnerScore">
                         0
@@ -160,7 +149,7 @@
                 </div>
 
 
-                <!-- ONLY ONE ORANGE BUTTON -->
+                <!-- BACK TO START -->
 
                 <img class="winner-popup__back-home" id="orangeBackHome" src="/public/assets/images/back_to_start.png"
                     alt="Back to start">
@@ -180,50 +169,16 @@
 
             <img class="exit-popup__image" src="/public/assets/images/popup_exit_button.png" alt="Exit game popup">
 
+            <div class="exit-popup__back-area" id="exitGame"></div>
 
-            <div class="exit-popup__back-area" id="exitGame">
-            </div>
-
-
-            <div class="exit-popup__exit-area" id="backToGame">
-            </div>
+            <div class="exit-popup__exit-area" id="backToGame"></div>
 
         </div>
 
     </div>
 
 
-    <!-- WINNER BUTTON LOGIC -->
-
-    <script>
-
-        const blueBackHome =
-            document.getElementById("blueBackHome");
-
-        const orangeBackHome =
-            document.getElementById("orangeBackHome");
-
-
-        function goBackHome() {
-
-            window.location.href =
-                "/index.html";
-        }
-
-
-        blueBackHome?.addEventListener(
-            "click",
-            goBackHome
-        );
-
-
-        orangeBackHome?.addEventListener(
-            "click",
-            goBackHome
-        );
-
-    </script>
-
+    <!-- GAMING TYPESCRIPT -->
 
     <script type="module" src="/public/src/gaming.ts"></script>
 

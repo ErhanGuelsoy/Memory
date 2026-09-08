@@ -1,4 +1,3 @@
-
 import "./styles/style.scss";
 import "./styles/food-theme.scss";
 
@@ -21,6 +20,8 @@ function init(): void {
     createCards();
     setupCards();
     setupScore();
+    setupWinnerPopup();
+    setupWinnerButtons();
     setupExitPopup();
 }
 
@@ -139,7 +140,6 @@ function shuffleCards(
         Array.from(cards);
 
     for (let i = cardArray.length - 1; i > 0; i--) {
-
         const randomIndex =
             Math.floor(
                 Math.random() * (i + 1)
@@ -329,8 +329,148 @@ function showWinnerPopup(): void {
         return;
     }
 
+    updateWinnerPopup();
+
     winnerPopup.classList.add(
         "is-visible"
+    );
+}
+
+/**
+ * Sets up the winner popup observer.
+ */
+function setupWinnerPopup(): void {
+    const winnerPopup =
+        document.querySelector<HTMLElement>(
+            "#winnerPopup"
+        );
+
+    if (!winnerPopup) {
+        return;
+    }
+
+    const observer =
+        new MutationObserver(() => {
+            if (
+                winnerPopup.classList.contains(
+                    "is-visible"
+                )
+            ) {
+                updateWinnerPopup();
+            }
+        });
+
+    observer.observe(
+        winnerPopup,
+        {
+            attributes: true,
+            attributeFilter: ["class"]
+        }
+    );
+}
+
+/**
+ * Updates the correct winner and score.
+ */
+function updateWinnerPopup(): void {
+    const blueWinner =
+        document.querySelector<HTMLElement>(
+            "#blueWinner"
+        );
+
+    const orangeWinner =
+        document.querySelector<HTMLElement>(
+            "#orangeWinner"
+        );
+
+    blueWinner?.classList.remove(
+        "is-visible"
+    );
+
+    orangeWinner?.classList.remove(
+        "is-visible"
+    );
+
+    if (player1Score > player2Score) {
+        showOrangeWinner();
+        return;
+    }
+
+    if (player2Score > player1Score) {
+        showBlueWinner();
+    }
+}
+
+/**
+ * Shows the orange winner.
+ */
+function showOrangeWinner(): void {
+    const winner =
+        document.querySelector<HTMLElement>(
+            "#orangeWinner"
+        );
+
+    const score =
+        document.querySelector<HTMLElement>(
+            "#orangeWinnerScore"
+        );
+
+    if (score) {
+        score.textContent =
+            String(player1Score);
+    }
+
+    winner?.classList.add(
+        "is-visible"
+    );
+}
+
+/**
+ * Shows the blue winner.
+ */
+function showBlueWinner(): void {
+    const winner =
+        document.querySelector<HTMLElement>(
+            "#blueWinner"
+        );
+
+    const score =
+        document.querySelector<HTMLElement>(
+            "#blueWinnerScore"
+        );
+
+    if (score) {
+        score.textContent =
+            String(player2Score);
+    }
+
+    winner?.classList.add(
+        "is-visible"
+    );
+}
+
+/**
+ * Sets up the winner back buttons.
+ */
+function setupWinnerButtons(): void {
+    const blueButton =
+        document.querySelector<HTMLElement>(
+            "#blueBackHome"
+        );
+
+    const orangeButton =
+        document.querySelector<HTMLElement>(
+            "#orangeBackHome"
+        );
+
+    blueButton?.addEventListener(
+        "click",
+        leaveGame
+    );
+
+    orangeButton?.addEventListener(
+        "click",
+        leaveGame
     );
 }
 
@@ -471,4 +611,3 @@ function leaveGame(): void {
 }
 
 init();
-
