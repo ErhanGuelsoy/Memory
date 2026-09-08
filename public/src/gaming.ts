@@ -1,34 +1,63 @@
+
 import "./styles/style.scss";
 import "./styles/gaming-screen.scss";
 
-type CardElement = HTMLElement;
 
-let firstCard: CardElement | null = null;
-let secondCard: CardElement | null = null;
+interface Card {
+    id: number;
+    image: string;
+    isFlipped: boolean;
+    isMatched: boolean;
+}
+
+
+let firstCard: Card | null = null;
+let secondCard: Card | null = null;
+
+let firstCardElement: HTMLElement | null = null;
+let secondCardElement: HTMLElement | null = null;
+
 let lockBoard = false;
 
 let player1Score = 0;
 let player2Score = 0;
 let currentPlayer = 1;
+
 let matchedPairs = 0;
 let totalPairs = 0;
+
 let gameFinished = false;
 
 
 /**
- * Initializes the gaming memory game.
+ * Initializes the memory game.
  */
 function init(): void {
-    createCards();
-    setupCards();
     setupScore();
+    createCards();
     setupExitPopup();
     setupWinnerButtons();
 }
 
 
 /**
- * Creates the selected number of gaming cards.
+ * Creates a new card.
+ */
+function createCard(
+    id: number,
+    image: string
+): Card {
+    return {
+        id,
+        image,
+        isFlipped: false,
+        isMatched: false
+    };
+}
+
+
+/**
+ * Creates all memory cards.
  */
 function createCards(): void {
     const container =
@@ -41,51 +70,79 @@ function createCards(): void {
     }
 
     const cardCount =
-        Number(localStorage.getItem("cardCount")) || 16;
+        Number(
+            localStorage.getItem("cardCount")
+        ) || 16;
 
     container.dataset.cardCount =
         String(cardCount);
 
     totalPairs = cardCount / 2;
 
-    for (let i = 1; i <= totalPairs; i++) {
-        createCard(container, i);
-        createCard(container, i);
+    const cards: Card[] = [];
+
+    for (
+        let i = 1;
+        i <= totalPairs;
+        i++
+    ) {
+        const image =
+            `/public/assets/images/Code vibes card ${i}.png`;
+
+        cards.push(
+            createCard(i, image)
+        );
+
+        cards.push(
+            createCard(i, image)
+        );
     }
+
+    shuffleCards(cards);
+
+    cards.forEach(
+        (card) => {
+            const element =
+                createCardElement(card);
+
+            container.appendChild(element);
+
+            element.addEventListener(
+                "click",
+                () => handleCardClick(
+                    card,
+                    element
+                )
+            );
+        }
+    );
 }
 
 
 /**
- * Creates one gaming memory card.
+ * Creates the HTML element for a card.
  */
-function createCard(
-    container: HTMLElement,
-    cardNumber: number
-): void {
-    const card =
+function createCardElement(
+    card: Card
+): HTMLElement {
+    const element =
         document.createElement("div");
 
-    const imageNumber =
-        cardNumber;
-
-    const imagePath =
-        `/public/assets/images/Code vibes card ${imageNumber}.png`;
-
-    card.classList.add(
+    element.classList.add(
         "memory__card"
     );
 
-    card.dataset.card =
-        String(cardNumber);
+    element.dataset.card =
+        String(card.id);
 
-    card.innerHTML = `
+    element.innerHTML = `
         <div class="memory__card-inner">
 
             <div
                 class="memory__card-front"
                 style="
                     background-image:
-                    url('${imagePath}');
+                    url('${card.image}');
                 "
             ></div>
 
@@ -93,57 +150,25 @@ function createCard(
                 class="memory__card-back"
                 style="
                     background-image:
-                    url('${imagePath}');
+                    url('${card.image}');
                 "
             ></div>
 
         </div>
     `;
 
-    container.appendChild(card);
+    return element;
 }
 
 
 /**
- * Sets up the memory cards.
- */
-function setupCards(): void {
-    const cards =
-        document.querySelectorAll<CardElement>(
-            ".memory__card"
-        );
-
-    shuffleCards(cards);
-
-    cards.forEach((card: CardElement) => {
-        card.addEventListener(
-            "click",
-            () => handleCardClick(card)
-        );
-    });
-}
-
-
-/**
- * Shuffles all memory cards.
+ * Shuffles the cards.
  */
 function shuffleCards(
-    cards: NodeListOf<CardElement>
+    cards: Card[]
 ): void {
-    const container =
-        document.querySelector<HTMLElement>(
-            ".memory__card-container"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    const cardArray =
-        Array.from(cards);
-
     for (
-        let i = cardArray.length - 1;
+        let i = cards.length - 1;
         i > 0;
         i--
     ) {
@@ -152,21 +177,14 @@ function shuffleCards(
                 Math.random() * (i + 1)
             );
 
-        const currentCard =
-            cardArray[i];
-
-        cardArray[i] =
-            cardArray[randomIndex];
-
-        cardArray[randomIndex] =
-            currentCard;
+        [
+            cards[i],
+            cards[randomIndex]
+        ] = [
+            cards[randomIndex],
+            cards[i]
+        ];
     }
-
-    cardArray.forEach(
-        (card: CardElement) => {
-            container.appendChild(card);
-        }
-    );
 }
 
 
@@ -174,34 +192,39 @@ function shuffleCards(
  * Handles a card click.
  */
 function handleCardClick(
-    card: CardElement
+    card: Card,
+    element: HTMLElement
 ): void {
     if (
         gameFinished ||
         lockBoard ||
-        card === firstCard ||
-        card.classList.contains("matched")
+        card.isFlipped ||
+        card.isMatched
     ) {
         return;
     }
 
-    card.classList.add(
+    card.isFlipped = true;
+
+    element.classList.add(
         "is-flipped"
     );
 
     if (!firstCard) {
         firstCard = card;
+        firstCardElement = element;
         return;
     }
 
     secondCard = card;
+    secondCardElement = element;
 
     checkMatch();
 }
 
 
 /**
- * Checks if both cards match.
+ * Checks whether the cards match.
  */
 function checkMatch(): void {
     if (
@@ -211,31 +234,11 @@ function checkMatch(): void {
         return;
     }
 
-    const firstValue =
-        firstCard.dataset.card;
-
-    const secondValue =
-        secondCard.dataset.card;
-
     if (
-        firstValue === secondValue
+        firstCard.id ===
+        secondCard.id
     ) {
-        firstCard.classList.add(
-            "matched"
-        );
-
-        secondCard.classList.add(
-            "matched"
-        );
-
-        addPoint();
-
-        matchedPairs++;
-
-        resetBoard();
-
-        checkGameWon();
-
+        handleMatch();
         return;
     }
 
@@ -249,7 +252,41 @@ function checkMatch(): void {
 
 
 /**
- * Adds one point to the current player.
+ * Handles a matching pair.
+ */
+function handleMatch(): void {
+    if (
+        !firstCard ||
+        !secondCard ||
+        !firstCardElement ||
+        !secondCardElement
+    ) {
+        return;
+    }
+
+    firstCard.isMatched = true;
+    secondCard.isMatched = true;
+
+    firstCardElement.classList.add(
+        "matched"
+    );
+
+    secondCardElement.classList.add(
+        "matched"
+    );
+
+    addPoint();
+
+    matchedPairs++;
+
+    resetBoard();
+
+    checkGameWon();
+}
+
+
+/**
+ * Adds a point to the current player.
  */
 function addPoint(): void {
     if (currentPlayer === 1) {
@@ -263,33 +300,44 @@ function addPoint(): void {
 
 
 /**
- * Updates both score counters.
+ * Updates the score display.
  */
 function updateScore(): void {
-    const player1 =
-        document.querySelector<HTMLElement>(
-            "#player1Score"
-        );
+    updateScoreElement(
+        "#player1Score",
+        player1Score
+    );
 
-    const player2 =
-        document.querySelector<HTMLElement>(
-            "#player2Score"
-        );
-
-    if (player1) {
-        player1.textContent =
-            String(player1Score);
-    }
-
-    if (player2) {
-        player2.textContent =
-            String(player2Score);
-    }
+    updateScoreElement(
+        "#player2Score",
+        player2Score
+    );
 }
 
 
 /**
- * Initializes the score system.
+ * Updates one score element.
+ */
+function updateScoreElement(
+    selector: string,
+    score: number
+): void {
+    const element =
+        document.querySelector<HTMLElement>(
+            selector
+        );
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent =
+        String(score);
+}
+
+
+/**
+ * Initializes the score.
  */
 function setupScore(): void {
     player1Score = 0;
@@ -297,19 +345,15 @@ function setupScore(): void {
     currentPlayer = 1;
     matchedPairs = 0;
     gameFinished = false;
+    lockBoard = false;
+
+    firstCard = null;
+    secondCard = null;
+
+    firstCardElement = null;
+    secondCardElement = null;
 
     updateScore();
-}
-
-
-/**
- * Changes to the other player.
- */
-function switchPlayer(): void {
-    currentPlayer =
-        currentPlayer === 1
-            ? 2
-            : 1;
 }
 
 
@@ -319,16 +363,21 @@ function switchPlayer(): void {
 function unflipCards(): void {
     if (
         !firstCard ||
-        !secondCard
+        !secondCard ||
+        !firstCardElement ||
+        !secondCardElement
     ) {
         return;
     }
 
-    firstCard.classList.remove(
+    firstCard.isFlipped = false;
+    secondCard.isFlipped = false;
+
+    firstCardElement.classList.remove(
         "is-flipped"
     );
 
-    secondCard.classList.remove(
+    secondCardElement.classList.remove(
         "is-flipped"
     );
 
@@ -339,16 +388,44 @@ function unflipCards(): void {
 
 
 /**
- * Checks if the game has been won.
+ * Switches to the other player.
+ */
+function switchPlayer(): void {
+    currentPlayer =
+        currentPlayer === 1
+            ? 2
+            : 1;
+}
+
+
+/**
+ * Resets the selected cards.
+ */
+function resetBoard(): void {
+    firstCard = null;
+    secondCard = null;
+
+    firstCardElement = null;
+    secondCardElement = null;
+
+    lockBoard = false;
+}
+
+
+/**
+ * Checks whether the game is won.
  */
 function checkGameWon(): void {
     if (
-        matchedPairs === totalPairs &&
-        !gameFinished
+        matchedPairs !== totalPairs ||
+        gameFinished
     ) {
-        gameFinished = true;
-        showWinnerPopup();
+        return;
     }
+
+    gameFinished = true;
+
+    showWinnerPopup();
 }
 
 
@@ -356,19 +433,19 @@ function checkGameWon(): void {
  * Shows the winner popup.
  */
 function showWinnerPopup(): void {
-    const winnerPopup =
+    const popup =
         document.querySelector<HTMLElement>(
             "#winnerPopup"
         );
 
-    if (!winnerPopup) {
+    if (!popup) {
         return;
     }
 
-    hideAllWinnerContainers();
+    hideWinnerContainers();
     updateWinnerPopup();
 
-    winnerPopup.classList.add(
+    popup.classList.add(
         "is-visible"
     );
 }
@@ -377,14 +454,14 @@ function showWinnerPopup(): void {
 /**
  * Hides all winner containers.
  */
-function hideAllWinnerContainers(): void {
+function hideWinnerContainers(): void {
     const winners =
         document.querySelectorAll<HTMLElement>(
             "#blueWinner, #orangeWinner"
         );
 
     winners.forEach(
-        (winner: HTMLElement) => {
+        (winner) => {
             winner.classList.remove(
                 "is-visible"
             );
@@ -400,54 +477,56 @@ function hideAllWinnerContainers(): void {
  * Updates the winner popup.
  */
 function updateWinnerPopup(): void {
-    const blueWinner =
-        document.querySelector<HTMLElement>(
-            "#blueWinner"
-        );
-
     const orangeWinner =
         document.querySelector<HTMLElement>(
             "#orangeWinner"
         );
 
+    const blueWinner =
+        document.querySelector<HTMLElement>(
+            "#blueWinner"
+        );
+
     if (
-        !blueWinner ||
-        !orangeWinner
+        !orangeWinner ||
+        !blueWinner
     ) {
         return;
     }
 
     if (
-        player1Score > player2Score
+        player1Score >
+        player2Score
     ) {
-        showOrangeWinner(
-            orangeWinner
+        showWinner(
+            orangeWinner,
+            "#orangeWinnerScore",
+            player1Score
         );
 
         return;
     }
 
-    showBlueWinner(
-        blueWinner
+    showWinner(
+        blueWinner,
+        "#blueWinnerScore",
+        player2Score
     );
 }
 
 
 /**
- * Shows the orange winner and score.
+ * Shows the winner and score.
  */
-function showOrangeWinner(
-    winner: HTMLElement
+function showWinner(
+    winner: HTMLElement,
+    scoreSelector: string,
+    score: number
 ): void {
-    const score =
-        document.querySelector<HTMLElement>(
-            "#orangeWinnerScore"
-        );
-
-    if (score) {
-        score.textContent =
-            String(player1Score);
-    }
+    updateScoreElement(
+        scoreSelector,
+        score
+    );
 
     winner.style.display =
         "flex";
@@ -459,63 +538,22 @@ function showOrangeWinner(
 
 
 /**
- * Shows the blue winner and score.
- */
-function showBlueWinner(
-    winner: HTMLElement
-): void {
-    const score =
-        document.querySelector<HTMLElement>(
-            "#blueWinnerScore"
-        );
-
-    if (score) {
-        score.textContent =
-            String(player2Score);
-    }
-
-    winner.style.display =
-        "flex";
-
-    winner.classList.add(
-        "is-visible"
-    );
-}
-
-
-/**
- * Sets up the winner back buttons.
+ * Sets up the winner buttons.
  */
 function setupWinnerButtons(): void {
-    const blueButton =
-        document.querySelector<HTMLElement>(
-            "#blueBackHome"
+    const buttons =
+        document.querySelectorAll<HTMLElement>(
+            "#blueBackHome, #orangeBackHome"
         );
 
-    const orangeButton =
-        document.querySelector<HTMLElement>(
-            "#orangeBackHome"
-        );
-
-    blueButton?.addEventListener(
-        "click",
-        leaveGame
+    buttons.forEach(
+        (button) => {
+            button.addEventListener(
+                "click",
+                leaveGame
+            );
+        }
     );
-
-    orangeButton?.addEventListener(
-        "click",
-        leaveGame
-    );
-}
-
-
-/**
- * Resets the selected cards.
- */
-function resetBoard(): void {
-    firstCard = null;
-    secondCard = null;
-    lockBoard = false;
 }
 
 
@@ -555,7 +593,7 @@ function setupExitPopup(): void {
 
     backToGame?.addEventListener(
         "click",
-        () => leaveGame()
+        leaveGame
     );
 
     exitGame?.addEventListener(
@@ -592,9 +630,7 @@ function handlePopupClick(
         target instanceof Node &&
         !popup.contains(target)
     ) {
-        closeExitPopup(
-            exitPopup
-        );
+        closeExitPopup(exitPopup);
     }
 }
 
@@ -633,25 +669,29 @@ function closeExitPopup(
         "is-closing"
     );
 
-    setTimeout(() => {
-        popup.classList.remove(
-            "is-visible"
-        );
+    setTimeout(
+        () => {
+            popup.classList.remove(
+                "is-visible"
+            );
 
-        popup.classList.remove(
-            "is-closing"
-        );
-    }, 450);
+            popup.classList.remove(
+                "is-closing"
+            );
+        },
+        450
+    );
 }
 
 
 /**
- * Leaves the game and returns to settings.
+ * Leaves the game.
  */
 function leaveGame(): void {
     window.location.href =
         "/settings.html";
 }
+
 
 init();
 

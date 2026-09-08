@@ -1,5 +1,13 @@
+
 import "./styles/style.scss";
 import "./styles/food-theme.scss";
+
+interface Card {
+    id: number;
+    image: string;
+    isFlipped: boolean;
+    isMatched: boolean;
+}
 
 type CardElement = HTMLElement;
 
@@ -12,6 +20,18 @@ let player2Score = 0;
 let currentPlayer = 1;
 let matchedPairs = 0;
 let totalPairs = 0;
+
+/**
+ * Creates a new food card.
+ */
+function createCard(id: number, image: string): Card {
+    return {
+        id,
+        image,
+        isFlipped: false,
+        isMatched: false
+    };
+}
 
 /**
  * Initializes the food memory game.
@@ -47,33 +67,33 @@ function createCards(): void {
     totalPairs = cardCount / 2;
 
     for (let i = 1; i <= totalPairs; i++) {
-        createCard(container, i);
-        createCard(container, i);
+        const image =
+            `/public/assets/images/food card ${String(i).padStart(2, "0")}.png`;
+
+        const card1 = createCard(i, image);
+        const card2 = createCard(i, image);
+
+        renderCard(container, card1);
+        renderCard(container, card2);
     }
 }
 
 /**
- * Creates one food memory card.
+ * Renders one food card into the container.
  */
-function createCard(
+function renderCard(
     container: HTMLElement,
-    cardNumber: number
+    cardData: Card
 ): void {
     const card =
         document.createElement("div");
-
-    const imageNumber =
-        cardNumber;
-
-    const formattedNumber =
-        String(imageNumber).padStart(2, "0");
 
     card.classList.add(
         "memory__card"
     );
 
     card.dataset.card =
-        String(cardNumber);
+        String(cardData.id);
 
     card.innerHTML = `
         <div class="memory__card-inner">
@@ -91,7 +111,7 @@ function createCard(
                 class="memory__card-back"
                 style="
                     --food-card:
-                    url('/public/assets/images/food card ${formattedNumber}.png');
+                    url('${cardData.image}');
                 "
             >
             </div>
@@ -113,12 +133,14 @@ function setupCards(): void {
 
     shuffleCards(cards);
 
-    cards.forEach((card: CardElement) => {
-        card.addEventListener(
-            "click",
-            () => handleCardClick(card)
-        );
-    });
+    cards.forEach(
+        (card: CardElement) => {
+            card.addEventListener(
+                "click",
+                () => handleCardClick(card)
+            );
+        }
+    );
 }
 
 /**
@@ -136,10 +158,14 @@ function shuffleCards(
         return;
     }
 
-    const cardArray: CardElement[] =
+    const cardArray =
         Array.from(cards);
 
-    for (let i = cardArray.length - 1; i > 0; i--) {
+    for (
+        let i = cardArray.length - 1;
+        i > 0;
+        i--
+    ) {
         const randomIndex =
             Math.floor(
                 Math.random() * (i + 1)
@@ -176,7 +202,9 @@ function handleCardClick(
         return;
     }
 
-    card.classList.add("is-flipped");
+    card.classList.add(
+        "is-flipped"
+    );
 
     if (!firstCard) {
         firstCard = card;
@@ -189,10 +217,13 @@ function handleCardClick(
 }
 
 /**
- * Checks if both cards match.
+ * Checks if both selected cards match.
  */
 function checkMatch(): void {
-    if (!firstCard || !secondCard) {
+    if (
+        !firstCard ||
+        !secondCard
+    ) {
         return;
     }
 
@@ -202,12 +233,10 @@ function checkMatch(): void {
     const secondValue =
         secondCard.dataset.card;
 
-    const isMatch =
-        firstValue === secondValue;
-
-    if (isMatch) {
-        firstCard.classList.add("matched");
-        secondCard.classList.add("matched");
+    if (
+        firstValue === secondValue
+    ) {
+        markCardsAsMatched();
 
         addPoint();
 
@@ -229,6 +258,19 @@ function checkMatch(): void {
 }
 
 /**
+ * Marks both selected cards as matched.
+ */
+function markCardsAsMatched(): void {
+    firstCard?.classList.add(
+        "matched"
+    );
+
+    secondCard?.classList.add(
+        "matched"
+    );
+}
+
+/**
  * Adds one point to the current player.
  */
 function addPoint(): void {
@@ -242,7 +284,7 @@ function addPoint(): void {
 }
 
 /**
- * Updates the displayed player scores.
+ * Updates both player scores.
  */
 function updateScore(): void {
     const player1 =
@@ -267,7 +309,7 @@ function updateScore(): void {
 }
 
 /**
- * Sets up the initial score display.
+ * Sets up the initial score.
  */
 function setupScore(): void {
     player1Score = 0;
@@ -279,18 +321,23 @@ function setupScore(): void {
 }
 
 /**
- * Changes the current player.
+ * Changes to the other player.
  */
 function switchPlayer(): void {
     currentPlayer =
-        currentPlayer === 1 ? 2 : 1;
+        currentPlayer === 1
+            ? 2
+            : 1;
 }
 
 /**
  * Turns unmatched cards back over.
  */
 function unflipCards(): void {
-    if (!firstCard || !secondCard) {
+    if (
+        !firstCard ||
+        !secondCard
+    ) {
         return;
     }
 
@@ -311,7 +358,9 @@ function unflipCards(): void {
  * Checks if all pairs have been found.
  */
 function checkGameWon(): void {
-    if (matchedPairs === totalPairs) {
+    if (
+        matchedPairs === totalPairs
+    ) {
         showWinnerPopup();
     }
 }
@@ -370,7 +419,7 @@ function setupWinnerPopup(): void {
 }
 
 /**
- * Updates the correct winner and score.
+ * Updates the correct winner.
  */
 function updateWinnerPopup(): void {
     const blueWinner =
@@ -391,12 +440,16 @@ function updateWinnerPopup(): void {
         "is-visible"
     );
 
-    if (player1Score > player2Score) {
+    if (
+        player1Score > player2Score
+    ) {
         showOrangeWinner();
         return;
     }
 
-    if (player2Score > player1Score) {
+    if (
+        player2Score > player1Score
+    ) {
         showBlueWinner();
     }
 }
@@ -519,7 +572,7 @@ function setupExitPopup(): void {
 
     backToGame?.addEventListener(
         "click",
-        () => leaveGame()
+        leaveGame
     );
 
     exitGame?.addEventListener(
@@ -540,14 +593,15 @@ function setupExitPopup(): void {
 }
 
 /**
- * Handles clicks outside the popup.
+ * Handles clicks outside the exit popup.
  */
 function handlePopupClick(
     event: MouseEvent,
     popup: HTMLElement | null,
     exitPopup: HTMLElement
 ): void {
-    const target = event.target;
+    const target =
+        event.target;
 
     if (
         popup &&
@@ -611,3 +665,4 @@ function leaveGame(): void {
 }
 
 init();
+
