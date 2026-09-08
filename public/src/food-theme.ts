@@ -63,7 +63,7 @@ function createCard(
         document.createElement("div");
 
     const imageNumber =
-        ((cardNumber - 1) % 8) + 1;
+        cardNumber;
 
     const formattedNumber =
         String(imageNumber).padStart(2, "0");

@@ -31,9 +31,10 @@ function init(): void {
  * Creates the selected number of gaming cards.
  */
 function createCards(): void {
-    const container = document.querySelector<HTMLElement>(
-        ".memory__card-container"
-    );
+    const container =
+        document.querySelector<HTMLElement>(
+            ".memory__card-container"
+        );
 
     if (!container) {
         return;
@@ -42,7 +43,9 @@ function createCards(): void {
     const cardCount =
         Number(localStorage.getItem("cardCount")) || 16;
 
-    container.dataset.cardCount = String(cardCount);
+    container.dataset.cardCount =
+        String(cardCount);
+
     totalPairs = cardCount / 2;
 
     for (let i = 1; i <= totalPairs; i++) {
@@ -59,16 +62,21 @@ function createCard(
     container: HTMLElement,
     cardNumber: number
 ): void {
-    const card = document.createElement("div");
+    const card =
+        document.createElement("div");
 
     const imageNumber =
-        ((cardNumber - 1) % 16) + 1;
+        cardNumber;
 
     const imagePath =
         `/public/assets/images/Code vibes card ${imageNumber}.png`;
 
-    card.classList.add("memory__card");
-    card.dataset.card = String(cardNumber);
+    card.classList.add(
+        "memory__card"
+    );
+
+    card.dataset.card =
+        String(cardNumber);
 
     card.innerHTML = `
         <div class="memory__card-inner">
@@ -100,9 +108,10 @@ function createCard(
  * Sets up the memory cards.
  */
 function setupCards(): void {
-    const cards = document.querySelectorAll<CardElement>(
-        ".memory__card"
-    );
+    const cards =
+        document.querySelectorAll<CardElement>(
+            ".memory__card"
+        );
 
     shuffleCards(cards);
 
@@ -121,29 +130,43 @@ function setupCards(): void {
 function shuffleCards(
     cards: NodeListOf<CardElement>
 ): void {
-    const container = document.querySelector<HTMLElement>(
-        ".memory__card-container"
-    );
+    const container =
+        document.querySelector<HTMLElement>(
+            ".memory__card-container"
+        );
 
     if (!container) {
         return;
     }
 
-    const cardArray = Array.from(cards);
+    const cardArray =
+        Array.from(cards);
 
-    for (let i = cardArray.length - 1; i > 0; i--) {
+    for (
+        let i = cardArray.length - 1;
+        i > 0;
+        i--
+    ) {
         const randomIndex =
-            Math.floor(Math.random() * (i + 1));
+            Math.floor(
+                Math.random() * (i + 1)
+            );
 
-        const currentCard = cardArray[i];
+        const currentCard =
+            cardArray[i];
 
-        cardArray[i] = cardArray[randomIndex];
-        cardArray[randomIndex] = currentCard;
+        cardArray[i] =
+            cardArray[randomIndex];
+
+        cardArray[randomIndex] =
+            currentCard;
     }
 
-    cardArray.forEach((card: CardElement) => {
-        container.appendChild(card);
-    });
+    cardArray.forEach(
+        (card: CardElement) => {
+            container.appendChild(card);
+        }
+    );
 }
 
 
@@ -162,7 +185,9 @@ function handleCardClick(
         return;
     }
 
-    card.classList.add("is-flipped");
+    card.classList.add(
+        "is-flipped"
+    );
 
     if (!firstCard) {
         firstCard = card;
@@ -170,6 +195,7 @@ function handleCardClick(
     }
 
     secondCard = card;
+
     checkMatch();
 }
 
@@ -178,21 +204,36 @@ function handleCardClick(
  * Checks if both cards match.
  */
 function checkMatch(): void {
-    if (!firstCard || !secondCard) {
+    if (
+        !firstCard ||
+        !secondCard
+    ) {
         return;
     }
 
-    const firstValue = firstCard.dataset.card;
-    const secondValue = secondCard.dataset.card;
+    const firstValue =
+        firstCard.dataset.card;
 
-    if (firstValue === secondValue) {
-        firstCard.classList.add("matched");
-        secondCard.classList.add("matched");
+    const secondValue =
+        secondCard.dataset.card;
+
+    if (
+        firstValue === secondValue
+    ) {
+        firstCard.classList.add(
+            "matched"
+        );
+
+        secondCard.classList.add(
+            "matched"
+        );
 
         addPoint();
+
         matchedPairs++;
 
         resetBoard();
+
         checkGameWon();
 
         return;
@@ -225,20 +266,24 @@ function addPoint(): void {
  * Updates both score counters.
  */
 function updateScore(): void {
-    const player1 = document.querySelector<HTMLElement>(
-        "#player1Score"
-    );
+    const player1 =
+        document.querySelector<HTMLElement>(
+            "#player1Score"
+        );
 
-    const player2 = document.querySelector<HTMLElement>(
-        "#player2Score"
-    );
+    const player2 =
+        document.querySelector<HTMLElement>(
+            "#player2Score"
+        );
 
     if (player1) {
-        player1.textContent = String(player1Score);
+        player1.textContent =
+            String(player1Score);
     }
 
     if (player2) {
-        player2.textContent = String(player2Score);
+        player2.textContent =
+            String(player2Score);
     }
 }
 
@@ -262,7 +307,9 @@ function setupScore(): void {
  */
 function switchPlayer(): void {
     currentPlayer =
-        currentPlayer === 1 ? 2 : 1;
+        currentPlayer === 1
+            ? 2
+            : 1;
 }
 
 
@@ -270,14 +317,23 @@ function switchPlayer(): void {
  * Turns unmatched cards back over.
  */
 function unflipCards(): void {
-    if (!firstCard || !secondCard) {
+    if (
+        !firstCard ||
+        !secondCard
+    ) {
         return;
     }
 
-    firstCard.classList.remove("is-flipped");
-    secondCard.classList.remove("is-flipped");
+    firstCard.classList.remove(
+        "is-flipped"
+    );
+
+    secondCard.classList.remove(
+        "is-flipped"
+    );
 
     switchPlayer();
+
     resetBoard();
 }
 
@@ -300,9 +356,10 @@ function checkGameWon(): void {
  * Shows the winner popup.
  */
 function showWinnerPopup(): void {
-    const winnerPopup = document.querySelector<HTMLElement>(
-        "#winnerPopup"
-    );
+    const winnerPopup =
+        document.querySelector<HTMLElement>(
+            "#winnerPopup"
+        );
 
     if (!winnerPopup) {
         return;
@@ -311,7 +368,9 @@ function showWinnerPopup(): void {
     hideAllWinnerContainers();
     updateWinnerPopup();
 
-    winnerPopup.classList.add("is-visible");
+    winnerPopup.classList.add(
+        "is-visible"
+    );
 }
 
 
@@ -319,14 +378,21 @@ function showWinnerPopup(): void {
  * Hides all winner containers.
  */
 function hideAllWinnerContainers(): void {
-    const winners = document.querySelectorAll<HTMLElement>(
-        "#blueWinner, #orangeWinner"
-    );
+    const winners =
+        document.querySelectorAll<HTMLElement>(
+            "#blueWinner, #orangeWinner"
+        );
 
-    winners.forEach((winner: HTMLElement) => {
-        winner.classList.remove("is-visible");
-        winner.style.display = "none";
-    });
+    winners.forEach(
+        (winner: HTMLElement) => {
+            winner.classList.remove(
+                "is-visible"
+            );
+
+            winner.style.display =
+                "none";
+        }
+    );
 }
 
 
@@ -334,24 +400,36 @@ function hideAllWinnerContainers(): void {
  * Updates the winner popup.
  */
 function updateWinnerPopup(): void {
-    const blueWinner = document.querySelector<HTMLElement>(
-        "#blueWinner"
-    );
+    const blueWinner =
+        document.querySelector<HTMLElement>(
+            "#blueWinner"
+        );
 
-    const orangeWinner = document.querySelector<HTMLElement>(
-        "#orangeWinner"
-    );
+    const orangeWinner =
+        document.querySelector<HTMLElement>(
+            "#orangeWinner"
+        );
 
-    if (!blueWinner || !orangeWinner) {
+    if (
+        !blueWinner ||
+        !orangeWinner
+    ) {
         return;
     }
 
-    if (player1Score > player2Score) {
-        showOrangeWinner(orangeWinner);
+    if (
+        player1Score > player2Score
+    ) {
+        showOrangeWinner(
+            orangeWinner
+        );
+
         return;
     }
 
-    showBlueWinner(blueWinner);
+    showBlueWinner(
+        blueWinner
+    );
 }
 
 
@@ -361,16 +439,22 @@ function updateWinnerPopup(): void {
 function showOrangeWinner(
     winner: HTMLElement
 ): void {
-    const score = document.querySelector<HTMLElement>(
-        "#orangeWinnerScore"
-    );
+    const score =
+        document.querySelector<HTMLElement>(
+            "#orangeWinnerScore"
+        );
 
     if (score) {
-        score.textContent = String(player1Score);
+        score.textContent =
+            String(player1Score);
     }
 
-    winner.style.display = "flex";
-    winner.classList.add("is-visible");
+    winner.style.display =
+        "flex";
+
+    winner.classList.add(
+        "is-visible"
+    );
 }
 
 
@@ -380,16 +464,22 @@ function showOrangeWinner(
 function showBlueWinner(
     winner: HTMLElement
 ): void {
-    const score = document.querySelector<HTMLElement>(
-        "#blueWinnerScore"
-    );
+    const score =
+        document.querySelector<HTMLElement>(
+            "#blueWinnerScore"
+        );
 
     if (score) {
-        score.textContent = String(player2Score);
+        score.textContent =
+            String(player2Score);
     }
 
-    winner.style.display = "flex";
-    winner.classList.add("is-visible");
+    winner.style.display =
+        "flex";
+
+    winner.classList.add(
+        "is-visible"
+    );
 }
 
 
@@ -397,13 +487,15 @@ function showBlueWinner(
  * Sets up the winner back buttons.
  */
 function setupWinnerButtons(): void {
-    const blueButton = document.querySelector<HTMLElement>(
-        "#blueBackHome"
-    );
+    const blueButton =
+        document.querySelector<HTMLElement>(
+            "#blueBackHome"
+        );
 
-    const orangeButton = document.querySelector<HTMLElement>(
-        "#orangeBackHome"
-    );
+    const orangeButton =
+        document.querySelector<HTMLElement>(
+            "#orangeBackHome"
+        );
 
     blueButton?.addEventListener(
         "click",
@@ -431,25 +523,30 @@ function resetBoard(): void {
  * Sets up the exit popup.
  */
 function setupExitPopup(): void {
-    const exitButton = document.querySelector<HTMLElement>(
-        ".gaming__header-right-part-exit-game"
-    );
+    const exitButton =
+        document.querySelector<HTMLElement>(
+            ".gaming__header-right-part-exit-game"
+        );
 
-    const exitPopup = document.querySelector<HTMLElement>(
-        "#exitPopup"
-    );
+    const exitPopup =
+        document.querySelector<HTMLElement>(
+            "#exitPopup"
+        );
 
-    const popup = document.querySelector<HTMLElement>(
-        ".exit-popup"
-    );
+    const popup =
+        document.querySelector<HTMLElement>(
+            ".exit-popup"
+        );
 
-    const backToGame = document.querySelector<HTMLElement>(
-        "#backToGame"
-    );
+    const backToGame =
+        document.querySelector<HTMLElement>(
+            "#backToGame"
+        );
 
-    const exitGame = document.querySelector<HTMLElement>(
-        "#exitGame"
-    );
+    const exitGame =
+        document.querySelector<HTMLElement>(
+            "#exitGame"
+        );
 
     exitButton?.addEventListener(
         "click",
@@ -487,14 +584,17 @@ function handlePopupClick(
     popup: HTMLElement | null,
     exitPopup: HTMLElement
 ): void {
-    const target = event.target;
+    const target =
+        event.target;
 
     if (
         popup &&
         target instanceof Node &&
         !popup.contains(target)
     ) {
-        closeExitPopup(exitPopup);
+        closeExitPopup(
+            exitPopup
+        );
     }
 }
 
@@ -509,8 +609,13 @@ function openExitPopup(
         return;
     }
 
-    popup.classList.remove("is-closing");
-    popup.classList.add("is-visible");
+    popup.classList.remove(
+        "is-closing"
+    );
+
+    popup.classList.add(
+        "is-visible"
+    );
 }
 
 
@@ -524,11 +629,18 @@ function closeExitPopup(
         return;
     }
 
-    popup.classList.add("is-closing");
+    popup.classList.add(
+        "is-closing"
+    );
 
     setTimeout(() => {
-        popup.classList.remove("is-visible");
-        popup.classList.remove("is-closing");
+        popup.classList.remove(
+            "is-visible"
+        );
+
+        popup.classList.remove(
+            "is-closing"
+        );
     }, 450);
 }
 
@@ -537,8 +649,9 @@ function closeExitPopup(
  * Leaves the game and returns to settings.
  */
 function leaveGame(): void {
-    window.location.href = "/settings.html";
+    window.location.href =
+        "/settings.html";
 }
 
-
 init();
+

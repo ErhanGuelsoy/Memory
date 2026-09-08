@@ -10,6 +10,7 @@ body {
 }
 
 .gaming {
+
     &__main-container {
         position: relative;
         width: 1217px;
@@ -488,6 +489,7 @@ body {
    ========================= */
 
 @keyframes exit-popup-slide-down {
+
     from {
         transform: translateY(-100vh);
     }
@@ -498,6 +500,7 @@ body {
 }
 
 @keyframes exit-popup-slide-up {
+
     from {
         transform: translateY(0);
     }
@@ -506,3 +509,4 @@ body {
         transform: translateY(-100vh);
     }
 }
+
