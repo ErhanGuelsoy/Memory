@@ -1,499 +1,595 @@
+
 import "./styles/style.scss";
 import "./styles/food-theme.scss";
 
-interface Card {
+interface CardData {
     id: number;
     image: string;
-    isFlipped: boolean;
-    isMatched: boolean;
 }
 
 type CardElement = HTMLElement;
 
-let firstCard: CardElement | null = null;
-let secondCard: CardElement | null = null;
-let lockBoard = false;
-let player1Score = 0;
-let player2Score = 0;
-let currentPlayer = 1;
-let matchedPairs = 0;
-let totalPairs = 0;
-
 /**
- * Creates a new food card.
+ * Represents one food memory card.
  */
-function createCard(id: number, image: string): Card {
-    return {
-        id,
-        image,
-        isFlipped: false,
-        isMatched: false
-    };
-}
+class Card {
+    id: number;
+    image: string;
+    isFlipped: boolean;
+    isMatched: boolean;
 
-/**
- * Initializes the food memory game.
- */
-function init(): void {
-    createCards();
-    setupCards();
-    setupScore();
-    setupWinnerPopup();
-    setupWinnerButtons();
-    setupExitPopup();
-}
+    /**
+     * Creates a new food card.
+     * @param data Card data.
+     */
+    constructor(data: CardData) {
+        this.id = data.id;
+        this.image = data.image;
+        this.isFlipped = false;
+        this.isMatched = false;
+    }
 
-/**
- * Creates the selected number of food cards.
- */
-function createCards(): void {
-    const container = document.querySelector<HTMLElement>(
-        ".memory__card-container"
-    );
+    /**
+     * Flips the card.
+     */
+    flip(): void {
+        this.isFlipped = true;
+    }
 
-    if (!container) return;
-
-    const cardCount =
-        Number(localStorage.getItem("cardCount")) || 16;
-
-    container.dataset.cardCount = String(cardCount);
-    totalPairs = cardCount / 2;
-
-    for (let i = 1; i <= totalPairs; i++) {
-        const image =
-            `/public/assets/images/food card ${String(i).padStart(2, "0")}.png`;
-
-        const card1 = createCard(i, image);
-        const card2 = createCard(i, image);
-
-        renderCard(container, card1);
-        renderCard(container, card2);
+    /**
+     * Marks the card as matched.
+     */
+    match(): void {
+        this.isMatched = true;
     }
 }
 
 /**
- * Renders one food card into the container.
+ * Controls the food memory game.
  */
-function renderCard(
-    container: HTMLElement,
-    cardData: Card
-): void {
-    const card = document.createElement("div");
+class MemoryGame {
+    private firstCard: Card | null = null;
+    private secondCard: Card | null = null;
+    private firstCardElement: CardElement | null = null;
+    private secondCardElement: CardElement | null = null;
+    private lockBoard = false;
+    private player1Score = 0;
+    private player2Score = 0;
+    private currentPlayer = 1;
+    private matchedPairs = 0;
+    private totalPairs = 0;
+    private gameFinished = false;
 
-    card.classList.add("memory__card");
-    card.dataset.card = String(cardData.id);
+    /**
+     * Initializes the food memory game.
+     */
+    init(): void {
+        this.createCards();
+        this.setupScore();
+        this.setupWinnerPopup();
+        this.setupWinnerButtons();
+        this.setupExitPopup();
+    }
 
-    card.innerHTML = `
-        <div class="memory__card-inner">
-            <div class="memory__card-front">
-                <img
-                    src="/public/assets/images/food_card.png"
-                    alt="Food card front"
-                >
-            </div>
-            <div
-                class="memory__card-back"
-                style="--food-card: url('${cardData.image}');"
-            ></div>
-        </div>
-    `;
-
-    container.appendChild(card);
-}
-
-/**
- * Sets up the memory cards.
- */
-function setupCards(): void {
-    const cards = document.querySelectorAll<CardElement>(
-        ".memory__card"
-    );
-
-    shuffleCards(cards);
-
-    cards.forEach((card) => {
-        card.addEventListener("click", () => {
-            handleCardClick(card);
-        });
-    });
-}
-
-/**
- * Shuffles all memory cards.
- */
-function shuffleCards(
-    cards: NodeListOf<CardElement>
-): void {
-    const container = document.querySelector<HTMLElement>(
-        ".memory__card-container"
-    );
-
-    if (!container) return;
-
-    const cardArray = Array.from(cards);
-
-    for (let i = cardArray.length - 1; i > 0; i--) {
-        const randomIndex = Math.floor(
-            Math.random() * (i + 1)
+    /**
+     * Creates the selected number of food cards.
+     */
+    private createCards(): void {
+        const container = document.querySelector<HTMLElement>(
+            ".memory__card-container"
         );
 
-        [cardArray[i], cardArray[randomIndex]] = [
-            cardArray[randomIndex],
-            cardArray[i]
-        ];
+        if (!container) return;
+
+        const cardCount = Number(localStorage.getItem("cardCount")) || 16;
+        container.dataset.cardCount = String(cardCount);
+        this.totalPairs = cardCount / 2;
+
+        const cards = this.buildCards();
+        this.renderCards(cards, container);
     }
 
-    cardArray.forEach((card) => {
-        container.appendChild(card);
-    });
-}
+    /**
+     * Creates all food card pairs.
+     * @returns Array containing all food cards.
+     */
+    private buildCards(): Card[] {
+        const cards: Card[] = [];
 
-/**
- * Handles a card click.
- */
-function handleCardClick(
-    card: CardElement
-): void {
-    if (
-        lockBoard ||
-        card === firstCard ||
-        card.classList.contains("matched")
-    ) {
-        return;
-    }
+        for (let i = 1; i <= this.totalPairs; i++) {
+            const image =
+                `/public/assets/images/food card ${String(i).padStart(2, "0")}.png`;
 
-    card.classList.add("is-flipped");
-
-    if (!firstCard) {
-        firstCard = card;
-        return;
-    }
-
-    secondCard = card;
-    checkMatch();
-}
-
-/**
- * Checks if both selected cards match.
- */
-function checkMatch(): void {
-    if (!firstCard || !secondCard) return;
-
-    const firstValue = firstCard.dataset.card;
-    const secondValue = secondCard.dataset.card;
-
-    if (firstValue === secondValue) {
-        markCardsAsMatched();
-        addPoint();
-        matchedPairs++;
-        resetBoard();
-        checkGameWon();
-        return;
-    }
-
-    lockBoard = true;
-    setTimeout(unflipCards, 1000);
-}
-
-/**
- * Marks both selected cards as matched.
- */
-function markCardsAsMatched(): void {
-    firstCard?.classList.add("matched");
-    secondCard?.classList.add("matched");
-}
-
-/**
- * Adds one point to the current player.
- */
-function addPoint(): void {
-    if (currentPlayer === 1) {
-        player1Score++;
-    } else {
-        player2Score++;
-    }
-
-    updateScore();
-}
-
-/**
- * Updates both player scores.
- */
-function updateScore(): void {
-    const player1 = document.querySelector<HTMLElement>(
-        "#player1Score"
-    );
-
-    const player2 = document.querySelector<HTMLElement>(
-        "#player2Score"
-    );
-
-    if (player1) {
-        player1.textContent = String(player1Score);
-    }
-
-    if (player2) {
-        player2.textContent = String(player2Score);
-    }
-}
-
-/**
- * Sets up the initial score.
- */
-function setupScore(): void {
-    player1Score = 0;
-    player2Score = 0;
-    currentPlayer = 1;
-    matchedPairs = 0;
-
-    updateScore();
-}
-
-/**
- * Changes to the other player.
- */
-function switchPlayer(): void {
-    currentPlayer = currentPlayer === 1 ? 2 : 1;
-}
-
-/**
- * Turns unmatched cards back over.
- */
-function unflipCards(): void {
-    if (!firstCard || !secondCard) return;
-
-    firstCard.classList.remove("is-flipped");
-    secondCard.classList.remove("is-flipped");
-
-    switchPlayer();
-    resetBoard();
-}
-
-/**
- * Checks if all pairs have been found.
- */
-function checkGameWon(): void {
-    if (matchedPairs === totalPairs) {
-        showWinnerPopup();
-    }
-}
-
-/**
- * Shows the winner popup.
- */
-function showWinnerPopup(): void {
-    const winnerPopup = document.querySelector<HTMLElement>(
-        "#winnerPopup"
-    );
-
-    if (!winnerPopup) return;
-
-    updateWinnerPopup();
-    winnerPopup.classList.add("is-visible");
-}
-
-/**
- * Sets up the winner popup observer.
- */
-function setupWinnerPopup(): void {
-    const winnerPopup = document.querySelector<HTMLElement>(
-        "#winnerPopup"
-    );
-
-    if (!winnerPopup) return;
-
-    const observer = new MutationObserver(() => {
-        if (winnerPopup.classList.contains("is-visible")) {
-            updateWinnerPopup();
+            cards.push(new Card({ id: i, image }));
+            cards.push(new Card({ id: i, image }));
         }
-    });
 
-    observer.observe(winnerPopup, {
-        attributes: true,
-        attributeFilter: ["class"]
-    });
-}
-
-/**
- * Updates the correct winner.
- */
-function updateWinnerPopup(): void {
-    const blueWinner = document.querySelector<HTMLElement>(
-        "#blueWinner"
-    );
-
-    const orangeWinner = document.querySelector<HTMLElement>(
-        "#orangeWinner"
-    );
-
-    blueWinner?.classList.remove("is-visible");
-    orangeWinner?.classList.remove("is-visible");
-
-    if (player1Score > player2Score) {
-        showOrangeWinner();
-        return;
+        return this.shuffleCards(cards);
     }
 
-    if (player2Score > player1Score) {
-        showBlueWinner();
-    }
-}
+    /**
+     * Shuffles all food cards.
+     * @param cards Cards to shuffle.
+     * @returns Shuffled cards.
+     */
+    private shuffleCards(cards: Card[]): Card[] {
+        for (let i = cards.length - 1; i > 0; i--) {
+            const randomIndex = Math.floor(Math.random() * (i + 1));
 
-/**
- * Shows the orange winner.
- */
-function showOrangeWinner(): void {
-    const winner = document.querySelector<HTMLElement>(
-        "#orangeWinner"
-    );
+            [cards[i], cards[randomIndex]] = [
+                cards[randomIndex],
+                cards[i]
+            ];
+        }
 
-    const score = document.querySelector<HTMLElement>(
-        "#orangeWinnerScore"
-    );
-
-    if (score) {
-        score.textContent = String(player1Score);
+        return cards;
     }
 
-    winner?.classList.add("is-visible");
-}
+    /**
+     * Renders all food cards into the container.
+     * @param cards Cards to render.
+     * @param container Card container.
+     */
+    private renderCards(cards: Card[], container: HTMLElement): void {
+        cards.forEach((cardData) => {
+            const cardElement = this.createCardElement(cardData);
 
-/**
- * Shows the blue winner.
- */
-function showBlueWinner(): void {
-    const winner = document.querySelector<HTMLElement>(
-        "#blueWinner"
-    );
-
-    const score = document.querySelector<HTMLElement>(
-        "#blueWinnerScore"
-    );
-
-    if (score) {
-        score.textContent = String(player2Score);
+            container.appendChild(cardElement);
+            cardElement.addEventListener("click", () => {
+                this.handleCardClick(cardData, cardElement);
+            });
+        });
     }
 
-    winner?.classList.add("is-visible");
-}
+    /**
+     * Creates the HTML element for a food card.
+     * @param card Card object.
+     * @returns HTML card element.
+     */
+    private createCardElement(card: Card): CardElement {
+        const card = document.createElement("div");
 
-/**
- * Sets up the winner back buttons.
- */
-function setupWinnerButtons(): void {
-    const blueButton = document.querySelector<HTMLElement>(
-        "#blueBackHome"
-    );
+        card.classList.add("memory__card");
+        card.dataset.card = String(card.id);
 
-    const orangeButton = document.querySelector<HTMLElement>(
-        "#orangeBackHome"
-    );
+        card.innerHTML = `
+            <div class="memory__card-inner">
+                <div class="memory__card-front">
+                    <img
+                        src="/public/assets/images/food_card.png"
+                        alt="Food card front"
+                    >
+                </div>
+                <div
+                    class="memory__card-back"
+                    style="--food-card: url('${card.image}');"
+                ></div>
+            </div>
+        `;
 
-    blueButton?.addEventListener("click", leaveGame);
-    orangeButton?.addEventListener("click", leaveGame);
-}
-
-/**
- * Resets the selected cards.
- */
-function resetBoard(): void {
-    firstCard = null;
-    secondCard = null;
-    lockBoard = false;
-}
-
-/**
- * Sets up the exit popup.
- */
-function setupExitPopup(): void {
-    const exitButton = document.querySelector<HTMLElement>(
-        ".gaming__header-right-part-exit-game"
-    );
-
-    const exitPopup = document.querySelector<HTMLElement>(
-        "#exitPopup"
-    );
-
-    const popup = document.querySelector<HTMLElement>(
-        ".exit-popup"
-    );
-
-    const backToGame = document.querySelector<HTMLElement>(
-        "#backToGame"
-    );
-
-    const exitGame = document.querySelector<HTMLElement>(
-        "#exitGame"
-    );
-
-    exitButton?.addEventListener("click", () => {
-        openExitPopup(exitPopup);
-    });
-
-    backToGame?.addEventListener("click", leaveGame);
-
-    exitGame?.addEventListener("click", () => {
-        closeExitPopup(exitPopup);
-    });
-
-    exitPopup?.addEventListener("click", (event: MouseEvent) => {
-        handlePopupClick(event, popup, exitPopup);
-    });
-}
-
-/**
- * Handles clicks outside the exit popup.
- */
-function handlePopupClick(
-    event: MouseEvent,
-    popup: HTMLElement | null,
-    exitPopup: HTMLElement
-): void {
-    const target = event.target;
-
-    if (
-        popup &&
-        target instanceof Node &&
-        !popup.contains(target)
-    ) {
-        closeExitPopup(exitPopup);
+        return card;
     }
-}
 
-/**
- * Opens the exit popup.
- */
-function openExitPopup(
-    popup: HTMLElement | null
-): void {
-    if (!popup) return;
+    /**
+     * Handles a card click.
+     * @param card Selected card.
+     * @param element Selected card element.
+     */
+    private handleCardClick(
+        card: Card,
+        element: CardElement
+    ): void {
+        if (this.isCardBlocked(card, element)) return;
 
-    popup.classList.remove("is-closing");
-    popup.classList.add("is-visible");
-}
+        card.flip();
+        element.classList.add("is-flipped");
 
-/**
- * Closes the exit popup.
- */
-function closeExitPopup(
-    popup: HTMLElement | null
-): void {
-    if (!popup) return;
+        if (!this.firstCard) {
+            this.selectFirstCard(card, element);
+            return;
+        }
 
-    popup.classList.add("is-closing");
+        this.selectSecondCard(card, element);
+        this.checkMatch();
+    }
 
-    setTimeout(() => {
-        popup.classList.remove("is-visible");
+    /**
+     * Checks whether a card can be selected.
+     * @param card Selected card.
+     * @param element Selected card element.
+     * @returns True when the card cannot be selected.
+     */
+    private isCardBlocked(
+        card: Card,
+        element: CardElement
+    ): boolean {
+        return (
+            this.gameFinished ||
+            this.lockBoard ||
+            card.isFlipped ||
+            card.isMatched ||
+            element === this.firstCardElement
+        );
+    }
+
+    /**
+     * Selects the first card.
+     * @param card Selected card.
+     * @param element Card element.
+     */
+    private selectFirstCard(
+        card: Card,
+        element: CardElement
+    ): void {
+        this.firstCard = card;
+        this.firstCardElement = element;
+    }
+
+    /**
+     * Selects the second card.
+     * @param card Selected card.
+     * @param element Card element.
+     */
+    private selectSecondCard(
+        card: Card,
+        element: CardElement
+    ): void {
+        this.secondCard = card;
+        this.secondCardElement = element;
+    }
+
+    /**
+     * Checks whether the selected cards match.
+     */
+    private checkMatch(): void {
+        if (!this.firstCard || !this.secondCard) return;
+
+        if (this.firstCard.id === this.secondCard.id) {
+            this.handleMatch();
+            return;
+        }
+
+        this.lockBoard = true;
+        setTimeout(() => this.unflipCards(), 1000);
+    }
+
+    /**
+     * Handles a matching pair.
+     */
+    private handleMatch(): void {
+        if (!this.hasSelectedCards()) return;
+
+        this.firstCard!.match();
+        this.secondCard!.match();
+        this.markCardsAsMatched();
+        this.addPoint();
+        this.matchedPairs++;
+        this.resetBoard();
+        this.checkGameWon();
+    }
+
+    /**
+     * Checks whether both cards and elements exist.
+     * @returns True when both cards are selected.
+     */
+    private hasSelectedCards(): boolean {
+        return !!(
+            this.firstCard &&
+            this.secondCard &&
+            this.firstCardElement &&
+            this.secondCardElement
+        );
+    }
+
+    /**
+     * Marks both selected cards as matched.
+     */
+    private markCardsAsMatched(): void {
+        this.firstCardElement?.classList.add("matched");
+        this.secondCardElement?.classList.add("matched");
+    }
+
+    /**
+     * Adds one point to the current player.
+     */
+    private addPoint(): void {
+        if (this.currentPlayer === 1) {
+            this.player1Score++;
+        } else {
+            this.player2Score++;
+        }
+
+        this.updateScore();
+    }
+
+    /**
+     * Updates both player scores.
+     */
+    private updateScore(): void {
+        this.updateScoreElement("#player1Score", this.player1Score);
+        this.updateScoreElement("#player2Score", this.player2Score);
+    }
+
+    /**
+     * Updates one score element.
+     * @param selector Element selector.
+     * @param score Score to display.
+     */
+    private updateScoreElement(
+        selector: string,
+        score: number
+    ): void {
+        const element = document.querySelector<HTMLElement>(selector);
+
+        if (!element) return;
+
+        element.textContent = String(score);
+    }
+
+    /**
+     * Sets up the initial score.
+     */
+    private setupScore(): void {
+        this.player1Score = 0;
+        this.player2Score = 0;
+        this.currentPlayer = 1;
+        this.matchedPairs = 0;
+        this.gameFinished = false;
+        this.lockBoard = false;
+        this.resetBoard();
+        this.updateScore();
+    }
+
+    /**
+     * Turns unmatched cards back over.
+     */
+    private unflipCards(): void {
+        if (!this.hasSelectedCards()) return;
+
+        this.firstCard!.isFlipped = false;
+        this.secondCard!.isFlipped = false;
+
+        this.removeFlippedClasses();
+        this.switchPlayer();
+        this.resetBoard();
+    }
+
+    /**
+     * Removes the flipped class from both cards.
+     */
+    private removeFlippedClasses(): void {
+        this.firstCardElement?.classList.remove("is-flipped");
+        this.secondCardElement?.classList.remove("is-flipped");
+    }
+
+    /**
+     * Changes to the other player.
+     */
+    private switchPlayer(): void {
+        this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+    }
+
+    /**
+     * Resets the selected cards.
+     */
+    private resetBoard(): void {
+        this.firstCard = null;
+        this.secondCard = null;
+        this.firstCardElement = null;
+        this.secondCardElement = null;
+        this.lockBoard = false;
+    }
+
+    /**
+     * Checks whether all pairs have been found.
+     */
+    private checkGameWon(): void {
+        if (this.matchedPairs !== this.totalPairs || this.gameFinished) {
+            return;
+        }
+
+        this.gameFinished = true;
+        this.showWinnerPopup();
+    }
+
+    /**
+     * Shows the winner popup.
+     */
+    private showWinnerPopup(): void {
+        const winnerPopup = document.querySelector<HTMLElement>(
+            "#winnerPopup"
+        );
+
+        if (!winnerPopup) return;
+
+        this.updateWinnerPopup();
+        winnerPopup.classList.add("is-visible");
+    }
+
+    /**
+     * Sets up the winner popup observer.
+     */
+    private setupWinnerPopup(): void {
+        const winnerPopup = document.querySelector<HTMLElement>(
+            "#winnerPopup"
+        );
+
+        if (!winnerPopup) return;
+
+        const observer = new MutationObserver(() => {
+            if (winnerPopup.classList.contains("is-visible")) {
+                this.updateWinnerPopup();
+            }
+        });
+
+        observer.observe(winnerPopup, {
+            attributes: true,
+            attributeFilter: ["class"]
+        });
+    }
+
+    /**
+     * Updates the correct winner.
+     */
+    private updateWinnerPopup(): void {
+        const blueWinner = document.querySelector<HTMLElement>(
+            "#blueWinner"
+        );
+        const orangeWinner = document.querySelector<HTMLElement>(
+            "#orangeWinner"
+        );
+
+        blueWinner?.classList.remove("is-visible");
+        orangeWinner?.classList.remove("is-visible");
+
+        if (this.player1Score > this.player2Score) {
+            this.showOrangeWinner();
+            return;
+        }
+
+        if (this.player2Score > this.player1Score) {
+            this.showBlueWinner();
+        }
+    }
+
+    /**
+     * Shows the orange winner.
+     */
+    private showOrangeWinner(): void {
+        const winner = document.querySelector<HTMLElement>(
+            "#orangeWinner"
+        );
+        const score = document.querySelector<HTMLElement>(
+            "#orangeWinnerScore"
+        );
+
+        if (score) {
+            score.textContent = String(this.player1Score);
+        }
+
+        winner?.classList.add("is-visible");
+    }
+
+    /**
+     * Shows the blue winner.
+     */
+    private showBlueWinner(): void {
+        const winner = document.querySelector<HTMLElement>(
+            "#blueWinner"
+        );
+        const score = document.querySelector<HTMLElement>(
+            "#blueWinnerScore"
+        );
+
+        if (score) {
+            score.textContent = String(this.player2Score);
+        }
+
+        winner?.classList.add("is-visible");
+    }
+
+    /**
+     * Sets up the winner back buttons.
+     */
+    private setupWinnerButtons(): void {
+        const blueButton = document.querySelector<HTMLElement>(
+            "#blueBackHome"
+        );
+        const orangeButton = document.querySelector<HTMLElement>(
+            "#orangeBackHome"
+        );
+
+        blueButton?.addEventListener("click", () => this.leaveGame());
+        orangeButton?.addEventListener("click", () => this.leaveGame());
+    }
+
+    /**
+     * Sets up the exit popup.
+     */
+    private setupExitPopup(): void {
+        const exitButton = document.querySelector<HTMLElement>(
+            ".gaming__header-right-part-exit-game"
+        );
+        const exitPopup = document.querySelector<HTMLElement>(
+            "#exitPopup"
+        );
+        const popup = document.querySelector<HTMLElement>(".exit-popup");
+        const backToGame = document.querySelector<HTMLElement>(
+            "#backToGame"
+        );
+        const exitGame = document.querySelector<HTMLElement>("#exitGame");
+
+        exitButton?.addEventListener("click", () => {
+            this.openExitPopup(exitPopup);
+        });
+
+        backToGame?.addEventListener("click", () => this.leaveGame());
+
+        exitGame?.addEventListener("click", () => {
+            this.closeExitPopup(exitPopup);
+        });
+
+        exitPopup?.addEventListener("click", (event: MouseEvent) => {
+            this.handlePopupClick(event, popup, exitPopup);
+        });
+    }
+
+    /**
+     * Handles clicks outside the exit popup.
+     * @param event Mouse event.
+     * @param popup Popup element.
+     * @param exitPopup Popup overlay.
+     */
+    private handlePopupClick(
+        event: MouseEvent,
+        popup: HTMLElement | null,
+        exitPopup: HTMLElement
+    ): void {
+        const target = event.target;
+
+        if (
+            popup &&
+            target instanceof Node &&
+            !popup.contains(target)
+        ) {
+            this.closeExitPopup(exitPopup);
+        }
+    }
+
+    /**
+     * Opens the exit popup.
+     * @param popup Exit popup element.
+     */
+    private openExitPopup(popup: HTMLElement | null): void {
+        if (!popup) return;
+
         popup.classList.remove("is-closing");
-    }, 450);
+        popup.classList.add("is-visible");
+    }
+
+    /**
+     * Closes the exit popup.
+     * @param popup Exit popup element.
+     */
+    private closeExitPopup(popup: HTMLElement | null): void {
+        if (!popup) return;
+
+        popup.classList.add("is-closing");
+
+        setTimeout(() => {
+            popup.classList.remove("is-visible");
+            popup.classList.remove("is-closing");
+        }, 450);
+    }
+
+    /**
+     * Leaves the game and returns to settings.
+     */
+    private leaveGame(): void {
+        window.location.href = "/settings.html";
+    }
 }
 
-/**
- * Leaves the game and returns to settings.
- */
-function leaveGame(): void {
-    window.location.href = "/settings.html";
-}
-
-init();
+const game = new MemoryGame();
+game.init();
 
