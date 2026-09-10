@@ -1,4 +1,3 @@
-
 import "./styles/style.scss";
 import "./styles/food-theme.scss";
 
@@ -14,7 +13,6 @@ type CardElement = HTMLElement;
 let firstCard: CardElement | null = null;
 let secondCard: CardElement | null = null;
 let lockBoard = false;
-
 let player1Score = 0;
 let player2Score = 0;
 let currentPlayer = 1;
@@ -49,21 +47,16 @@ function init(): void {
  * Creates the selected number of food cards.
  */
 function createCards(): void {
-    const container =
-        document.querySelector<HTMLElement>(
-            ".memory__card-container"
-        );
+    const container = document.querySelector<HTMLElement>(
+        ".memory__card-container"
+    );
 
-    if (!container) {
-        return;
-    }
+    if (!container) return;
 
     const cardCount =
         Number(localStorage.getItem("cardCount")) || 16;
 
-    container.dataset.cardCount =
-        String(cardCount);
-
+    container.dataset.cardCount = String(cardCount);
     totalPairs = cardCount / 2;
 
     for (let i = 1; i <= totalPairs; i++) {
@@ -85,37 +78,23 @@ function renderCard(
     container: HTMLElement,
     cardData: Card
 ): void {
-    const card =
-        document.createElement("div");
+    const card = document.createElement("div");
 
-    card.classList.add(
-        "memory__card"
-    );
-
-    card.dataset.card =
-        String(cardData.id);
+    card.classList.add("memory__card");
+    card.dataset.card = String(cardData.id);
 
     card.innerHTML = `
         <div class="memory__card-inner">
-
             <div class="memory__card-front">
-
                 <img
                     src="/public/assets/images/food_card.png"
                     alt="Food card front"
                 >
-
             </div>
-
             <div
                 class="memory__card-back"
-                style="
-                    --food-card:
-                    url('${cardData.image}');
-                "
-            >
-            </div>
-
+                style="--food-card: url('${cardData.image}');"
+            ></div>
         </div>
     `;
 
@@ -126,21 +105,17 @@ function renderCard(
  * Sets up the memory cards.
  */
 function setupCards(): void {
-    const cards =
-        document.querySelectorAll<CardElement>(
-            ".memory__card"
-        );
+    const cards = document.querySelectorAll<CardElement>(
+        ".memory__card"
+    );
 
     shuffleCards(cards);
 
-    cards.forEach(
-        (card: CardElement) => {
-            card.addEventListener(
-                "click",
-                () => handleCardClick(card)
-            );
-        }
-    );
+    cards.forEach((card) => {
+        card.addEventListener("click", () => {
+            handleCardClick(card);
+        });
+    });
 }
 
 /**
@@ -149,43 +124,28 @@ function setupCards(): void {
 function shuffleCards(
     cards: NodeListOf<CardElement>
 ): void {
-    const container =
-        document.querySelector<HTMLElement>(
-            ".memory__card-container"
+    const container = document.querySelector<HTMLElement>(
+        ".memory__card-container"
+    );
+
+    if (!container) return;
+
+    const cardArray = Array.from(cards);
+
+    for (let i = cardArray.length - 1; i > 0; i--) {
+        const randomIndex = Math.floor(
+            Math.random() * (i + 1)
         );
 
-    if (!container) {
-        return;
+        [cardArray[i], cardArray[randomIndex]] = [
+            cardArray[randomIndex],
+            cardArray[i]
+        ];
     }
 
-    const cardArray =
-        Array.from(cards);
-
-    for (
-        let i = cardArray.length - 1;
-        i > 0;
-        i--
-    ) {
-        const randomIndex =
-            Math.floor(
-                Math.random() * (i + 1)
-            );
-
-        const currentCard =
-            cardArray[i];
-
-        cardArray[i] =
-            cardArray[randomIndex];
-
-        cardArray[randomIndex] =
-            currentCard;
-    }
-
-    cardArray.forEach(
-        (card: CardElement) => {
-            container.appendChild(card);
-        }
-    );
+    cardArray.forEach((card) => {
+        container.appendChild(card);
+    });
 }
 
 /**
@@ -202,9 +162,7 @@ function handleCardClick(
         return;
     }
 
-    card.classList.add(
-        "is-flipped"
-    );
+    card.classList.add("is-flipped");
 
     if (!firstCard) {
         firstCard = card;
@@ -212,7 +170,6 @@ function handleCardClick(
     }
 
     secondCard = card;
-
     checkMatch();
 }
 
@@ -220,54 +177,30 @@ function handleCardClick(
  * Checks if both selected cards match.
  */
 function checkMatch(): void {
-    if (
-        !firstCard ||
-        !secondCard
-    ) {
-        return;
-    }
+    if (!firstCard || !secondCard) return;
 
-    const firstValue =
-        firstCard.dataset.card;
+    const firstValue = firstCard.dataset.card;
+    const secondValue = secondCard.dataset.card;
 
-    const secondValue =
-        secondCard.dataset.card;
-
-    if (
-        firstValue === secondValue
-    ) {
+    if (firstValue === secondValue) {
         markCardsAsMatched();
-
         addPoint();
-
         matchedPairs++;
-
         resetBoard();
-
         checkGameWon();
-
         return;
     }
 
     lockBoard = true;
-
-    setTimeout(
-        unflipCards,
-        1000
-    );
+    setTimeout(unflipCards, 1000);
 }
 
 /**
  * Marks both selected cards as matched.
  */
 function markCardsAsMatched(): void {
-    firstCard?.classList.add(
-        "matched"
-    );
-
-    secondCard?.classList.add(
-        "matched"
-    );
+    firstCard?.classList.add("matched");
+    secondCard?.classList.add("matched");
 }
 
 /**
@@ -287,24 +220,20 @@ function addPoint(): void {
  * Updates both player scores.
  */
 function updateScore(): void {
-    const player1 =
-        document.querySelector<HTMLElement>(
-            "#player1Score"
-        );
+    const player1 = document.querySelector<HTMLElement>(
+        "#player1Score"
+    );
 
-    const player2 =
-        document.querySelector<HTMLElement>(
-            "#player2Score"
-        );
+    const player2 = document.querySelector<HTMLElement>(
+        "#player2Score"
+    );
 
     if (player1) {
-        player1.textContent =
-            String(player1Score);
+        player1.textContent = String(player1Score);
     }
 
     if (player2) {
-        player2.textContent =
-            String(player2Score);
+        player2.textContent = String(player2Score);
     }
 }
 
@@ -324,33 +253,19 @@ function setupScore(): void {
  * Changes to the other player.
  */
 function switchPlayer(): void {
-    currentPlayer =
-        currentPlayer === 1
-            ? 2
-            : 1;
+    currentPlayer = currentPlayer === 1 ? 2 : 1;
 }
 
 /**
  * Turns unmatched cards back over.
  */
 function unflipCards(): void {
-    if (
-        !firstCard ||
-        !secondCard
-    ) {
-        return;
-    }
+    if (!firstCard || !secondCard) return;
 
-    firstCard.classList.remove(
-        "is-flipped"
-    );
-
-    secondCard.classList.remove(
-        "is-flipped"
-    );
+    firstCard.classList.remove("is-flipped");
+    secondCard.classList.remove("is-flipped");
 
     switchPlayer();
-
     resetBoard();
 }
 
@@ -358,9 +273,7 @@ function unflipCards(): void {
  * Checks if all pairs have been found.
  */
 function checkGameWon(): void {
-    if (
-        matchedPairs === totalPairs
-    ) {
+    if (matchedPairs === totalPairs) {
         showWinnerPopup();
     }
 }
@@ -369,87 +282,59 @@ function checkGameWon(): void {
  * Shows the winner popup.
  */
 function showWinnerPopup(): void {
-    const winnerPopup =
-        document.querySelector<HTMLElement>(
-            "#winnerPopup"
-        );
+    const winnerPopup = document.querySelector<HTMLElement>(
+        "#winnerPopup"
+    );
 
-    if (!winnerPopup) {
-        return;
-    }
+    if (!winnerPopup) return;
 
     updateWinnerPopup();
-
-    winnerPopup.classList.add(
-        "is-visible"
-    );
+    winnerPopup.classList.add("is-visible");
 }
 
 /**
  * Sets up the winner popup observer.
  */
 function setupWinnerPopup(): void {
-    const winnerPopup =
-        document.querySelector<HTMLElement>(
-            "#winnerPopup"
-        );
-
-    if (!winnerPopup) {
-        return;
-    }
-
-    const observer =
-        new MutationObserver(() => {
-            if (
-                winnerPopup.classList.contains(
-                    "is-visible"
-                )
-            ) {
-                updateWinnerPopup();
-            }
-        });
-
-    observer.observe(
-        winnerPopup,
-        {
-            attributes: true,
-            attributeFilter: ["class"]
-        }
+    const winnerPopup = document.querySelector<HTMLElement>(
+        "#winnerPopup"
     );
+
+    if (!winnerPopup) return;
+
+    const observer = new MutationObserver(() => {
+        if (winnerPopup.classList.contains("is-visible")) {
+            updateWinnerPopup();
+        }
+    });
+
+    observer.observe(winnerPopup, {
+        attributes: true,
+        attributeFilter: ["class"]
+    });
 }
 
 /**
  * Updates the correct winner.
  */
 function updateWinnerPopup(): void {
-    const blueWinner =
-        document.querySelector<HTMLElement>(
-            "#blueWinner"
-        );
-
-    const orangeWinner =
-        document.querySelector<HTMLElement>(
-            "#orangeWinner"
-        );
-
-    blueWinner?.classList.remove(
-        "is-visible"
+    const blueWinner = document.querySelector<HTMLElement>(
+        "#blueWinner"
     );
 
-    orangeWinner?.classList.remove(
-        "is-visible"
+    const orangeWinner = document.querySelector<HTMLElement>(
+        "#orangeWinner"
     );
 
-    if (
-        player1Score > player2Score
-    ) {
+    blueWinner?.classList.remove("is-visible");
+    orangeWinner?.classList.remove("is-visible");
+
+    if (player1Score > player2Score) {
         showOrangeWinner();
         return;
     }
 
-    if (
-        player2Score > player1Score
-    ) {
+    if (player2Score > player1Score) {
         showBlueWinner();
     }
 }
@@ -458,73 +343,54 @@ function updateWinnerPopup(): void {
  * Shows the orange winner.
  */
 function showOrangeWinner(): void {
-    const winner =
-        document.querySelector<HTMLElement>(
-            "#orangeWinner"
-        );
+    const winner = document.querySelector<HTMLElement>(
+        "#orangeWinner"
+    );
 
-    const score =
-        document.querySelector<HTMLElement>(
-            "#orangeWinnerScore"
-        );
+    const score = document.querySelector<HTMLElement>(
+        "#orangeWinnerScore"
+    );
 
     if (score) {
-        score.textContent =
-            String(player1Score);
+        score.textContent = String(player1Score);
     }
 
-    winner?.classList.add(
-        "is-visible"
-    );
+    winner?.classList.add("is-visible");
 }
 
 /**
  * Shows the blue winner.
  */
 function showBlueWinner(): void {
-    const winner =
-        document.querySelector<HTMLElement>(
-            "#blueWinner"
-        );
+    const winner = document.querySelector<HTMLElement>(
+        "#blueWinner"
+    );
 
-    const score =
-        document.querySelector<HTMLElement>(
-            "#blueWinnerScore"
-        );
+    const score = document.querySelector<HTMLElement>(
+        "#blueWinnerScore"
+    );
 
     if (score) {
-        score.textContent =
-            String(player2Score);
+        score.textContent = String(player2Score);
     }
 
-    winner?.classList.add(
-        "is-visible"
-    );
+    winner?.classList.add("is-visible");
 }
 
 /**
  * Sets up the winner back buttons.
  */
 function setupWinnerButtons(): void {
-    const blueButton =
-        document.querySelector<HTMLElement>(
-            "#blueBackHome"
-        );
-
-    const orangeButton =
-        document.querySelector<HTMLElement>(
-            "#orangeBackHome"
-        );
-
-    blueButton?.addEventListener(
-        "click",
-        leaveGame
+    const blueButton = document.querySelector<HTMLElement>(
+        "#blueBackHome"
     );
 
-    orangeButton?.addEventListener(
-        "click",
-        leaveGame
+    const orangeButton = document.querySelector<HTMLElement>(
+        "#orangeBackHome"
     );
+
+    blueButton?.addEventListener("click", leaveGame);
+    orangeButton?.addEventListener("click", leaveGame);
 }
 
 /**
@@ -540,56 +406,39 @@ function resetBoard(): void {
  * Sets up the exit popup.
  */
 function setupExitPopup(): void {
-    const exitButton =
-        document.querySelector<HTMLElement>(
-            ".gaming__header-right-part-exit-game"
-        );
-
-    const exitPopup =
-        document.querySelector<HTMLElement>(
-            "#exitPopup"
-        );
-
-    const popup =
-        document.querySelector<HTMLElement>(
-            ".exit-popup"
-        );
-
-    const backToGame =
-        document.querySelector<HTMLElement>(
-            "#backToGame"
-        );
-
-    const exitGame =
-        document.querySelector<HTMLElement>(
-            "#exitGame"
-        );
-
-    exitButton?.addEventListener(
-        "click",
-        () => openExitPopup(exitPopup)
+    const exitButton = document.querySelector<HTMLElement>(
+        ".gaming__header-right-part-exit-game"
     );
 
-    backToGame?.addEventListener(
-        "click",
-        leaveGame
+    const exitPopup = document.querySelector<HTMLElement>(
+        "#exitPopup"
     );
 
-    exitGame?.addEventListener(
-        "click",
-        () => closeExitPopup(exitPopup)
+    const popup = document.querySelector<HTMLElement>(
+        ".exit-popup"
     );
 
-    exitPopup?.addEventListener(
-        "click",
-        (event: MouseEvent) => {
-            handlePopupClick(
-                event,
-                popup,
-                exitPopup
-            );
-        }
+    const backToGame = document.querySelector<HTMLElement>(
+        "#backToGame"
     );
+
+    const exitGame = document.querySelector<HTMLElement>(
+        "#exitGame"
+    );
+
+    exitButton?.addEventListener("click", () => {
+        openExitPopup(exitPopup);
+    });
+
+    backToGame?.addEventListener("click", leaveGame);
+
+    exitGame?.addEventListener("click", () => {
+        closeExitPopup(exitPopup);
+    });
+
+    exitPopup?.addEventListener("click", (event: MouseEvent) => {
+        handlePopupClick(event, popup, exitPopup);
+    });
 }
 
 /**
@@ -600,8 +449,7 @@ function handlePopupClick(
     popup: HTMLElement | null,
     exitPopup: HTMLElement
 ): void {
-    const target =
-        event.target;
+    const target = event.target;
 
     if (
         popup &&
@@ -618,17 +466,10 @@ function handlePopupClick(
 function openExitPopup(
     popup: HTMLElement | null
 ): void {
-    if (!popup) {
-        return;
-    }
+    if (!popup) return;
 
-    popup.classList.remove(
-        "is-closing"
-    );
-
-    popup.classList.add(
-        "is-visible"
-    );
+    popup.classList.remove("is-closing");
+    popup.classList.add("is-visible");
 }
 
 /**
@@ -637,22 +478,13 @@ function openExitPopup(
 function closeExitPopup(
     popup: HTMLElement | null
 ): void {
-    if (!popup) {
-        return;
-    }
+    if (!popup) return;
 
-    popup.classList.add(
-        "is-closing"
-    );
+    popup.classList.add("is-closing");
 
     setTimeout(() => {
-        popup.classList.remove(
-            "is-visible"
-        );
-
-        popup.classList.remove(
-            "is-closing"
-        );
+        popup.classList.remove("is-visible");
+        popup.classList.remove("is-closing");
     }, 450);
 }
 
@@ -660,8 +492,7 @@ function closeExitPopup(
  * Leaves the game and returns to settings.
  */
 function leaveGame(): void {
-    window.location.href =
-        "/settings.html";
+    window.location.href = "/settings.html";
 }
 
 init();
