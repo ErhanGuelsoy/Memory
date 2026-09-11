@@ -271,6 +271,7 @@ class MemoryGame {
                 card,
                 element
             );
+
             return;
         }
 
@@ -300,7 +301,7 @@ class MemoryGame {
 
     /**
      * Selects the first card.
-     * @param card Selected card.
+     * @param card Card object.
      * @param element Card element.
      */
     private selectFirstCard(
@@ -313,7 +314,7 @@ class MemoryGame {
 
     /**
      * Selects the second card.
-     * @param card Selected card.
+     * @param card Card object.
      * @param element Card element.
      */
     private selectSecondCard(
@@ -340,6 +341,7 @@ class MemoryGame {
             this.secondCard.id
         ) {
             this.handleMatch();
+
             return;
         }
 
@@ -702,16 +704,16 @@ class MemoryGame {
 
         backToGame?.addEventListener(
             "click",
-            () => this.leaveGame()
-        );
-
-        exitGame?.addEventListener(
-            "click",
             () => {
                 this.closeExitPopup(
                     exitPopup
                 );
             }
+        );
+
+        exitGame?.addEventListener(
+            "click",
+            () => this.leaveGame()
         );
 
         exitPopup?.addEventListener(
@@ -801,11 +803,11 @@ class MemoryGame {
     }
 
     /**
-     * Leaves the game.
+     * Leaves the game and returns to settings.
      */
     private leaveGame(): void {
         window.location.href =
-            "/settings.html";
+            `${import.meta.env.BASE_URL}settings.html`;
     }
 }
 
