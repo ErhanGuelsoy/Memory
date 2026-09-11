@@ -87,7 +87,6 @@ function setupThemePreview(): void {
 
     themes.forEach(
         (theme: HTMLElement) => {
-
             theme.addEventListener(
                 "mouseenter",
                 () => updatePreview(
@@ -322,57 +321,77 @@ function navigateToGame(): void {
  * Restores saved settings.
  */
 function restoreSettings(): void {
+    restoreTheme();
+    restorePlayer();
+    restoreCardCount();
+}
+
+/**
+ * Restores the selected theme.
+ */
+function restoreTheme(): void {
     const savedTheme =
         localStorage.getItem(
             "selectedTheme"
         );
 
-    if (savedTheme) {
-        const theme =
-            document.querySelector<HTMLElement>(
-                `[data-theme="${savedTheme}"]`
-            );
-
-        if (theme) {
-            theme.classList.add(
-                "is-selected"
-            );
-        }
+    if (!savedTheme) {
+        return;
     }
 
+    const theme =
+        document.querySelector<HTMLElement>(
+            `[data-theme="${savedTheme}"]`
+        );
+
+    theme?.classList.add(
+        "is-selected"
+    );
+}
+
+/**
+ * Restores the selected player.
+ */
+function restorePlayer(): void {
     const savedPlayer =
         localStorage.getItem(
             "selectedPlayer"
+        ) || "blue";
+
+    localStorage.setItem(
+        "selectedPlayer",
+        savedPlayer
+    );
+
+    const player =
+        document.querySelector<HTMLElement>(
+            `[data-player="${savedPlayer}"]`
         );
 
-    if (savedPlayer) {
-        const player =
-            document.querySelector<HTMLElement>(
-                `[data-player="${savedPlayer}"]`
-            );
+    player?.classList.add(
+        "is-selected"
+    );
+}
 
-        if (player) {
-            player.classList.add(
-                "is-selected"
-            );
-        }
-    }
-
+/**
+ * Restores the selected board size.
+ */
+function restoreCardCount(): void {
     const savedCards =
         localStorage.getItem(
             "cardCount"
         );
 
-    if (savedCards) {
-        const cards =
-            document.querySelector<HTMLElement>(
-                `[data-cards="${savedCards}"]`
-            );
-
-        if (cards) {
-            cards.classList.add(
-                "is-selected"
-            );
-        }
+    if (!savedCards) {
+        return;
     }
+
+    const cards =
+        document.querySelector<HTMLElement>(
+            `[data-cards="${savedCards}"]`
+        );
+
+    cards?.classList.add(
+        "is-selected"
+    );
 }
