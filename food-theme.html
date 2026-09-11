@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -8,8 +7,6 @@
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="/public/src/styles/food-theme.scss">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -38,14 +35,13 @@
                         gaming__player-score--orange
                     ">
 
-                        <img class="gaming__chess" src="/public/assets/images/chess_orange_left.png" alt="Orange chess">
+                        <img class="gaming__chess" src="public/assets/images/chess_orange_left.png" alt="Orange chess">
 
                         <span id="player1Score">
                             0
                         </span>
 
                     </div>
-
 
                     <!-- PLAYER 2 - BLUE -->
 
@@ -54,7 +50,7 @@
                         gaming__player-score--blue
                     ">
 
-                        <img class="gaming__chess" src="/public/assets/images/chess_blue_right.png" alt="Blue chess">
+                        <img class="gaming__chess" src="public/assets/images/chess_blue_right.png" alt="Blue chess">
 
                         <span id="player2Score">
                             0
@@ -64,36 +60,33 @@
 
                 </div>
 
-
                 <div class="gaming__header-current-player">
 
-                    <img src="/public/assets/images/Frame_current_player.png" alt="Current player">
+                    <img src="public/assets/images/Frame_current_player.png" alt="Current player">
 
                 </div>
 
             </div>
 
+            <!-- EXIT GAME -->
 
             <div class="gaming__header-right-part-exit-game">
 
-                <img src="/public/assets/images/button_exit.png" alt="Exit game">
+                <img src="public/assets/images/button_exit.png" alt="Exit game">
 
             </div>
 
         </header>
 
-
         <!-- MEMORY CARDS -->
 
         <main class="memory">
 
-            <div class="memory__card-container" data-card-count="16">
-            </div>
+            <div class="memory__card-container" data-card-count="16"></div>
 
         </main>
 
     </section>
-
 
     <!-- WINNER POPUP -->
 
@@ -101,21 +94,19 @@
 
         <div class="winner-popup">
 
-
             <!-- BLUE WINNER -->
 
             <div class="winner-popup__container" id="blueWinner">
 
-                <img class="winner-popup__text" src="/public/assets/images/winner_blue_chess.png"
+                <img class="winner-popup__text" src="public/assets/images/winner_blue_chess.png"
                     alt="Blue player winner">
-
 
                 <div class="
                     winner-popup__score
                     winner-popup__score--blue
                 ">
 
-                    <img class="winner-popup__chess" src="/public/assets/images/winner_chess_blue_orange_layout.png"
+                    <img class="winner-popup__chess" src="public/assets/images/winner_chess_blue_orange_layout.png"
                         alt="Blue winner chess">
 
                     <span id="blueWinnerScore">
@@ -124,29 +115,26 @@
 
                 </div>
 
-
                 <!-- BACK TO SETTINGS -->
 
-                <img class="winner-popup__back-home" id="blueBackHome" src="/public/assets/images/back_home_button.png"
+                <img class="winner-popup__back-home" id="blueBackHome" src="public/assets/images/back_home_button.png"
                     alt="Back to settings">
 
             </div>
-
 
             <!-- ORANGE WINNER -->
 
             <div class="winner-popup__container" id="orangeWinner">
 
-                <img class="winner-popup__text" src="/public/assets/images/winner_text_orange.png"
+                <img class="winner-popup__text" src="public/assets/images/winner_text_orange.png"
                     alt="Orange player winner">
-
 
                 <div class="
                     winner-popup__score
                     winner-popup__score--orange
                 ">
 
-                    <img class="winner-popup__chess" src="/public/assets/images/winner_chess_orange.png"
+                    <img class="winner-popup__chess" src="public/assets/images/winner_chess_orange.png"
                         alt="Orange winner chess">
 
                     <span id="orangeWinnerScore">
@@ -155,18 +143,16 @@
 
                 </div>
 
-
                 <!-- BACK TO SETTINGS -->
 
-                <img class="winner-popup__back-home" id="orangeBackHome"
-                    src="/public/assets/images/back_home_button.png" alt="Back to settings">
+                <img class="winner-popup__back-home" id="orangeBackHome" src="public/assets/images/back_home_button.png"
+                    alt="Back to settings">
 
             </div>
 
         </div>
 
     </div>
-
 
     <!-- EXIT POPUP -->
 
@@ -174,24 +160,19 @@
 
         <div class="exit-popup">
 
-            <img class="exit-popup__image" src="/public/assets/images/popup_exit_button_food.png" alt="Exit game popup">
+            <img class="exit-popup__image" src="public/assets/images/popup_exit_button_food.png" alt="Exit game popup">
 
+            <div class="exit-popup__back-area" id="backToGame"></div>
 
-            <div class="exit-popup__back-area" id="backToGame">
-            </div>
-
-
-            <div class="exit-popup__exit-area" id="exitGame">
-            </div>
+            <div class="exit-popup__exit-area" id="exitGame"></div>
 
         </div>
 
     </div>
 
-
     <!-- FOOD THEME TYPESCRIPT -->
 
-    <script type="module" src="/public/src/food-theme.ts"></script>
+    <script type="module" src="/src/food-theme.ts"></script>
 
 </body>
 

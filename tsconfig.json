@@ -22,6 +22,6 @@
       "resolveJsonModule": true,           // erlaubt `import data from './data.json'`
       "forceConsistentCasingInFileNames": true
     },
-    "include": ["src", "main.ts", "src/styles/vite.config.ts"],                    // nur eigenen Code kompilieren
+    "include": ["src", "main.ts", "src/styles/vite.config.ts", "src/coding-vibe-theme.ts"],                    // nur eigenen Code kompilieren
     "exclude": ["node_modules", "dist"]    // keine Fremd- oder Build-Dateien prüfen
   }

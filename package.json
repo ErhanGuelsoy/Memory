@@ -2,11 +2,11 @@
   "name": "memory-cache",
   "version": "1.0.0",
   "description": "",
-  "scripts": {
-      "dev": "vite --open /settings.html",
-      "build": "tsc --noEmit && vite build",
-      "preview": "vite preview"
-  },
+"scripts": {
+  "dev": "vite",
+  "build": "tsc -noEmit && vite build",
+  "preview": "vite preview"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",

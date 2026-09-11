@@ -28,7 +28,7 @@ function setupPlayButton(): void {
         "click",
         () => {
             window.location.href =
-                "/settings.html";
+                "./settings.html";
         }
     );
 }
