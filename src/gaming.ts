@@ -1,3 +1,4 @@
+
 import "./styles/style.scss";
 import "./styles/gaming-screen.scss";
 
@@ -499,7 +500,7 @@ class MemoryGame {
     }
 
     /**
-     * Checks whether the game is won.
+     * Checks whether the game is won or tied.
      */
     private checkGameWon(): void {
         if (
@@ -510,7 +511,39 @@ class MemoryGame {
         }
 
         this.gameFinished = true;
+
+        if (this.player1Score === this.player2Score) {
+            this.showDrawPopup();
+            return;
+        }
+
         this.showWinnerPopup();
+    }
+
+    /**
+     * Shows the draw popup.
+     */
+    private showDrawPopup(): void {
+        const popup =
+            document.querySelector<HTMLElement>(
+                "#winnerPopup"
+            );
+
+        const drawWinner =
+            document.querySelector<HTMLElement>(
+                "#drawWinner"
+            );
+
+        if (!popup || !drawWinner) {
+            return;
+        }
+
+        this.hideWinnerContainers();
+
+        drawWinner.style.display = "flex";
+        drawWinner.classList.add("is-visible");
+
+        popup.classList.add("is-visible");
     }
 
     /**
@@ -533,12 +566,12 @@ class MemoryGame {
     }
 
     /**
-     * Hides winner containers.
+     * Hides winner and draw containers.
      */
     private hideWinnerContainers(): void {
         const winners =
             document.querySelectorAll<HTMLElement>(
-                "#blueWinner, #orangeWinner"
+                "#blueWinner, #orangeWinner, #drawWinner"
             );
 
         winners.forEach((winner: HTMLElement) => {
@@ -607,7 +640,7 @@ class MemoryGame {
     private setupWinnerButtons(): void {
         const buttons =
             document.querySelectorAll<HTMLElement>(
-                "#blueBackHome, #orangeBackHome"
+                "#blueBackHome, #orangeBackHome, #drawBackHome"
             );
 
         buttons.forEach((button: HTMLElement) => {
@@ -741,4 +774,4 @@ class MemoryGame {
 
 const game = new MemoryGame();
 
-game.init();
+game.init();    
