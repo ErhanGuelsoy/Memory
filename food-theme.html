@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -28,12 +29,10 @@
 
                 <div class="gaming__blue-orange-box">
 
-                    <!-- PLAYER 1 - ORANGE -->
-
                     <div class="
-                    gaming__player-score
-                    gaming__player-score--orange
-                " data-player="orange">
+                        gaming__player-score
+                        gaming__player-score--orange
+                    " data-player="orange">
 
                         <img class="gaming__chess" src="public/assets/images/chess_orange_left.png" alt="Orange chess">
 
@@ -43,12 +42,10 @@
 
                     </div>
 
-                    <!-- PLAYER 2 - BLUE -->
-
                     <div class="
-                    gaming__player-score
-                    gaming__player-score--blue
-                " data-player="blue">
+                        gaming__player-score
+                        gaming__player-score--blue
+                    " data-player="blue">
 
                         <img class="gaming__chess" src="public/assets/images/chess_blue_right.png" alt="Blue chess">
 
@@ -84,8 +81,6 @@
 
     </section>
 
-    <!-- WINNER POPUP -->
-
     <div class="winner-popup-overlay" id="winnerPopup">
 
         <div class="winner-popup">
@@ -96,9 +91,9 @@
                     alt="Blue player winner">
 
                 <div class="
-                winner-popup__score
-                winner-popup__score--blue
-            ">
+                    winner-popup__score
+                    winner-popup__score--blue
+                ">
 
                     <img class="winner-popup__chess" src="public/assets/images/winner_chess_blue_orange_layout.png"
                         alt="Blue winner chess">
@@ -120,9 +115,9 @@
                     alt="Orange player winner">
 
                 <div class="
-                winner-popup__score
-                winner-popup__score--orange
-            ">
+                    winner-popup__score
+                    winner-popup__score--orange
+                ">
 
                     <img class="winner-popup__chess" src="public/assets/images/winner_chess_orange.png"
                         alt="Orange winner chess">
@@ -138,11 +133,18 @@
 
             </div>
 
+            <div class="winner-popup__container" id="drawWinner">
+
+                <img class="winner-popup__draw" src="public/assets/images/draw_food-theme.png" alt="Draw">
+
+                <img class="winner-popup__back-home" id="drawBackHome" src="public/assets/images/back_home_button.png"
+                    alt="Back to settings">
+
+            </div>
+
         </div>
 
     </div>
-
-    <!-- EXIT POPUP -->
 
     <div class="exit-popup-overlay" id="exitPopup">
 
@@ -159,7 +161,6 @@
     </div>
 
     <script type="module" src="/src/food-theme.ts"></script>
- 
 
 </body>
 
