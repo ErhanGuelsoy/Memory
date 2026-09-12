@@ -345,7 +345,6 @@ body {
         position: absolute;
         display: flex;
         align-items: center;
-        width: 546px;
         height: 81px;
         right: 0;
         bottom: -20px;
@@ -409,13 +408,6 @@ body {
         margin-right: 40px;
     }
 
-    .game__component-container {
-        width: 42%;
-    }
-
-    .selectionBoard__bar {
-        width: 50%;
-    }
 }
 
 @media (max-width: 800px) {
@@ -442,14 +434,12 @@ body {
         position: relative;
         top: auto;
         right: auto;
-        width: 100%;
         height: auto;
         margin-top: 40px;
         padding: 10px;
     }
 
     .game__component-container img {
-        width: 100%;
         height: auto;
     }
 
