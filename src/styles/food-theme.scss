@@ -1,3 +1,4 @@
+
 body {
     box-sizing: border-box;
     margin: 0;
@@ -407,20 +408,22 @@ body {
 .exit-popup__exit-area {
     position: absolute;
     left: 50%;
-    width: 65%;
+    width: 85%;
     cursor: pointer;
     transform: translateX(-50%);
+    z-index: 2;
 }
 
 .exit-popup__back-area {
-    top: 62%;
-    height: 13%;
+    top: 58%;
+    height: 19%;
 }
 
 .exit-popup__exit-area {
-    top: 77%;
-    height: 13%;
+    top: 76%;
+    height: 19%;
 }
+
 
 @keyframes exit-popup-slide-down {
     from {
@@ -441,3 +444,4 @@ body {
         transform: translateY(-100vh);
     }
 }
+
