@@ -122,14 +122,17 @@ body {
             &::after {
                 content: "";
                 position: absolute;
-                left: calc(100% + 2px);
-                top: -4px;
-                width: 32px;
-                height: 32px;
+                display: block;
+                left: calc(100% + 8px);
+                top: 50%;
+                width: 41px;
+                height: 41px;
+                transform: translateY(-50%);
                 background-image: url("/public/assets/images/Line 3.png");
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: contain;
+                opacity: 1;
             }
         }
 
@@ -211,15 +214,16 @@ body {
             &::after {
                 content: "";
                 position: absolute;
+                display: block;
                 left: calc(100% + 8px);
                 top: 50%;
                 width: 41px;
-                height: 3px;
+                height: 41px;
                 transform: translateY(-50%);
                 background-image: url("/public/assets/images/Line 3.png");
                 background-repeat: no-repeat;
                 background-position: center;
-                background-size: 41px 3px;
+                background-size: contain;
                 opacity: 1;
             }
         }
@@ -241,7 +245,8 @@ body {
                 z-index: 2;
             }
         }
-    }}
+    }
+}
 
 .game {
     &__component-container {
@@ -251,7 +256,6 @@ body {
         justify-content: center;
         right: 0;
         top: 0;
-        padding: 17px 7px;
         border-radius: 16px;
         overflow: hidden;
 
@@ -396,7 +400,6 @@ body {
 }
 
 @media (max-width: 1200px) {
-
     .settings__text {
         margin-left: 40px;
     }
@@ -406,11 +409,9 @@ body {
         margin-left: 40px;
         margin-right: 40px;
     }
-
 }
 
 @media (max-width: 800px) {
-
     .settings__text {
         width: 251px;
         margin-top: 50px;
