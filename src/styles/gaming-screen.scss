@@ -590,27 +590,22 @@ body {
 .exit-popup__back-area,
 .exit-popup__exit-area {
     position: absolute;
-
     left: 50%;
-
-    width: 65%;
-
+    width: 90%;
     cursor: pointer;
-
     transform: translateX(-50%);
 }
 
 .exit-popup__back-area {
-    top: 62%;
-
-    height: 13%;
+    top: 58%;
+    height: 17%;
 }
 
 .exit-popup__exit-area {
-    top: 77%;
-
-    height: 13%;
+    top: 76%;
+    height: 17%;
 }
+
 
 @keyframes exit-popup-slide-down {
 
