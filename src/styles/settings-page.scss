@@ -211,14 +211,16 @@ body {
             &::after {
                 content: "";
                 position: absolute;
-                left: calc(100% + 2px);
-                top: -4px;
-                width: 32px;
-                height: 32px;
+                left: calc(100% + 8px);
+                top: 50%;
+                width: 41px;
+                height: 3px;
+                transform: translateY(-50%);
                 background-image: url("/public/assets/images/Line 3.png");
                 background-repeat: no-repeat;
                 background-position: center;
-                background-size: contain;
+                background-size: 41px 3px;
+                opacity: 1;
             }
         }
 
@@ -239,8 +241,7 @@ body {
                 z-index: 2;
             }
         }
-    }
-}
+    }}
 
 .game {
     &__component-container {

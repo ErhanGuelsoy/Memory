@@ -582,7 +582,6 @@ body {
 
 .exit-popup__image {
     display: block;
-
     width: 100%;
     height: auto;
 }
@@ -590,22 +589,20 @@ body {
 .exit-popup__back-area,
 .exit-popup__exit-area {
     position: absolute;
-    left: 50%;
-    width: 90%;
+    top: 58%;
+    height: 57px;
     cursor: pointer;
-    transform: translateX(-50%);
 }
 
 .exit-popup__back-area {
-    top: 58%;
-    height: 17%;
+    left: calc(50% - 165px);
+    width: 182px;
 }
 
 .exit-popup__exit-area {
-    top: 76%;
-    height: 17%;
+    left: calc(50% + 17px);
+    width: 148px;
 }
-
 
 @keyframes exit-popup-slide-down {
 

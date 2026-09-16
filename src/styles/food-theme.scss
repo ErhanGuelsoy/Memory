@@ -410,21 +410,19 @@ body {
 .exit-popup__back-area,
 .exit-popup__exit-area {
     position: absolute;
-    left: 50%;
-    width: 85%;
+    top: 58%;
+    height: 57px;
     cursor: pointer;
-    transform: translateX(-50%);
-    z-index: 2;
 }
 
 .exit-popup__back-area {
-    top: 58%;
-    height: 19%;
+    left: calc(50% - 165px);
+    width: 182px;
 }
 
 .exit-popup__exit-area {
-    top: 76%;
-    height: 19%;
+    left: calc(50% + 17px);
+    width: 148px;
 }
 
 @keyframes exit-popup-slide-down {
