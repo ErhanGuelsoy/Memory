@@ -118,7 +118,7 @@ function updatePreview(
 
     if (themeName === "code-vibes") {
         preview.src =
-            "public/assets/images/Frame 629.png";
+            "/assets/images/Frame 629.png";
 
         preview.alt =
             "Code Vibes game preview";
@@ -128,7 +128,7 @@ function updatePreview(
 
     if (themeName === "foods") {
         preview.src =
-            "public/assets/images/food_frame.png";
+            "/assets/images/food_frame.png";
 
         preview.alt =
             "Foods game preview";

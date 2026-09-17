@@ -163,7 +163,7 @@ class MemoryGame {
 
         for (let i = 1; i <= this.totalPairs; i++) {
             const image =
-                `public/assets/images/Code vibes card ${i}.png`;
+                `/assets/images/Code vibes card ${i}.png`;
 
             cards.push(
                 new Card({

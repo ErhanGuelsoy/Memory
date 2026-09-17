@@ -142,7 +142,7 @@ class MemoryGame {
 
         for (let i = 1; i <= this.totalPairs; i++) {
             const image =
-                `public/assets/images/food card ${String(i).padStart(2, "0")}.png`;
+                `/assets/images/food card ${String(i).padStart(2, "0")}.png`;
 
             cards.push(new Card({ id: i, image }));
             cards.push(new Card({ id: i, image }));
@@ -212,7 +212,7 @@ class MemoryGame {
             <div class="memory__card-inner">
                 <div class="memory__card-front">
                     <img
-                        src="public/assets/images/food_card.png"
+                        src="/assets/images/food_card.png"
                         alt="Food card front"
                     >
                 </div>
