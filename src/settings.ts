@@ -1,397 +1,322 @@
 import "./styles/style.scss";
 import "./styles/settings-page.scss";
 
-init();
-
 /**
- * Initializes the settings page.
+ * Updates the selected theme.
+ * @param theme Selected theme element.
+ * @param themes All theme elements.
  */
-function init(): void {
-    setupThemeSelection();
-    setupThemePreview();
-    setupPlayerSelection();
-    setupCardSelection();
-    setupStartButton();
-    restoreSettings();
-}
-
-/**
- * Sets up the theme selection.
- */
-function setupThemeSelection(): void {
-    const themes =
-        document.querySelectorAll<HTMLElement>(
-            "[data-theme]"
-        );
-
-    themes.forEach(
-        (theme: HTMLElement) => {
-            theme.addEventListener(
-                "click",
-                () => selectTheme(theme)
-            );
-        }
+function selectTheme(
+    theme: HTMLElement,
+    themes: NodeListOf<HTMLElement>
+): void {
+    themes.forEach((item) =>
+        item.classList.remove("is-selected")
     );
-}
-
-/**
- * Stores the selected theme.
- */
-function selectTheme(theme: HTMLElement): void {
-    const selectedTheme =
-        theme.dataset.theme;
-
-    if (!selectedTheme) {
-        return;
-    }
-
+    theme.classList.add("is-selected");
     localStorage.setItem(
         "selectedTheme",
-        selectedTheme
-    );
-
-    document
-        .querySelectorAll<HTMLElement>(
-            "[data-theme]"
-        )
-        .forEach(
-            (item: HTMLElement) => {
-                item.classList.remove(
-                    "is-selected"
-                );
-            }
-        );
-
-    theme.classList.add(
-        "is-selected"
-    );
-}
-
-/**
- * Sets up the theme preview.
- */
-function setupThemePreview(): void {
-    const themes =
-        document.querySelectorAll<HTMLElement>(
-            "[data-theme]"
-        );
-
-    const preview =
-        document.querySelector<HTMLImageElement>(
-            ".game__component-container img"
-        );
-
-    if (!preview) {
-        return;
-    }
-
-    themes.forEach(
-        (theme: HTMLElement) => {
-            theme.addEventListener(
-                "mouseenter",
-                () => updatePreview(
-                    theme,
-                    preview
-                )
-            );
-
-            theme.addEventListener(
-                "click",
-                () => updatePreview(
-                    theme,
-                    preview
-                )
-            );
-        }
+        theme.dataset.theme || "code-vibes"
     );
 }
 
 /**
  * Updates the preview image.
+ * @param theme Selected theme element.
+ * @param preview Preview image element.
  */
 function updatePreview(
     theme: HTMLElement,
     preview: HTMLImageElement
 ): void {
-    const themeName =
-        theme.dataset.theme;
+    const themeName = theme.dataset.theme;
+    const baseUrl = import.meta.env.BASE_URL;
 
     if (themeName === "code-vibes") {
         preview.src =
-            "/assets/images/Frame 629.png";
-
-        preview.alt =
-            "Code Vibes game preview";
-
+            `${baseUrl}assets/images/Frame 629.png`;
+        preview.alt = "Code Vibes game preview";
         return;
     }
 
     if (themeName === "foods") {
         preview.src =
-            "/assets/images/food_frame.png";
-
-        preview.alt =
-            "Foods game preview";
-
-        return;
+            `${baseUrl}assets/images/food_frame.png`;
+        preview.alt = "Foods game preview";
     }
 }
 
 /**
- * Sets up player selection.
+ * Selects the player.
+ * @param player Selected player element.
+ * @param players All player elements.
  */
-function setupPlayerSelection(): void {
-    const players =
-        document.querySelectorAll<HTMLElement>(
-            "[data-player]"
-        );
-
-    players.forEach(
-        (player: HTMLElement) => {
-            player.addEventListener(
-                "click",
-                () => selectPlayer(player)
-            );
-        }
+function selectPlayer(
+    player: HTMLElement,
+    players: NodeListOf<HTMLElement>
+): void {
+    players.forEach((item) =>
+        item.classList.remove("is-selected")
     );
-}
-
-/**
- * Stores the selected player.
- */
-function selectPlayer(player: HTMLElement): void {
-    const selectedPlayer =
-        player.dataset.player;
-
-    if (!selectedPlayer) {
-        return;
-    }
-
+    player.classList.add("is-selected");
     localStorage.setItem(
         "selectedPlayer",
-        selectedPlayer
-    );
-
-    document
-        .querySelectorAll<HTMLElement>(
-            "[data-player]"
-        )
-        .forEach(
-            (item: HTMLElement) => {
-                item.classList.remove(
-                    "is-selected"
-                );
-            }
-        );
-
-    player.classList.add(
-        "is-selected"
+        player.dataset.player || "blue"
     );
 }
 
 /**
- * Sets up the board size selection.
+ * Selects the board size.
+ * @param cards Selected board size element.
+ * @param cardOptions All board size elements.
  */
-function setupCardSelection(): void {
-    const cardOptions =
-        document.querySelectorAll<HTMLElement>(
-            "[data-cards]"
-        );
-
-    cardOptions.forEach(
-        (option: HTMLElement) => {
-            option.addEventListener(
-                "click",
-                () => selectCardCount(option)
-            );
-        }
-    );
-}
-
-/**
- * Stores the selected board size.
- */
-function selectCardCount(
-    option: HTMLElement
+function selectBoardSize(
+    cards: HTMLElement,
+    cardOptions: NodeListOf<HTMLElement>
 ): void {
-    const cardCount =
-        option.dataset.cards;
+    cardOptions.forEach((item) =>
+        item.classList.remove("is-selected")
+    );
+    cards.classList.add("is-selected");
+    localStorage.setItem(
+        "cardCount",
+        cards.dataset.cards || "16"
+    );
+}
 
-    if (!cardCount) {
+/**
+ * Finds the selected theme.
+ * @param themes Theme elements.
+ * @param selectedTheme Saved theme.
+ * @returns Selected theme element.
+ */
+function findTheme(
+    themes: NodeListOf<HTMLElement>,
+    selectedTheme: string
+): HTMLElement | undefined {
+    return Array.from(themes).find(
+        (item) => item.dataset.theme === selectedTheme
+    );
+}
+
+/**
+ * Finds the selected player.
+ * @param players Player elements.
+ * @param selectedPlayer Saved player.
+ * @returns Selected player element.
+ */
+function findPlayer(
+    players: NodeListOf<HTMLElement>,
+    selectedPlayer: string
+): HTMLElement | undefined {
+    return Array.from(players).find(
+        (item) => item.dataset.player === selectedPlayer
+    );
+}
+
+/**
+ * Finds the selected board size.
+ * @param cardOptions Board size elements.
+ * @param cardCount Saved card count.
+ * @returns Selected board size element.
+ */
+function findCards(
+    cardOptions: NodeListOf<HTMLElement>,
+    cardCount: string
+): HTMLElement | undefined {
+    return Array.from(cardOptions).find(
+        (item) => item.dataset.cards === cardCount
+    );
+}
+
+/**
+ * Applies the selected theme.
+ * @param theme Selected theme element.
+ * @param preview Preview image.
+ */
+function applyTheme(
+    theme: HTMLElement | undefined,
+    preview: HTMLImageElement
+): void {
+    if (!theme) return;
+    theme.classList.add("is-selected");
+    updatePreview(theme, preview);
+}
+
+/**
+ * Applies the selected player.
+ * @param player Selected player element.
+ */
+function applyPlayer(player: HTMLElement | undefined): void {
+    if (player) {
+        player.classList.add("is-selected");
+    }
+}
+
+/**
+ * Applies the selected board size.
+ * @param cards Selected board size element.
+ */
+function applyCards(cards: HTMLElement | undefined): void {
+    if (cards) {
+        cards.classList.add("is-selected");
+    }
+}
+
+/**
+ * Loads the saved settings.
+ * @param themes Theme elements.
+ * @param players Player elements.
+ * @param cardOptions Board size elements.
+ * @param preview Preview image.
+ */
+function loadSettings(
+    themes: NodeListOf<HTMLElement>,
+    players: NodeListOf<HTMLElement>,
+    cardOptions: NodeListOf<HTMLElement>,
+    preview: HTMLImageElement
+): void {
+    const themeName =
+        localStorage.getItem("selectedTheme") || "code-vibes";
+    const playerName =
+        localStorage.getItem("selectedPlayer") || "blue";
+    const cardCount =
+        localStorage.getItem("cardCount") || "16";
+
+    applyTheme(findTheme(themes, themeName), preview);
+    applyPlayer(findPlayer(players, playerName));
+    applyCards(findCards(cardOptions, cardCount));
+}
+
+/**
+ * Starts the selected game.
+ */
+function startGame(): void {
+    const theme =
+        localStorage.getItem("selectedTheme") || "code-vibes";
+    const baseUrl = import.meta.env.BASE_URL;
+
+    if (theme === "foods") {
+        window.location.href =
+            `${baseUrl}food-theme.html`;
         return;
     }
 
-    localStorage.setItem(
-        "cardCount",
-        cardCount
-    );
+    window.location.href =
+        `${baseUrl}gaming-theme.html`;
+}
 
-    document
-        .querySelectorAll<HTMLElement>(
-            "[data-cards]"
-        )
-        .forEach(
-            (item: HTMLElement) => {
-                item.classList.remove(
-                    "is-selected"
-                );
-            }
-        );
+/**
+ * Sets up one theme event.
+ * @param theme Theme element.
+ * @param themes All theme elements.
+ * @param preview Preview image.
+ */
+function setupThemeEvent(
+    theme: HTMLElement,
+    themes: NodeListOf<HTMLElement>,
+    preview: HTMLImageElement
+): void {
+    theme.addEventListener("click", () => {
+        selectTheme(theme, themes);
+        updatePreview(theme, preview);
+    });
+}
 
-    option.classList.add(
-        "is-selected"
+/**
+ * Sets up theme events.
+ * @param themes Theme elements.
+ * @param preview Preview image.
+ */
+function setupThemeEvents(
+    themes: NodeListOf<HTMLElement>,
+    preview: HTMLImageElement
+): void {
+    themes.forEach((theme) =>
+        setupThemeEvent(theme, themes, preview)
     );
 }
 
 /**
- * Sets up the start button.
+ * Sets up one player event.
+ * @param player Player element.
+ * @param players All player elements.
  */
-function setupStartButton(): void {
+function setupPlayerEvent(
+    player: HTMLElement,
+    players: NodeListOf<HTMLElement>
+): void {
+    player.addEventListener(
+        "click",
+        () => selectPlayer(player, players)
+    );
+}
+
+/**
+ * Sets up player events.
+ * @param players Player elements.
+ */
+function setupPlayerEvents(
+    players: NodeListOf<HTMLElement>
+): void {
+    players.forEach((player) =>
+        setupPlayerEvent(player, players)
+    );
+}
+
+/**
+ * Sets up one board size event.
+ * @param cards Board size element.
+ * @param cardOptions All board size elements.
+ */
+function setupBoardEvent(
+    cards: HTMLElement,
+    cardOptions: NodeListOf<HTMLElement>
+): void {
+    cards.addEventListener(
+        "click",
+        () => selectBoardSize(cards, cardOptions)
+    );
+}
+
+/**
+ * Sets up board size events.
+ * @param cardOptions Board size elements.
+ */
+function setupBoardEvents(
+    cardOptions: NodeListOf<HTMLElement>
+): void {
+    cardOptions.forEach((cards) =>
+        setupBoardEvent(cards, cardOptions)
+    );
+}
+
+/**
+ * Initializes the settings page.
+ */
+function init(): void {
+    const themes =
+        document.querySelectorAll<HTMLElement>("[data-theme]");
+    const players =
+        document.querySelectorAll<HTMLElement>("[data-player]");
+    const cardOptions =
+        document.querySelectorAll<HTMLElement>("[data-cards]");
+    const preview =
+        document.querySelector<HTMLImageElement>(
+            ".game__component-container img"
+        );
     const startButton =
         document.querySelector<HTMLButtonElement>(
             "#start-button"
         );
 
-    if (!startButton) {
-        return;
-    }
+    if (!preview || !startButton) return;
 
-    startButton.addEventListener(
-        "click",
-        navigateToGame
-    );
+    setupThemeEvents(themes, preview);
+    setupPlayerEvents(players);
+    setupBoardEvents(cardOptions);
+    startButton.addEventListener("click", startGame);
+    loadSettings(themes, players, cardOptions, preview);
 }
 
-/**
- * Navigates to the selected game.
- */
-function navigateToGame(): void {
-    let selectedTheme =
-        localStorage.getItem(
-            "selectedTheme"
-        );
-
-    if (!selectedTheme) {
-        selectedTheme =
-            "code-vibes";
-
-        localStorage.setItem(
-            "selectedTheme",
-            selectedTheme
-        );
-    }
-
-    if (!localStorage.getItem("cardCount")) {
-        localStorage.setItem(
-            "cardCount",
-            "16"
-        );
-    }
-
-    if (!localStorage.getItem("selectedPlayer")) {
-        localStorage.setItem(
-            "selectedPlayer",
-            "blue"
-        );
-    }
-
-    if (selectedTheme === "foods") {
-        window.location.href =
-            "./food-theme.html";
-
-        return;
-    }
-
-    if (
-        selectedTheme === "gaming" ||
-        selectedTheme === "code-vibes" ||
-        selectedTheme === "da-projects"
-    ) {
-        window.location.href =
-            "./gaming-theme.html";
-
-        return;
-    }
-
-    window.location.href =
-        "./gaming-theme.html";
-}
-
-/**
- * Restores saved settings.
- */
-function restoreSettings(): void {
-    restoreTheme();
-    restorePlayer();
-    restoreCardCount();
-}
-
-/**
- * Restores the selected theme.
- */
-function restoreTheme(): void {
-    const savedTheme =
-        localStorage.getItem(
-            "selectedTheme"
-        );
-
-    if (!savedTheme) {
-        return;
-    }
-
-    const theme =
-        document.querySelector<HTMLElement>(
-            `[data-theme="${savedTheme}"]`
-        );
-
-    theme?.classList.add(
-        "is-selected"
-    );
-}
-
-/**
- * Restores the selected player.
- */
-function restorePlayer(): void {
-    const savedPlayer =
-        localStorage.getItem(
-            "selectedPlayer"
-        ) || "blue";
-
-    localStorage.setItem(
-        "selectedPlayer",
-        savedPlayer
-    );
-
-    const player =
-        document.querySelector<HTMLElement>(
-            `[data-player="${savedPlayer}"]`
-        );
-
-    player?.classList.add(
-        "is-selected"
-    );
-}
-
-/**
- * Restores the selected board size.
- */
-function restoreCardCount(): void {
-    const savedCards =
-        localStorage.getItem(
-            "cardCount"
-        );
-
-    if (!savedCards) {
-        return;
-    }
-
-    const cards =
-        document.querySelector<HTMLElement>(
-            `[data-cards="${savedCards}"]`
-        );
-
-    cards?.classList.add(
-        "is-selected"
-    );
-}
+init();
