@@ -1,1 +1,0 @@
-import"./style-qJcfbcyf.js";/* empty css                      */e();function e(){t()}function t(){let e=document.querySelector(`.play__style`);e&&e.addEventListener(`click`,()=>{window.location.href=`./settings.html`})}
