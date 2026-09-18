@@ -1,534 +1,557 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+section {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.settings {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  &__mainScreen {
     width: 100%;
-    height: 100%;
   }
-  
-  body {
-    width: 100%;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 251px;
+    height: 67px;
+    margin-top: 80px;
+    margin-left: 220px;
+    opacity: 1;
   }
-  
-  .settings {
-    width: 100%;
-    min-height: 100vh;
-  
-    &__mainScreen {
-      width: 100%;
+
+  &__text h1 {
+    margin: 0 0 0 32px;
+    font-family: "Red Rose", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 54px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  &__text img {
+    display: block;
+    width: 251px;
+    height: auto;
+    margin-top: -10px;
+    opacity: 1;
+    object-fit: contain;
+  }
+}
+
+.option {
+  &__bar-container {
+    position: relative;
+    width: 1103px;
+    height: 412px;
+    left: 220px;
+    margin-top: 42px;
+  }
+
+  &__game-themes {
+    width: 360px;
+    height: 180px;
+  }
+
+  &__game-text {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 360px;
+    height: 40px;
+    margin-bottom: 12px;
+
+    img {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
     }
-  
-    &__text {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      width: 251px;
-      height: 67px;
-      margin-top: 80px;
-      margin-left: 220px;
-      opacity: 1;
-    }
-  
-    &__text h1 {
-      margin: 0 0 0 32px;
-      font-family: "Red Rose", sans-serif;
+
+    h2 {
+      margin: 0;
+      font-family: "Almarai", sans-serif;
       font-weight: 700;
-      font-style: normal;
-      font-size: 54px;
-      line-height: 100%;
-      letter-spacing: 0;
-      text-align: center;
+      font-size: 24px;
+      line-height: 1;
+      white-space: nowrap;
     }
-  
-    &__text img {
+  }
+
+  &__text-cards {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: max-content;
+    height: 24px;
+    gap: 10px;
+    margin-bottom: 16px;
+    margin-left: 58px;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 4px;
+
+    img {
+      width: 24px;
+      height: 24px;
       display: block;
-      width: 251px;
-      height: auto;
-      margin-top: -10px;
-      opacity: 1;
+      flex-shrink: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: "Almarai", sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    &:hover {
+      h2 {
+        font-weight: 700;
+      }
+    }
+
+    &.is-selected {
+      h2 {
+        font-weight: 700;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        width: 8px;
+        height: 8px;
+        background-color: #000;
+        border-radius: 50%;
+        z-index: 2;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        left: calc(100% + 8px);
+        top: 50%;
+        width: 41px;
+        height: 41px;
+        transform: translateY(-50%);
+        background-image: url("/assets/images/Line 3.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        opacity: 1;
+      }
+    }
+
+    &.selection-missing {
+      animation: selectionMissing 0.5s ease-in-out;
+    }
+
+    &.selection-clicked {
+      animation: selectionClicked 0.5s ease-in-out;
+    }
+  }
+}
+
+.option-themes {
+  &__bar {
+    width: 360px;
+    height: 132px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 58px;
+  }
+
+  &__code-vibe,
+  &__gaming,
+  &__DA-projects,
+  &__foods {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: max-content;
+    height: 24px;
+    padding: 0;
+    border-radius: 4px;
+    cursor: pointer;
+
+    img {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: "Almarai", sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    &:hover {
+      h2 {
+        font-weight: 700;
+      }
+    }
+
+    &.is-selected {
+      h2 {
+        font-weight: 700;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        width: 8px;
+        height: 8px;
+        background-color: #000;
+        border-radius: 50%;
+        z-index: 2;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        left: calc(100% + 8px);
+        top: 50%;
+        width: 41px;
+        height: 41px;
+        transform: translateY(-50%);
+        background-image: url("/assets/images/Line 3.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        opacity: 1;
+      }
+    }
+
+    &.selection-missing {
+      animation: selectionMissing 0.5s ease-in-out;
+    }
+
+    &.selection-clicked {
+      animation: selectionClicked 0.5s ease-in-out;
+    }
+  }
+}
+
+.game {
+  &__component-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 0;
+    border-radius: 16px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
       object-fit: contain;
     }
   }
-  
-  .option {
-    &__bar-container {
-      position: relative;
-      width: 1103px;
-      height: 412px;
-      left: 220px;
-      margin-top: 42px;
-    }
-  
-    &__game-themes {
-      width: 360px;
-      height: 180px;
-    }
-  
-    &__game-text {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      width: 360px;
-      height: 40px;
-      margin-bottom: 12px;
-  
-      img {
-        width: 40px;
-        height: 40px;
-        flex-shrink: 0;
-      }
-  
-      h2 {
-        margin: 0;
-        font-family: "Almarai", sans-serif;
-        font-weight: 700;
-        font-size: 24px;
-        line-height: 1;
-        white-space: nowrap;
-      }
-    }
-  
-    &__text-cards {
-      position: relative;
-      display: flex;
-      align-items: center;
-      width: max-content;
-      height: 24px;
-      gap: 10px;
-      margin-bottom: 16px;
-      margin-left: 58px;
-      padding: 0;
-      cursor: pointer;
-      border-radius: 4px;
-  
-      img {
-        width: 24px;
-        height: 24px;
-        display: block;
-        flex-shrink: 0;
-      }
-  
-      h2 {
-        margin: 0;
-        font-family: "Almarai", sans-serif;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 1;
-        white-space: nowrap;
-      }
-  
-      &:hover {
-        h2 {
-          font-weight: 700;
-        }
-      }
-  
-      &.is-selected {
-        h2 {
-          font-weight: 700;
-        }
-  
-        &::before {
-          content: "";
-          position: absolute;
-          left: 8px;
-          top: 8px;
-          width: 8px;
-          height: 8px;
-          background-color: #000;
-          border-radius: 50%;
-          z-index: 2;
-        }
-  
-        &::after {
-          content: "";
-          position: absolute;
-          display: block;
-          left: calc(100% + 8px);
-          top: 50%;
-          width: 41px;
-          height: 41px;
-          transform: translateY(-50%);
-          background-image: url("/assets/images/Line 3.png");
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: contain;
-          opacity: 1;
-        }
-      }
-  
-      &.selection-missing {
-        animation: selectionMissing 0.5s ease-in-out;
-      }
-  
-      &.selection-clicked {
-        animation: selectionClicked 0.5s ease-in-out;
-      }
-    }
-  }
-  
-  .option-themes {
-    &__bar {
-      width: 360px;
-      height: 132px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding-left: 58px;
-    }
-  
-    &__code-vibe,
-    &__gaming,
-    &__DA-projects,
-    &__foods {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: max-content;
-      height: 24px;
-      padding: 0;
-      border-radius: 4px;
-      cursor: pointer;
-  
-      img {
-        width: 24px;
-        height: 24px;
-        flex-shrink: 0;
-        display: block;
-      }
-  
-      h2 {
-        margin: 0;
-        font-family: "Almarai", sans-serif;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 1;
-        white-space: nowrap;
-      }
-  
-      &:hover {
-        h2 {
-          font-weight: 700;
-        }
-      }
-  
-      &.is-selected {
-        h2 {
-          font-weight: 700;
-        }
-  
-        &::before {
-          content: "";
-          position: absolute;
-          left: 8px;
-          top: 8px;
-          width: 8px;
-          height: 8px;
-          background-color: #000;
-          border-radius: 50%;
-          z-index: 2;
-        }
-  
-        &::after {
-          content: "";
-          position: absolute;
-          display: block;
-          left: calc(100% + 8px);
-          top: 50%;
-          width: 41px;
-          height: 41px;
-          transform: translateY(-50%);
-          background-image: url("/assets/images/Line 3.png");
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: contain;
-          opacity: 1;
-        }
-      }
-  
-      &.selection-missing {
-        animation: selectionMissing 0.5s ease-in-out;
-      }
-  
-      &.selection-clicked {
-        animation: selectionClicked 0.5s ease-in-out;
-      }
-    }
-  }
-  
-  .game {
-    &__component-container {
+}
+
+.option-player {
+  &__choose-player {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    height: auto;
+    left: 0;
+    gap: 16px;
+
+    > img {
       position: absolute;
+      width: 40px;
+      height: 40px;
+      left: 0;
+      top: 0;
+      object-fit: contain;
+      display: block;
+    }
+
+    > .option__text {
+      width: max-content;
+      height: 40px;
+      margin: 0 0 0 56px;
+      display: flex;
+      align-items: center;
+      font-family: "Almarai", sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .option-themes__code-vibe {
+      margin-left: 58px;
+    }
+  }
+}
+
+.option-board-size {
+  &__container {
+    position: absolute;
+    width: 360px;
+    margin-top: 200px;
+
+    > h2 {
+      width: max-content;
+      height: 40px;
+      margin: 0 0 16px 56px;
+      display: flex;
+      align-items: center;
+      font-family: "Almarai", sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    > img {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      left: 0;
+      top: 0;
+      object-fit: contain;
+      display: block;
+    }
+
+    .option__text-cards {
+      margin-left: 58px;
+    }
+  }
+}
+
+.selectionBoard {
+  &__bar {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    height: 81px;
+    right: 0;
+    top: 457px;
+    gap: 20px;
+    padding: 10px 20px;
+    background-color: rgba(246, 246, 246, 1);
+    box-sizing: border-box;
+
+    img {
+      display: block;
+      flex-shrink: 0;
+    }
+
+    &.selection-error {
+      animation: selectionError 0.5s ease-in-out;
+    }
+  }
+
+  &__start-button {
+    margin-left: auto;
+
+    button {
       display: flex;
       align-items: center;
       justify-content: center;
-      right: 0;
-      top: 0;
-      border-radius: 16px;
-      overflow: hidden;
-  
+      gap: 8px;
+      border: none;
+      background-color: rgba(240, 234, 110, 1);
+      width: 126px;
+      height: 53px;
+      padding: 14px 20px;
+      font-family: "Red Rose", sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 100%;
+      cursor: pointer;
+
       img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: contain;
-      }
-    }
-  }
-  
-  .option-player {
-    &__choose-player {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      width: 360px;
-      height: auto;
-      left: 0;
-      gap: 16px;
-  
-      > img {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        left: 0;
-        top: 0;
+        width: 24px;
+        height: 24px;
         object-fit: contain;
         display: block;
       }
-  
-      > .option__text {
-        width: max-content;
-        height: 40px;
-        margin: 0 0 0 56px;
-        display: flex;
-        align-items: center;
-        font-family: "Almarai", sans-serif;
-        font-weight: 700;
-        font-size: 24px;
-        line-height: 1;
-        white-space: nowrap;
-      }
-  
-      .option-themes__code-vibe {
-        margin-left: 58px;
-      }
-    }
-  }
-  
-  .option-board-size {
-    &__container {
-      position: absolute;
-      width: 360px;
-      margin-top: 200px;
-  
-      > h2 {
-        width: max-content;
-        height: 40px;
-        margin: 0 0 16px 56px;
-        display: flex;
-        align-items: center;
-        font-family: "Almarai", sans-serif;
-        font-weight: 700;
-        font-size: 24px;
-        line-height: 1;
-        white-space: nowrap;
-      }
-  
-      > img {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        left: 0;
-        top: 0;
-        object-fit: contain;
+
+      span {
         display: block;
       }
-  
-      .option__text-cards {
-        margin-left: 58px;
+
+      &:hover {
+        background-color: #e8e05d;
       }
     }
   }
-  
-  .selectionBoard {
-    &__bar {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      height: 81px;
-      right: 0;
-      top: 457px;
-      bottom: -20px;
-      gap: 20px;
-      padding: 10px 20px;
-      background-color: rgba(246, 246, 246, 1);
-      box-sizing: border-box;
-  
-      img {
-        display: block;
-        flex-shrink: 0;
-      }
-  
-      &.selection-error {
-        animation: selectionError 0.5s ease-in-out;
-      }
-    }
-  
-    &__start-button {
-      margin-left: auto;
-  
-      button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        border: none;
-        background-color: rgba(240, 234, 110, 1);
-        width: 126px;
-        height: 53px;
-        padding: 14px 20px;
-        font-family: "Red Rose", sans-serif;
-        font-weight: 700;
-        font-size: 20px;
-        line-height: 100%;
-        cursor: pointer;
-  
-        img {
-          width: 24px;
-          height: 24px;
-          object-fit: contain;
-          display: block;
-        }
-  
-        span {
-          display: block;
-        }
-  
-        &:hover {
-          background-color: #e8e05d;
-        }
-      }
-    }
+}
+
+@keyframes selectionError {
+  0% {
+    background-color: rgba(246, 246, 246, 1);
+    box-shadow: 0 0 0 rgba(120, 210, 255, 0);
   }
-  
-  @keyframes selectionError {
-    0% {
-      background-color: rgba(246, 246, 246, 1);
-      box-shadow: 0 0 0 rgba(120, 210, 255, 0);
-    }
-  
-    50% {
-      background-color: rgba(190, 235, 255, 1);
-      box-shadow: 0 0 24px rgba(120, 210, 255, 0.8);
-    }
-  
-    100% {
-      background-color: rgba(246, 246, 246, 1);
-      box-shadow: 0 0 0 rgba(120, 210, 255, 0);
-    }
+
+  50% {
+    background-color: rgba(190, 235, 255, 1);
+    box-shadow: 0 0 24px rgba(120, 210, 255, 0.8);
   }
-  
-  @keyframes selectionMissing {
-    0% {
-      background-color: transparent;
-      box-shadow: 0 0 0 rgba(120, 210, 255, 0);
-    }
-  
-    50% {
-      background-color: rgba(190, 235, 255, 0.85);
-      box-shadow: 0 0 18px rgba(120, 210, 255, 0.9);
-    }
-  
-    100% {
-      background-color: transparent;
-      box-shadow: 0 0 0 rgba(120, 210, 255, 0);
-    }
+
+  100% {
+    background-color: rgba(246, 246, 246, 1);
+    box-shadow: 0 0 0 rgba(120, 210, 255, 0);
   }
-  
-  @keyframes selectionClicked {
-    0% {
-      background-color: transparent;
-      box-shadow: 0 0 0 rgba(120, 210, 255, 0);
-    }
-  
-    50% {
-      background-color: rgba(190, 235, 255, 0.85);
-      box-shadow: 0 0 18px rgba(120, 210, 255, 0.9);
-    }
-  
-    100% {
-      background-color: transparent;
-      box-shadow: 0 0 0 rgba(120, 210, 255, 0);
-    }
+}
+
+@keyframes selectionMissing {
+  0% {
+    background-color: transparent;
+    box-shadow: 0 0 0 rgba(120, 210, 255, 0);
   }
-  
-  @media (max-width: 1200px) {
-    .settings__text {
-      margin-left: 40px;
-    }
-  
-    .option__bar-container {
-      width: calc(100% - 80px);
-    }
+
+  50% {
+    background-color: rgba(190, 235, 255, 0.85);
+    box-shadow: 0 0 18px rgba(120, 210, 255, 0.9);
   }
-  
-  @media (max-width: 800px) {
-    .settings__text {
-      width: 251px;
-      height: 67px;
-      margin-top: 50px;
-      margin-left: 20px;
-    }
-  
-    .option__bar-container {
-      width: calc(100% - 40px);
-      height: auto;
-      margin-top: 40px;
-      margin-left: 20px;
-      margin-right: 20px;
-    }
-  
-    .game__component-container {
-      position: relative;
-      top: auto;
-      right: auto;
-      height: auto;
-    }
-  
-    .game__component-container img {
-      height: auto;
-    }
-  
-    .option-player__choose-player {
-      position: relative;
-      top: auto;
-      left: auto;
-      margin-top: 40px;
-    }
-  
-    .option-board-size__container {
-      position: relative;
-      top: auto;
-      left: auto;
-      margin-top: 40px;
-    }
-  
-    .selectionBoard__bar {
-      position: relative;
-      top: auto;
-      right: auto;
-      bottom: auto;
-      width: 100%;
-      height: auto;
-      min-height: 81px;
-      margin-top: 40px;
-      flex-wrap: wrap;
-    }
+
+  100% {
+    background-color: transparent;
+    box-shadow: 0 0 0 rgba(120, 210, 255, 0);
   }
+}
+
+@keyframes selectionClicked {
+  0% {
+    background-color: transparent;
+    box-shadow: 0 0 0 rgba(120, 210, 255, 0);
+  }
+
+  50% {
+    background-color: rgba(190, 235, 255, 0.85);
+    box-shadow: 0 0 18px rgba(120, 210, 255, 0.9);
+  }
+
+  100% {
+    background-color: transparent;
+    box-shadow: 0 0 0 rgba(120, 210, 255, 0);
+  }
+}
+
+@media (max-width: 1200px) {
+  .settings__text {
+    margin-left: 40px;
+  }
+
+  .option__bar-container {
+    width: calc(100% - 80px);
+  }
+}
+
+@media (max-width: 800px) {
+  html,
+  body,
+  section {
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .settings {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .settings__text {
+    width: 251px;
+    height: 67px;
+    margin-top: 50px;
+    margin-left: 20px;
+  }
+
+  .option__bar-container {
+    width: calc(100% - 40px);
+    height: calc(100vh - 157px);
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .game__component-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: auto;
+  }
+
+  .game__component-container img {
+    height: auto;
+  }
+
+  .option-player__choose-player {
+    position: absolute;
+    top: 200px;
+    left: 0;
+    margin-top: 0;
+  }
+
+  .option-board-size__container {
+    position: absolute;
+    top: 360px;
+    left: 0;
+    margin-top: 0;
+  }
+
+  .selectionBoard__bar {
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 81px;
+    min-height: 81px;
+    margin-top: 0;
+    flex-wrap: nowrap;
+  }
+}
