@@ -1,3 +1,4 @@
+
 body {
     box-sizing: border-box;
     margin: 0;
@@ -314,6 +315,7 @@ body {
 
 .winner-popup__container.is-visible {
     display: flex;
+    animation: winner-popup-slide-down 0.6s ease-out;
 }
 
 .winner-popup__text {
@@ -374,6 +376,16 @@ body {
     opacity: 1;
     cursor: pointer;
     object-fit: contain;
+}
+
+@keyframes winner-popup-slide-down {
+    from {
+        transform: translate(-50%, -100vh);
+    }
+
+    to {
+        transform: translate(-50%, 0);
+    }
 }
 
 .exit-popup-overlay {

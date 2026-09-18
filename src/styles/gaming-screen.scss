@@ -322,6 +322,7 @@ body {
 
 .winner-popup__container.is-visible {
     display: flex !important;
+    animation: winner-popup-slide-down 0.6s ease-out;
 }
 
 .winner-popup__text--blue {
@@ -402,6 +403,16 @@ body {
     cursor: pointer;
     object-fit: fill;
     flex: 0 0 62px;
+}
+
+@keyframes winner-popup-slide-down {
+    from {
+        transform: translateY(-100vh);
+    }
+
+    to {
+        transform: translateY(0);
+    }
 }
 
 .exit-popup-overlay {
