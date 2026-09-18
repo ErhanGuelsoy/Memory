@@ -100,36 +100,6 @@ function findTheme(
 }
 
 /**
- * Finds the selected player.
- * @param players Player elements.
- * @param selectedPlayer Saved player.
- * @returns Selected player element.
- */
-function findPlayer(
-    players: NodeListOf<HTMLElement>,
-    selectedPlayer: string
-): HTMLElement | undefined {
-    return Array.from(players).find(
-        (item) => item.dataset.player === selectedPlayer
-    );
-}
-
-/**
- * Finds the selected board size.
- * @param cardOptions Board size elements.
- * @param cardCount Saved card count.
- * @returns Selected board size element.
- */
-function findCards(
-    cardOptions: NodeListOf<HTMLElement>,
-    cardCount: string
-): HTMLElement | undefined {
-    return Array.from(cardOptions).find(
-        (item) => item.dataset.cards === cardCount
-    );
-}
-
-/**
  * Applies the selected theme.
  * @param theme Selected theme element.
  * @param preview Preview image.
@@ -144,36 +114,12 @@ function applyTheme(
 }
 
 /**
- * Applies the selected player.
- * @param player Selected player element.
- */
-function applyPlayer(player: HTMLElement | undefined): void {
-    if (player) {
-        player.classList.add("is-selected");
-    }
-}
-
-/**
- * Applies the selected board size.
- * @param cards Selected board size element.
- */
-function applyCards(cards: HTMLElement | undefined): void {
-    if (cards) {
-        cards.classList.add("is-selected");
-    }
-}
-
-/**
- * Loads the saved settings.
+ * Loads the saved theme.
  * @param themes Theme elements.
- * @param players Player elements.
- * @param cardOptions Board size elements.
  * @param preview Preview image.
  */
 function loadSettings(
     themes: NodeListOf<HTMLElement>,
-    players: NodeListOf<HTMLElement>,
-    cardOptions: NodeListOf<HTMLElement>,
     preview: HTMLImageElement
 ): void {
     const themeName =
@@ -183,11 +129,98 @@ function loadSettings(
 }
 
 /**
- * Starts the selected game.
+ * Shows a short effect on all missing settings.
+ */
+function showSelectionError(): void {
+    const selectionBar =
+        document.querySelector<HTMLElement>(
+            ".selectionBoard__bar"
+        );
+
+    const missingOptions =
+        document.querySelectorAll<HTMLElement>(
+            "[data-theme]:not(.is-selected), " +
+            "[data-player]:not(.is-selected), " +
+            "[data-cards]:not(.is-selected)"
+        );
+
+    if (selectionBar) {
+        selectionBar.classList.remove("selection-error");
+        void selectionBar.offsetWidth;
+        selectionBar.classList.add("selection-error");
+    }
+
+    missingOptions.forEach((option) => {
+        option.classList.remove("selection-missing");
+        void option.offsetWidth;
+        option.classList.add("selection-missing");
+    });
+}
+
+/**
+ * Shows a short effect on all unselected options and the selection bar.
+ */
+function showUnselectedOptions(): void {
+    const selectionBar =
+        document.querySelector<HTMLElement>(
+            ".selectionBoard__bar"
+        );
+
+    const unselectedOptions =
+        document.querySelectorAll<HTMLElement>(
+            "[data-theme]:not(.is-selected), " +
+            "[data-player]:not(.is-selected), " +
+            "[data-cards]:not(.is-selected)"
+        );
+
+    if (selectionBar) {
+        selectionBar.classList.remove("selection-error");
+        void selectionBar.offsetWidth;
+        selectionBar.classList.add("selection-error");
+    }
+
+    unselectedOptions.forEach((option) => {
+        option.classList.remove("selection-missing");
+        void option.offsetWidth;
+        option.classList.add("selection-missing");
+    });
+}
+
+/**
+ * Checks whether all required settings are selected.
+ * @returns True when theme, player and board size are selected.
+ */
+function areAllSettingsSelected(): boolean {
+    const theme =
+        document.querySelector<HTMLElement>(
+            "[data-theme].is-selected"
+        );
+
+    const player =
+        document.querySelector<HTMLElement>(
+            "[data-player].is-selected"
+        );
+
+    const cards =
+        document.querySelector<HTMLElement>(
+            "[data-cards].is-selected"
+        );
+
+    return Boolean(theme && player && cards);
+}
+
+/**
+ * Starts the selected game when all settings are selected.
  */
 function startGame(): void {
+    if (!areAllSettingsSelected()) {
+        showSelectionError();
+        return;
+    }
+
     const theme =
         localStorage.getItem("selectedTheme") || "code-vibes";
+
     const baseUrl = import.meta.env.BASE_URL;
 
     if (theme === "foods") {
@@ -286,19 +319,49 @@ function setupBoardEvents(
 }
 
 /**
+ * Sets up the outside click effect.
+ */
+function setupOutsideClick(): void {
+    document.addEventListener("click", (event) => {
+        const target = event.target;
+
+        if (!(target instanceof Element)) return;
+
+        const clickedOption =
+            target.closest(
+                "[data-theme], [data-player], [data-cards]"
+            );
+
+        if (clickedOption) return;
+
+        showUnselectedOptions();
+    });
+}
+
+/**
  * Initializes the settings page.
  */
 function init(): void {
     const themes =
-        document.querySelectorAll<HTMLElement>("[data-theme]");
+        document.querySelectorAll<HTMLElement>(
+            "[data-theme]"
+        );
+
     const players =
-        document.querySelectorAll<HTMLElement>("[data-player]");
+        document.querySelectorAll<HTMLElement>(
+            "[data-player]"
+        );
+
     const cardOptions =
-        document.querySelectorAll<HTMLElement>("[data-cards]");
+        document.querySelectorAll<HTMLElement>(
+            "[data-cards]"
+        );
+
     const preview =
         document.querySelector<HTMLImageElement>(
             ".game__component-container img"
         );
+
     const startButton =
         document.querySelector<HTMLButtonElement>(
             "#start-button"
@@ -309,8 +372,10 @@ function init(): void {
     setupThemeEvents(themes, preview);
     setupPlayerEvents(players);
     setupBoardEvents(cardOptions);
+    setupOutsideClick();
+
     startButton.addEventListener("click", startGame);
-    loadSettings(themes, players, cardOptions, preview);
+    loadSettings(themes, preview);
 }
 
 init();
