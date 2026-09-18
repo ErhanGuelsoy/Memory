@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/assets/images/chess_favicon.png">
     <title>Gaming Theme</title>
 </head>
 
@@ -22,71 +23,71 @@
                         <span id="player1Score">0</span>
                     </div>
 
-                <div class="gaming__player-score gaming__player-score--blue" data-player="blue">
-                    <img class="gaming__label gaming__label--blue" src="public/assets/images/label.png" alt="Blue player">
-                    <span class="gaming__player-name">Blue</span>
-                    <span id="player2Score">0</span>
+                    <div class="gaming__player-score gaming__player-score--blue" data-player="blue">
+                        <img class="gaming__label gaming__label--blue" src="public/assets/images/label.png" alt="Blue player">
+                        <span class="gaming__player-name">Blue</span>
+                        <span id="player2Score">0</span>
+                    </div>
+                </div>
+
+                <div class="gaming__header-current-player">
+                    <img src="public/assets/images/current_player_logo.png" alt="Current player">
                 </div>
             </div>
 
-            <div class="gaming__header-current-player">
-                <img src="public/assets/images/current_player_logo.png" alt="Current player">
+            <div class="gaming__header-right-part-exit-game">
+                <img src="public/assets/images/exit_button.png" alt="Exit game">
             </div>
+        </header>
+
+        <div class="memory">
+            <div class="memory__card-container"></div>
         </div>
+    </section>
 
-        <div class="gaming__header-right-part-exit-game">
-            <img src="public/assets/images/exit_button.png" alt="Exit game">
-        </div>
-    </header>
+    <div class="winner-popup-overlay" id="winnerPopup">
+        <div class="winner-popup">
+            <img class="winner-popup__confetti" src="public/assets/images/Confetti.png" alt="Confetti">
 
-    <div class="memory">
-        <div class="memory__card-container"></div>
-    </div>
-</section>
+            <div class="winner-popup__container" id="blueWinner">
+                <img class="winner-popup__text--blue" src="public/assets/images/winner_text_blue.png" alt="Blue winner">
+                <img class="winner-popup__chess--blue" src="public/assets/images/winner_chess_blue.png" alt="Blue chess winner">
 
-<div class="winner-popup-overlay" id="winnerPopup">
-    <div class="winner-popup">
-        <img class="winner-popup__confetti" src="public/assets/images/Confetti.png" alt="Confetti">
+                <div class="winner-popup__score winner-popup__score--blue">
+                    <span id="blueWinnerScore">0</span>
+                </div>
 
-        <div class="winner-popup__container" id="blueWinner">
-            <img class="winner-popup__text--blue" src="public/assets/images/winner_text_blue.png" alt="Blue winner">
-            <img class="winner-popup__chess--blue" src="public/assets/images/winner_chess_blue.png" alt="Blue chess winner">
-
-            <div class="winner-popup__score winner-popup__score--blue">
-                <span id="blueWinnerScore">0</span>
+                <img class="winner-popup__back-home" id="blueBackHome" src="public/assets/images/back_to_start.png" alt="Back to start">
             </div>
 
-            <img class="winner-popup__back-home" id="blueBackHome" src="public/assets/images/back_to_start.png" alt="Back to start">
-        </div>
+            <div class="winner-popup__container" id="orangeWinner">
+                <img class="winner-popup__text--orange" src="public/assets/images/winner_text_orange.png" alt="Orange winner">
+                <img class="winner-popup__player--orange" src="public/assets/images/winner_player_orange.png" alt="Orange player winner">
 
-        <div class="winner-popup__container" id="orangeWinner">
-            <img class="winner-popup__text--orange" src="public/assets/images/winner_text_orange.png" alt="Orange winner">
-            <img class="winner-popup__player--orange" src="public/assets/images/winner_player_orange.png" alt="Orange player winner">
+                <div class="winner-popup__score winner-popup__score--orange">
+                    <span id="orangeWinnerScore">0</span>
+                </div>
 
-            <div class="winner-popup__score winner-popup__score--orange">
-                <span id="orangeWinnerScore">0</span>
+                <img class="winner-popup__back-home" id="orangeBackHome" src="public/assets/images/back_to_start.png" alt="Back to start">
             </div>
 
-            <img class="winner-popup__back-home" id="orangeBackHome" src="public/assets/images/back_to_start.png" alt="Back to start">
-        </div>
-
-        <div class="winner-popup__container" id="drawWinner">
-            <img class="winner-popup__text--draw" src="public/assets/images/draw_text_gaming_theme.png" alt="Draw">
-            <img class="winner-popup__icon--draw" src="public/assets/images/draw_icon_gaming_theme.png" alt="Draw icon">
-            <img class="winner-popup__back-home" id="drawBackHome" src="public/assets/images/back_to_start.png" alt="Back to start">
+            <div class="winner-popup__container" id="drawWinner">
+                <img class="winner-popup__text--draw" src="public/assets/images/draw_text_gaming_theme.png" alt="Draw">
+                <img class="winner-popup__icon--draw" src="public/assets/images/draw_icon_gaming_theme.png" alt="Draw icon">
+                <img class="winner-popup__back-home" id="drawBackHome" src="public/assets/images/back_to_start.png" alt="Back to start">
+            </div>
         </div>
     </div>
-</div>
 
-<div class="exit-popup-overlay" id="exitPopup">
-    <div class="exit-popup">
-        <img class="exit-popup__image" src="public/assets/images/popup_exit_button.png" alt="Exit game popup">
-        <div class="exit-popup__back-area" id="backToGame"></div>
-        <div class="exit-popup__exit-area" id="exitGame"></div>
+    <div class="exit-popup-overlay" id="exitPopup">
+        <div class="exit-popup">
+            <img class="exit-popup__image" src="public/assets/images/popup_exit_button.png" alt="Exit game popup">
+            <div class="exit-popup__back-area" id="backToGame"></div>
+            <div class="exit-popup__exit-area" id="exitGame"></div>
+        </div>
     </div>
-</div>
 
-<script type="module" src="/src/gaming.ts"></script>
+    <script type="module" src="/src/gaming.ts"></script>
 
 </body>
 
