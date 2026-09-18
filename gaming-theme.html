@@ -45,43 +45,133 @@
         </div>
     </section>
 
+    <div class="game-over-popup-overlay" id="gameOverPopup">
+        <div class="game-over-popup">
+            <img
+                class="game-over-popup__title"
+                src="public/assets/images/game_over.png"
+                alt="Game Over"
+            >
+
+            <div class="game-over-popup__score-container">
+                <img
+                    class="game-over-popup__final-score"
+                    src="public/assets/images/final_score.png"
+                    alt="Final Score"
+                >
+
+                <div class="game-over-popup__blue-orange-box">
+                    <div class="game-over-popup__player-score game-over-popup__player-score--orange">
+                        <img
+                            src="public/assets/images/label (2).png"
+                            alt="Orange player"
+                        >
+                        <span class="game-over-popup__player-name">orange</span>
+                        <span id="gameOverOrangeScore">0</span>
+                    </div>
+
+                    <div class="game-over-popup__player-score game-over-popup__player-score--blue">
+                        <img
+                            src="public/assets/images/label.png"
+                            alt="Blue player"
+                        >
+                        <span class="game-over-popup__player-name">Blue</span>
+                        <span id="gameOverBlueScore">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="winner-popup-overlay" id="winnerPopup">
         <div class="winner-popup">
-            <img class="winner-popup__confetti" src="public/assets/images/Confetti.png" alt="Confetti">
+            <img
+                class="winner-popup__confetti"
+                src="public/assets/images/Confetti.png"
+                alt="Confetti"
+            >
 
             <div class="winner-popup__container" id="blueWinner">
-                <img class="winner-popup__text--blue" src="public/assets/images/winner_text_blue.png" alt="Blue winner">
-                <img class="winner-popup__chess--blue" src="public/assets/images/winner_chess_blue.png" alt="Blue chess winner">
+                <img
+                    class="winner-popup__text--blue"
+                    src="public/assets/images/winner_text_blue.png"
+                    alt="Blue winner"
+                >
+
+                <img
+                    class="winner-popup__chess--blue"
+                    src="public/assets/images/winner_chess_blue.png"
+                    alt="Blue chess winner"
+                >
 
                 <div class="winner-popup__score winner-popup__score--blue">
                     <span id="blueWinnerScore">0</span>
                 </div>
 
-                <img class="winner-popup__back-home" id="blueBackHome" src="public/assets/images/back_to_start.png" alt="Back to start">
+                <img
+                    class="winner-popup__back-home"
+                    id="blueBackHome"
+                    src="public/assets/images/back_to_start.png"
+                    alt="Back to start"
+                >
             </div>
 
             <div class="winner-popup__container" id="orangeWinner">
-                <img class="winner-popup__text--orange" src="public/assets/images/winner_text_orange.png" alt="Orange winner">
-                <img class="winner-popup__player--orange" src="public/assets/images/winner_player_orange.png" alt="Orange player winner">
+                <img
+                    class="winner-popup__text--orange"
+                    src="public/assets/images/winner_text_orange.png"
+                    alt="Orange winner"
+                >
+
+                <img
+                    class="winner-popup__player--orange"
+                    src="public/assets/images/winner_player_orange.png"
+                    alt="Orange player winner"
+                >
 
                 <div class="winner-popup__score winner-popup__score--orange">
                     <span id="orangeWinnerScore">0</span>
                 </div>
 
-                <img class="winner-popup__back-home" id="orangeBackHome" src="public/assets/images/back_to_start.png" alt="Back to start">
+                <img
+                    class="winner-popup__back-home"
+                    id="orangeBackHome"
+                    src="public/assets/images/back_to_start.png"
+                    alt="Back to start"
+                >
             </div>
 
             <div class="winner-popup__container" id="drawWinner">
-                <img class="winner-popup__text--draw" src="public/assets/images/draw_text_gaming_theme.png" alt="Draw">
-                <img class="winner-popup__icon--draw" src="public/assets/images/draw_icon_gaming_theme.png" alt="Draw icon">
-                <img class="winner-popup__back-home" id="drawBackHome" src="public/assets/images/back_to_start.png" alt="Back to start">
+                <img
+                    class="winner-popup__text--draw"
+                    src="public/assets/images/draw_text_gaming_theme.png"
+                    alt="Draw"
+                >
+
+                <img
+                    class="winner-popup__icon--draw"
+                    src="public/assets/images/draw_icon_gaming_theme.png"
+                    alt="Draw icon"
+                >
+
+                <img
+                    class="winner-popup__back-home"
+                    id="drawBackHome"
+                    src="public/assets/images/back_to_start.png"
+                    alt="Back to start"
+                >
             </div>
         </div>
     </div>
 
     <div class="exit-popup-overlay" id="exitPopup">
         <div class="exit-popup">
-            <img class="exit-popup__image" src="public/assets/images/popup_exit_button.png" alt="Exit game popup">
+            <img
+                class="exit-popup__image"
+                src="public/assets/images/popup_exit_button.png"
+                alt="Exit game popup"
+            >
+
             <div class="exit-popup__back-area" id="backToGame"></div>
             <div class="exit-popup__exit-area" id="exitGame"></div>
         </div>

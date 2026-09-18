@@ -89,6 +89,7 @@ class MemoryGame {
     private setupStartingPlayer(): void {
         const selectedPlayer =
             localStorage.getItem("selectedPlayer") || "blue";
+
         this.currentPlayer = selectedPlayer === "orange" ? 1 : 2;
         this.updateCurrentPlayerIndicator();
     }
@@ -307,7 +308,7 @@ class MemoryGame {
     /**
      * Selects a clicked card.
      * @param card Selected card.
-     * @param element Card element.
+     * @param element Selected card element.
      */
     private selectCard(
         card: Card,
@@ -531,13 +532,55 @@ class MemoryGame {
         }
 
         this.gameFinished = true;
-        this.showGameResult();
+        this.showGameOverPopup();
     }
 
     /**
-     * Shows the final game result.
+     * Shows the game over popup before the winner popup.
+     */
+    private showGameOverPopup(): void {
+        const popup =
+            document.querySelector<HTMLElement>(
+                "#gameOverPopup"
+            );
+
+        if (!popup) return;
+
+        this.updateGameOverScore();
+        popup.classList.add("is-visible");
+
+        setTimeout(
+            () => this.showGameResult(),
+            2000
+        );
+    }
+
+    /**
+     * Updates the final score in the game over popup.
+     */
+    private updateGameOverScore(): void {
+        this.updateScoreElement(
+            "#gameOverOrangeScore",
+            this.player1Score
+        );
+
+        this.updateScoreElement(
+            "#gameOverBlueScore",
+            this.player2Score
+        );
+    }
+
+    /**
+     * Shows the final winner result.
      */
     private showGameResult(): void {
+        const gameOverPopup =
+            document.querySelector<HTMLElement>(
+                "#gameOverPopup"
+            );
+
+        gameOverPopup?.classList.remove("is-visible");
+
         if (this.player1Score === this.player2Score) {
             this.showDrawPopup();
             return;
@@ -551,10 +594,14 @@ class MemoryGame {
      */
     private showDrawPopup(): void {
         const popup =
-            document.querySelector<HTMLElement>("#winnerPopup");
+            document.querySelector<HTMLElement>(
+                "#winnerPopup"
+            );
 
         const drawWinner =
-            document.querySelector<HTMLElement>("#drawWinner");
+            document.querySelector<HTMLElement>(
+                "#drawWinner"
+            );
 
         if (!popup || !drawWinner) return;
 
@@ -581,7 +628,9 @@ class MemoryGame {
      */
     private showWinnerPopup(): void {
         const popup =
-            document.querySelector<HTMLElement>("#winnerPopup");
+            document.querySelector<HTMLElement>(
+                "#winnerPopup"
+            );
 
         if (!popup) return;
 
@@ -620,10 +669,14 @@ class MemoryGame {
      */
     private updateWinnerPopup(): void {
         const orange =
-            document.querySelector<HTMLElement>("#orangeWinner");
+            document.querySelector<HTMLElement>(
+                "#orangeWinner"
+            );
 
         const blue =
-            document.querySelector<HTMLElement>("#blueWinner");
+            document.querySelector<HTMLElement>(
+                "#blueWinner"
+            );
 
         if (!orange || !blue) return;
 
@@ -698,16 +751,24 @@ class MemoryGame {
             );
 
         const exitPopup =
-            document.querySelector<HTMLElement>("#exitPopup");
+            document.querySelector<HTMLElement>(
+                "#exitPopup"
+            );
 
         const popup =
-            document.querySelector<HTMLElement>(".exit-popup");
+            document.querySelector<HTMLElement>(
+                ".exit-popup"
+            );
 
         const backToGame =
-            document.querySelector<HTMLElement>("#backToGame");
+            document.querySelector<HTMLElement>(
+                "#backToGame"
+            );
 
         const exitGame =
-            document.querySelector<HTMLElement>("#exitGame");
+            document.querySelector<HTMLElement>(
+                "#exitGame"
+            );
 
         this.setupExitEvents(
             exitButton,
@@ -816,6 +877,7 @@ class MemoryGame {
         if (!popup) return;
 
         popup.classList.add("is-closing");
+
         setTimeout(
             () => this.finishClosingPopup(popup),
             450
