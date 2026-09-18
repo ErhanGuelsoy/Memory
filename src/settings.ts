@@ -178,14 +178,8 @@ function loadSettings(
 ): void {
     const themeName =
         localStorage.getItem("selectedTheme") || "code-vibes";
-    const playerName =
-        localStorage.getItem("selectedPlayer") || "blue";
-    const cardCount =
-        localStorage.getItem("cardCount") || "16";
 
     applyTheme(findTheme(themes, themeName), preview);
-    applyPlayer(findPlayer(players, playerName));
-    applyCards(findCards(cardOptions, cardCount));
 }
 
 /**
