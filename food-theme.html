@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&family=Klee+One:wght@600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/assets/images/chess_favicon.png">
     <title>Food Theme</title>
 </head>
@@ -42,6 +42,36 @@
             <div class="memory__card-container" data-card-count="16"></div>
         </main>
     </section>
+
+    <div class="game-over-food-popup-overlay" id="gameOverPopup">
+        <div class="game-over-food-popup">
+            <img
+                class="game-over-food-popup__title"
+                src="public/assets/images/game_over_food.png"
+                alt="Game Over"
+            >
+
+            <div class="game-over-food-popup__score-container">
+                <img
+                    class="game-over-food-popup__final-score"
+                    src="public/assets/images/final_score_food.png"
+                    alt="Final Score"
+                >
+
+                <div class="gaming__blue-orange-box game-over-food-popup__score-box">
+                    <div class="gaming__player-score gaming__player-score--orange" data-player="orange">
+                        <img class="gaming__chess" src="public/assets/images/chess_orange_left.png" alt="Orange chess">
+                        <span id="gameOverOrangeScore">0</span>
+                    </div>
+
+                    <div class="gaming__player-score gaming__player-score--blue" data-player="blue">
+                        <img class="gaming__chess" src="public/assets/images/chess_blue_right.png" alt="Blue chess">
+                        <span id="gameOverBlueScore">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="winner-popup-overlay" id="winnerPopup">
         <div class="winner-popup">
