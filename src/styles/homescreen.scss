@@ -65,11 +65,12 @@ body {
         padding: 0 5px;
         background: #F0EA6E;
         box-sizing: border-box;
-        transition: width 0.3s ease;
+        transition: width 0.3s ease, height 0.3s ease;
         cursor: pointer;
 
         &:hover {
-            width: 265px;
+            width: 269.2288818359375px;
+            height: 101.94153594970703px;
         }
 
         img:first-child {

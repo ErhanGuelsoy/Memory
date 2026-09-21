@@ -13,7 +13,9 @@ function selectTheme(
     themes.forEach((item) =>
         item.classList.remove("is-selected")
     );
+
     theme.classList.add("is-selected");
+
     localStorage.setItem(
         "selectedTheme",
         theme.dataset.theme || "code-vibes"
@@ -58,7 +60,9 @@ function selectPlayer(
     players.forEach((item) =>
         item.classList.remove("is-selected")
     );
+
     player.classList.add("is-selected");
+
     localStorage.setItem(
         "selectedPlayer",
         player.dataset.player || "blue"
@@ -77,7 +81,9 @@ function selectBoardSize(
     cardOptions.forEach((item) =>
         item.classList.remove("is-selected")
     );
+
     cards.classList.add("is-selected");
+
     localStorage.setItem(
         "cardCount",
         cards.dataset.cards || "16"
@@ -109,12 +115,14 @@ function applyTheme(
     preview: HTMLImageElement
 ): void {
     if (!theme) return;
+
     theme.classList.add("is-selected");
     updatePreview(theme, preview);
 }
 
 /**
- * Loads the saved theme.
+ * Loads only the saved theme.
+ * Player and board size are intentionally not loaded.
  * @param themes Theme elements.
  * @param preview Preview image.
  */
@@ -125,7 +133,10 @@ function loadSettings(
     const themeName =
         localStorage.getItem("selectedTheme") || "code-vibes";
 
-    applyTheme(findTheme(themes, themeName), preview);
+    applyTheme(
+        findTheme(themes, themeName),
+        preview
+    );
 }
 
 /**
@@ -231,6 +242,40 @@ function startGame(): void {
 
     window.location.href =
         `${baseUrl}gaming-theme.html`;
+}
+
+/**
+ * Adds hover behaviour to one option.
+ * @param option Option element.
+ * @param options All options in the same group.
+ */
+function setupHoverEvent(
+    option: HTMLElement,
+    options: NodeListOf<HTMLElement>
+): void {
+    option.addEventListener("mouseenter", () => {
+        options.forEach((item) =>
+            item.classList.remove("is-hovered")
+        );
+
+        option.classList.add("is-hovered");
+    });
+
+    option.addEventListener("mouseleave", () => {
+        option.classList.remove("is-hovered");
+    });
+}
+
+/**
+ * Sets up hover events for all options.
+ * @param options Option elements.
+ */
+function setupHoverEvents(
+    options: NodeListOf<HTMLElement>
+): void {
+    options.forEach((option) =>
+        setupHoverEvent(option, options)
+    );
 }
 
 /**
@@ -372,10 +417,19 @@ function init(): void {
     setupThemeEvents(themes, preview);
     setupPlayerEvents(players);
     setupBoardEvents(cardOptions);
+
+    setupHoverEvents(themes);
+    setupHoverEvents(players);
+    setupHoverEvents(cardOptions);
+
     setupOutsideClick();
 
     startButton.addEventListener("click", startGame);
-    loadSettings(themes, preview);
+
+    loadSettings(
+        themes,
+        preview
+    );
 }
 
 init();
