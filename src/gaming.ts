@@ -100,34 +100,52 @@ class MemoryGame {
     }
 
     /**
-     * Updates the active player indicator.
+     * Updates the current player image.
      */
     private updateCurrentPlayerIndicator(): void {
-        const players =
-            document.querySelectorAll<HTMLElement>(
-                "[data-player]"
+        const logo =
+            document.querySelector<HTMLImageElement>(
+                "#currentPlayerLogo"
             );
 
-        players.forEach((player) =>
-            this.updatePlayerIndicator(player)
+        if (!logo) return;
+
+        const player =
+            this.getCurrentPlayerName();
+
+        this.updateCurrentPlayerLogo(
+            logo,
+            player
         );
     }
 
     /**
-     * Updates one player indicator.
-     * @param player Player element.
+     * Updates the current player logo.
+     * @param logo Current player image.
+     * @param player Current player name.
      */
-    private updatePlayerIndicator(
-        player: HTMLElement
+    private updateCurrentPlayerLogo(
+        logo: HTMLImageElement,
+        player: string
     ): void {
-        const name = player.dataset.player;
-        const current =
-            name === this.getCurrentPlayerName();
+        const baseUrl =
+            `${import.meta.env.BASE_URL}assets/images/`;
 
-        player.classList.toggle(
-            "is-current-player",
-            current
-        );
+        if (player === "orange") {
+            logo.src =
+                `${baseUrl}current player frame orange.png`;
+
+            logo.alt =
+                "Current player: Orange";
+
+            return;
+        }
+
+        logo.src =
+            `${baseUrl}current player frame blue.png`;
+
+        logo.alt =
+            "Current player: Blue";
     }
 
     /**
@@ -154,7 +172,10 @@ class MemoryGame {
         const count =
             Number(localStorage.getItem("cardCount")) || 16;
 
-        this.prepareBoard(container, count);
+        this.prepareBoard(
+            container,
+            count
+        );
     }
 
     /**
@@ -166,13 +187,21 @@ class MemoryGame {
         container: HTMLElement,
         count: number
     ): void {
-        container.dataset.cardCount = String(count);
-        this.totalPairs = count / 2;
+        container.dataset.cardCount =
+            String(count);
 
-        const cards = this.buildCards();
+        this.totalPairs =
+            count / 2;
+
+        const cards =
+            this.buildCards();
 
         this.shuffleCards(cards);
-        this.renderCards(cards, container);
+
+        this.renderCards(
+            cards,
+            container
+        );
     }
 
     /**
@@ -187,7 +216,10 @@ class MemoryGame {
             i <= this.totalPairs;
             i++
         ) {
-            this.addCardPair(cards, i);
+            this.addCardPair(
+                cards,
+                i
+            );
         }
 
         return cards;
@@ -213,21 +245,31 @@ class MemoryGame {
                 `${basePath}Code vibes card back ${id}.png`
         };
 
-        cards.push(new Card(cardData));
-        cards.push(new Card(cardData));
+        cards.push(
+            new Card(cardData)
+        );
+
+        cards.push(
+            new Card(cardData)
+        );
     }
 
     /**
      * Shuffles the cards.
      * @param cards Cards to shuffle.
      */
-    private shuffleCards(cards: Card[]): void {
+    private shuffleCards(
+        cards: Card[]
+    ): void {
         for (
             let i = cards.length - 1;
             i > 0;
             i--
         ) {
-            this.swapCards(cards, i);
+            this.swapCards(
+                cards,
+                i
+            );
         }
     }
 
@@ -242,7 +284,8 @@ class MemoryGame {
     ): void {
         const randomIndex =
             Math.floor(
-                Math.random() * (index + 1)
+                Math.random() *
+                (index + 1)
             );
 
         [
@@ -264,7 +307,10 @@ class MemoryGame {
         container: HTMLElement
     ): void {
         cards.forEach((card) =>
-            this.renderCard(card, container)
+            this.renderCard(
+                card,
+                container
+            )
         );
     }
 
@@ -303,7 +349,10 @@ class MemoryGame {
         const element =
             document.createElement("div");
 
-        element.classList.add("memory__card");
+        element.classList.add(
+            "memory__card"
+        );
+
         element.dataset.card =
             String(card.id);
 
@@ -346,12 +395,22 @@ class MemoryGame {
         card: Card,
         element: HTMLElement
     ): void {
-        if (this.isCardBlocked(card)) return;
+        if (
+            this.isCardBlocked(card)
+        ) {
+            return;
+        }
 
         card.flip();
-        element.classList.add("is-flipped");
 
-        this.selectCard(card, element);
+        element.classList.add(
+            "is-flipped"
+        );
+
+        this.selectCard(
+            card,
+            element
+        );
     }
 
     /**
@@ -368,6 +427,7 @@ class MemoryGame {
                 card,
                 element
             );
+
             return;
         }
 
@@ -404,7 +464,8 @@ class MemoryGame {
         element: HTMLElement
     ): void {
         this.firstCard = card;
-        this.firstCardElement = element;
+        this.firstCardElement =
+            element;
     }
 
     /**
@@ -417,14 +478,19 @@ class MemoryGame {
         element: HTMLElement
     ): void {
         this.secondCard = card;
-        this.secondCardElement = element;
+        this.secondCardElement =
+            element;
     }
 
     /**
      * Checks whether both cards match.
      */
     private checkMatch(): void {
-        if (!this.hasSelectedCards()) return;
+        if (
+            !this.hasSelectedCards()
+        ) {
+            return;
+        }
 
         if (
             this.firstCard!.id ===
@@ -446,7 +512,11 @@ class MemoryGame {
      * Handles a matching pair.
      */
     private handleMatch(): void {
-        if (!this.hasSelectedCards()) return;
+        if (
+            !this.hasSelectedCards()
+        ) {
+            return;
+        }
 
         this.markCardsAsMatched();
         this.addPoint();
@@ -488,7 +558,9 @@ class MemoryGame {
      * Adds a point to the current player.
      */
     private addPoint(): void {
-        if (this.currentPlayer === 1) {
+        if (
+            this.currentPlayer === 1
+        ) {
             this.player1Score++;
         } else {
             this.player2Score++;
@@ -551,7 +623,11 @@ class MemoryGame {
      * Turns unmatched cards back over.
      */
     private unflipCards(): void {
-        if (!this.hasSelectedCards()) return;
+        if (
+            !this.hasSelectedCards()
+        ) {
+            return;
+        }
 
         this.firstCard!.unflip();
         this.secondCard!.unflip();
@@ -625,7 +701,10 @@ class MemoryGame {
         if (!popup) return;
 
         this.updateGameOverScore();
-        popup.classList.add("is-visible");
+
+        popup.classList.add(
+            "is-visible"
+        );
 
         setTimeout(
             () => this.showGameResult(),
@@ -686,7 +765,9 @@ class MemoryGame {
                 "#drawWinner"
             );
 
-        if (!popup || !drawWinner) return;
+        if (!popup || !drawWinner) {
+            return;
+        }
 
         this.hideWinnerContainers();
 
@@ -706,8 +787,14 @@ class MemoryGame {
         container: HTMLElement
     ): void {
         container.style.display = "flex";
-        container.classList.add("is-visible");
-        popup.classList.add("is-visible");
+
+        container.classList.add(
+            "is-visible"
+        );
+
+        popup.classList.add(
+            "is-visible"
+        );
     }
 
     /**
@@ -724,7 +811,9 @@ class MemoryGame {
         this.hideWinnerContainers();
         this.updateWinnerPopup();
 
-        popup.classList.add("is-visible");
+        popup.classList.add(
+            "is-visible"
+        );
     }
 
     /**
@@ -737,7 +826,9 @@ class MemoryGame {
             );
 
         winners.forEach((winner) =>
-            this.hideWinnerContainer(winner)
+            this.hideWinnerContainer(
+                winner
+            )
         );
     }
 
@@ -748,7 +839,10 @@ class MemoryGame {
     private hideWinnerContainer(
         winner: HTMLElement
     ): void {
-        winner.classList.remove("is-visible");
+        winner.classList.remove(
+            "is-visible"
+        );
+
         winner.style.display = "none";
     }
 
@@ -766,7 +860,9 @@ class MemoryGame {
                 "#blueWinner"
             );
 
-        if (!orange || !blue) return;
+        if (!orange || !blue) {
+            return;
+        }
 
         this.showWinningPlayer(
             orange,
@@ -792,6 +888,7 @@ class MemoryGame {
                 "#orangeWinnerScore",
                 this.player1Score
             );
+
             return;
         }
 
@@ -819,7 +916,10 @@ class MemoryGame {
         );
 
         winner.style.display = "flex";
-        winner.classList.add("is-visible");
+
+        winner.classList.add(
+            "is-visible"
+        );
     }
 
     /**
@@ -894,12 +994,16 @@ class MemoryGame {
     ): void {
         exitButton?.addEventListener(
             "click",
-            () => this.openExitPopup(exitPopup)
+            () => this.openExitPopup(
+                exitPopup
+            )
         );
 
         backToGame?.addEventListener(
             "click",
-            () => this.closeExitPopup(exitPopup)
+            () => this.closeExitPopup(
+                exitPopup
+            )
         );
 
         exitGame?.addEventListener(
@@ -951,7 +1055,9 @@ class MemoryGame {
             target instanceof Node &&
             !popup.contains(target)
         ) {
-            this.closeExitPopup(exitPopup);
+            this.closeExitPopup(
+                exitPopup
+            );
         }
     }
 
@@ -964,8 +1070,13 @@ class MemoryGame {
     ): void {
         if (!popup) return;
 
-        popup.classList.remove("is-closing");
-        popup.classList.add("is-visible");
+        popup.classList.remove(
+            "is-closing"
+        );
+
+        popup.classList.add(
+            "is-visible"
+        );
     }
 
     /**
@@ -977,10 +1088,14 @@ class MemoryGame {
     ): void {
         if (!popup) return;
 
-        popup.classList.add("is-closing");
+        popup.classList.add(
+            "is-closing"
+        );
 
         setTimeout(
-            () => this.finishClosingPopup(popup),
+            () => this.finishClosingPopup(
+                popup
+            ),
             450
         );
     }
@@ -992,8 +1107,13 @@ class MemoryGame {
     private finishClosingPopup(
         popup: HTMLElement
     ): void {
-        popup.classList.remove("is-visible");
-        popup.classList.remove("is-closing");
+        popup.classList.remove(
+            "is-visible"
+        );
+
+        popup.classList.remove(
+            "is-closing"
+        );
     }
 
     /**
