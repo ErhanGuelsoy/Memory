@@ -12,9 +12,10 @@ body {
 
 .gaming {
     &__main-container {
-        position: relative;
+        position: fixed;
         width: 1217px;
         height: 644px;
+        margin: 0 auto;
         box-sizing: border-box;
         background-color: rgba(48, 49, 49, 1);
     }
@@ -196,15 +197,6 @@ body {
         grid-template-rows: repeat(6, 80px);
     }
 
-    &__card {
-        position: relative;
-        width: 120px;
-        height: 120px;
-        cursor: pointer;
-        perspective: 1000px;
-        box-sizing: border-box;
-    }
-
     &__card-container[data-card-count="24"] &__card {
         width: 90px;
         height: 90px;
@@ -232,40 +224,24 @@ body {
     &__card-back {
         position: absolute;
         inset: 0;
-        width: 120px;
-        height: 120px;
+        display: block;
+        width: 100%;
+        height: 100%;
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
-        overflow: hidden;
-        background-repeat: no-repeat;
-        background-size: 120px 240px;
+        border: 0;
+        object-fit: fill;
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
+        box-sizing: border-box;
     }
 
     &__card-front {
-        background-position: center top;
         transform: rotateY(0deg);
     }
 
     &__card-back {
-        background-position: center bottom;
         transform: rotateY(180deg);
-    }
-
-    &__card-container[data-card-count="24"] &__card-front,
-    &__card-container[data-card-count="24"] &__card-back {
-        width: 90px;
-        height: 90px;
-        background-size: 90px 180px;
-    }
-
-    &__card-container[data-card-count="36"] &__card-front,
-    &__card-container[data-card-count="36"] &__card-back {
-        width: 80px;
-        height: 80px;
-        background-size: 80px 160px;
     }
 
     &__card:hover {
@@ -376,7 +352,6 @@ body {
     line-height: 100%;
     white-space: nowrap;
     box-sizing: border-box;
-    flex-shrink: 0;
 }
 
 .game-over-popup__player-score > span:last-child {

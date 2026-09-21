@@ -23,25 +23,12 @@ body {
         left: 0;
         top: 0;
         display: flex;
-        width: 265px;
         height: 54px;
         color: #FFFFFF;
         opacity: 1;
-        font-family: Almarai;
-        font-weight: 400;
-        font-style: Regular;
-        font-size: 48px;
-        line-height: 100%;
-        letter-spacing: 0;
-    }
-
-    &__toPlayText {
-        width: 265px;
-        height: 54px;
-        opacity: 1;
-        font-family: Almarai;
-        font-weight: 400;
-        font-style: Regular;
+        font-family: "Red Rose";
+        font-weight: 700;
+        font-style: normal;
         font-size: 48px;
         line-height: 100%;
         letter-spacing: 0;
@@ -58,7 +45,7 @@ body {
         color: #FFFFFF;
         font-family: "Red Rose";
         font-weight: 700;
-        font-style: Bold;
+        font-style: normal;
         font-size: 140px;
         line-height: 100%;
         letter-spacing: 0;
@@ -78,17 +65,48 @@ body {
         padding: 0 5px;
         background: #F0EA6E;
         box-sizing: border-box;
+        transition: width 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            width: 265px;
+        }
+
+        img:first-child {
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            transform-origin: center;
+        }
+
+        &:hover img:first-child {
+            transform: rotate(-25deg);
+        }
+
+        img:last-child {
+            transition: transform 0.3s ease, filter 0.3s ease;
+            transform-origin: center;
+        }
+
+        &:hover img:last-child {
+            transform: scale(1.16);
+            filter: drop-shadow(0 0 0.8px currentColor);
+        }
     }
 
     &__style {
+        position: relative;
+        z-index: 1;
         font-family: "Red Rose";
         font-weight: 700;
-        font-style: Bold;
+        font-style: normal;
         font-size: 40px;
         line-height: 100%;
         letter-spacing: 0;
         background-color: #F0EA6E;
         border: 0;
+        cursor: pointer;
     }
 
     button {

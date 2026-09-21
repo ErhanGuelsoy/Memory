@@ -83,9 +83,11 @@ class MemoryGame {
     private updateCurrentPlayerIndicator(): void {
         const players =
             document.querySelectorAll<HTMLElement>("[data-player]");
+
         players.forEach((player) => {
             const active =
                 player.dataset.player === this.getCurrentPlayerName();
+
             player.classList.toggle("is-current-player", active);
         });
     }
@@ -103,12 +105,20 @@ class MemoryGame {
      */
     private createCards(): void {
         const container =
-            document.querySelector<HTMLElement>(".memory__card-container");
+            document.querySelector<HTMLElement>(
+                ".memory__card-container"
+            );
+
         if (!container) return;
-        const count = Number(localStorage.getItem("cardCount")) || 16;
+
+        const count =
+            Number(localStorage.getItem("cardCount")) || 16;
+
         container.dataset.cardCount = String(count);
         this.totalPairs = count / 2;
+
         const cards = this.buildCards();
+
         this.shuffleCards(cards);
         this.renderCards(cards, container);
     }
@@ -119,12 +129,15 @@ class MemoryGame {
      */
     private buildCards(): Card[] {
         const cards: Card[] = [];
+
         for (let i = 1; i <= this.totalPairs; i++) {
             const image =
-                `./images/food card ${String(i).padStart(2, "0")}.png`;
+                `${import.meta.env.BASE_URL}assets/images/food card ${i}.png`;
+
             cards.push(new Card({ id: i, image }));
             cards.push(new Card({ id: i, image }));
         }
+
         return cards;
     }
 
@@ -134,7 +147,9 @@ class MemoryGame {
      */
     private shuffleCards(cards: Card[]): void {
         for (let i = cards.length - 1; i > 0; i--) {
-            const randomIndex = Math.floor(Math.random() * (i + 1));
+            const randomIndex =
+                Math.floor(Math.random() * (i + 1));
+
             [cards[i], cards[randomIndex]] =
                 [cards[randomIndex], cards[i]];
         }
@@ -145,10 +160,16 @@ class MemoryGame {
      * @param cards Cards to render.
      * @param container Card container.
      */
-    private renderCards(cards: Card[], container: HTMLElement): void {
+    private renderCards(
+        cards: Card[],
+        container: HTMLElement
+    ): void {
         cards.forEach((card) => {
-            const element = this.createCardElement(card);
+            const element =
+                this.createCardElement(card);
+
             container.appendChild(element);
+
             element.addEventListener(
                 "click",
                 () => this.handleCardClick(card, element)
@@ -162,10 +183,14 @@ class MemoryGame {
      * @returns Card element.
      */
     private createCardElement(card: Card): HTMLElement {
-        const element = document.createElement("div");
+        const element =
+            document.createElement("div");
+
         element.classList.add("memory__card");
         element.dataset.card = String(card.id);
-        element.innerHTML = this.getCardMarkup(card);
+        element.innerHTML =
+            this.getCardMarkup(card);
+
         return element;
     }
 
@@ -175,13 +200,23 @@ class MemoryGame {
      * @returns Card markup.
      */
     private getCardMarkup(card: Card): string {
+        const cardBack =
+            `${import.meta.env.BASE_URL}assets/images/food_card.png`;
+
         return `
             <div class="memory__card-inner">
                 <div class="memory__card-front">
-                    <img src="./assets/images/food_card.png" alt="Food card front">
+                    <img
+                        src="${cardBack}"
+                        alt="Food card back"
+                    >
                 </div>
-                <div class="memory__card-back"
-                    style="--food-card: url('${card.image}');">
+
+                <div class="memory__card-back">
+                    <img
+                        src="${card.image}"
+                        alt="Food card ${card.id}"
+                    >
                 </div>
             </div>
         `;
@@ -192,14 +227,20 @@ class MemoryGame {
      * @param card Selected card.
      * @param element Selected element.
      */
-    private handleCardClick(card: Card, element: HTMLElement): void {
+    private handleCardClick(
+        card: Card,
+        element: HTMLElement
+    ): void {
         if (this.isCardBlocked(card)) return;
+
         card.flip();
         element.classList.add("is-flipped");
+
         if (!this.firstCard) {
             this.selectFirstCard(card, element);
             return;
         }
+
         this.selectSecondCard(card, element);
         this.checkMatch();
     }
@@ -221,7 +262,10 @@ class MemoryGame {
      * @param card Card object.
      * @param element Card element.
      */
-    private selectFirstCard(card: Card, element: HTMLElement): void {
+    private selectFirstCard(
+        card: Card,
+        element: HTMLElement
+    ): void {
         this.firstCard = card;
         this.firstCardElement = element;
     }
@@ -231,7 +275,10 @@ class MemoryGame {
      * @param card Card object.
      * @param element Card element.
      */
-    private selectSecondCard(card: Card, element: HTMLElement): void {
+    private selectSecondCard(
+        card: Card,
+        element: HTMLElement
+    ): void {
         this.secondCard = card;
         this.secondCardElement = element;
     }
@@ -241,11 +288,14 @@ class MemoryGame {
      */
     private checkMatch(): void {
         if (!this.firstCard || !this.secondCard) return;
+
         if (this.firstCard.id === this.secondCard.id) {
             this.handleMatch();
             return;
         }
+
         this.lockBoard = true;
+
         setTimeout(() => this.unflipCards(), 1000);
     }
 
@@ -254,10 +304,13 @@ class MemoryGame {
      */
     private handleMatch(): void {
         if (!this.hasSelectedCards()) return;
+
         this.firstCard!.match();
         this.secondCard!.match();
+
         this.markCardsAsMatched();
         this.addPoint();
+
         this.matchedPairs++;
         this.resetBoard();
         this.checkGameWon();
@@ -293,6 +346,7 @@ class MemoryGame {
         } else {
             this.player2Score++;
         }
+
         this.updateScore();
     }
 
@@ -300,8 +354,15 @@ class MemoryGame {
      * Updates both score counters.
      */
     private updateScore(): void {
-        this.updateScoreElement("#player1Score", this.player1Score);
-        this.updateScoreElement("#player2Score", this.player2Score);
+        this.updateScoreElement(
+            "#player1Score",
+            this.player1Score
+        );
+
+        this.updateScoreElement(
+            "#player2Score",
+            this.player2Score
+        );
     }
 
     /**
@@ -309,10 +370,16 @@ class MemoryGame {
      * @param selector Element selector.
      * @param score Score value.
      */
-    private updateScoreElement(selector: string, score: number): void {
+    private updateScoreElement(
+        selector: string,
+        score: number
+    ): void {
         const element =
             document.querySelector<HTMLElement>(selector);
-        if (element) element.textContent = String(score);
+
+        if (element) {
+            element.textContent = String(score);
+        }
     }
 
     /**
@@ -325,6 +392,7 @@ class MemoryGame {
         this.matchedPairs = 0;
         this.gameFinished = false;
         this.lockBoard = false;
+
         this.resetBoard();
         this.updateScore();
     }
@@ -334,8 +402,10 @@ class MemoryGame {
      */
     private unflipCards(): void {
         if (!this.hasSelectedCards()) return;
+
         this.firstCard!.isFlipped = false;
         this.secondCard!.isFlipped = false;
+
         this.removeFlippedClasses();
         this.switchPlayer();
         this.resetBoard();
@@ -345,15 +415,22 @@ class MemoryGame {
      * Removes flipped classes.
      */
     private removeFlippedClasses(): void {
-        this.firstCardElement?.classList.remove("is-flipped");
-        this.secondCardElement?.classList.remove("is-flipped");
+        this.firstCardElement?.classList.remove(
+            "is-flipped"
+        );
+
+        this.secondCardElement?.classList.remove(
+            "is-flipped"
+        );
     }
 
     /**
      * Switches to the other player.
      */
     private switchPlayer(): void {
-        this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+        this.currentPlayer =
+            this.currentPlayer === 1 ? 2 : 1;
+
         this.updateCurrentPlayerIndicator();
     }
 
@@ -372,9 +449,13 @@ class MemoryGame {
      * Checks whether the game is finished or tied.
      */
     private checkGameWon(): void {
-        if (this.matchedPairs !== this.totalPairs || this.gameFinished) {
+        if (
+            this.matchedPairs !== this.totalPairs ||
+            this.gameFinished
+        ) {
             return;
         }
+
         this.gameFinished = true;
         this.showGameOverPopup();
     }
@@ -384,11 +465,19 @@ class MemoryGame {
      */
     private showGameOverPopup(): void {
         const popup =
-            document.querySelector<HTMLElement>("#gameOverPopup");
+            document.querySelector<HTMLElement>(
+                "#gameOverPopup"
+            );
+
         if (!popup) return;
+
         this.updateGameOverScore();
         popup.classList.add("is-visible");
-        setTimeout(() => this.showFinalResult(), 2000);
+
+        setTimeout(
+            () => this.showFinalResult(),
+            2000
+        );
     }
 
     /**
@@ -399,6 +488,7 @@ class MemoryGame {
             "#gameOverOrangeScore",
             this.player1Score
         );
+
         this.updateScoreElement(
             "#gameOverBlueScore",
             this.player2Score
@@ -410,10 +500,12 @@ class MemoryGame {
      */
     private showFinalResult(): void {
         this.hideGameOverPopup();
+
         if (this.player1Score === this.player2Score) {
             this.showDrawPopup();
             return;
         }
+
         this.showWinnerPopup();
     }
 
@@ -422,7 +514,10 @@ class MemoryGame {
      */
     private hideGameOverPopup(): void {
         const popup =
-            document.querySelector<HTMLElement>("#gameOverPopup");
+            document.querySelector<HTMLElement>(
+                "#gameOverPopup"
+            );
+
         popup?.classList.remove("is-visible");
     }
 
@@ -431,11 +526,19 @@ class MemoryGame {
      */
     private showDrawPopup(): void {
         const popup =
-            document.querySelector<HTMLElement>("#winnerPopup");
+            document.querySelector<HTMLElement>(
+                "#winnerPopup"
+            );
+
         const drawWinner =
-            document.querySelector<HTMLElement>("#drawWinner");
+            document.querySelector<HTMLElement>(
+                "#drawWinner"
+            );
+
         if (!popup || !drawWinner) return;
+
         this.hideWinnerContainers();
+
         drawWinner.style.display = "flex";
         drawWinner.classList.add("is-visible");
         popup.classList.add("is-visible");
@@ -446,8 +549,12 @@ class MemoryGame {
      */
     private showWinnerPopup(): void {
         const popup =
-            document.querySelector<HTMLElement>("#winnerPopup");
+            document.querySelector<HTMLElement>(
+                "#winnerPopup"
+            );
+
         if (!popup) return;
+
         this.hideWinnerContainers();
         this.updateWinnerPopup();
         popup.classList.add("is-visible");
@@ -461,6 +568,7 @@ class MemoryGame {
             document.querySelectorAll<HTMLElement>(
                 "#blueWinner, #orangeWinner, #drawWinner"
             );
+
         winners.forEach((winner) => {
             winner.classList.remove("is-visible");
             winner.style.display = "none";
@@ -472,10 +580,17 @@ class MemoryGame {
      */
     private updateWinnerPopup(): void {
         const orange =
-            document.querySelector<HTMLElement>("#orangeWinner");
+            document.querySelector<HTMLElement>(
+                "#orangeWinner"
+            );
+
         const blue =
-            document.querySelector<HTMLElement>("#blueWinner");
+            document.querySelector<HTMLElement>(
+                "#blueWinner"
+            );
+
         if (!orange || !blue) return;
+
         if (this.player1Score > this.player2Score) {
             this.showWinner(
                 orange,
@@ -484,6 +599,7 @@ class MemoryGame {
             );
             return;
         }
+
         this.showWinner(
             blue,
             "#blueWinnerScore",
@@ -515,8 +631,12 @@ class MemoryGame {
             document.querySelectorAll<HTMLElement>(
                 "#blueBackHome, #orangeBackHome, #drawBackHome"
             );
+
         buttons.forEach((button) => {
-            button.addEventListener("click", () => this.leaveGame());
+            button.addEventListener(
+                "click",
+                () => this.leaveGame()
+            );
         });
     }
 
@@ -525,12 +645,20 @@ class MemoryGame {
      */
     private setupWinnerPopup(): void {
         const popup =
-            document.querySelector<HTMLElement>("#winnerPopup");
-        popup?.addEventListener("click", (event: MouseEvent) => {
-            if (event.target === popup) {
-                popup.classList.remove("is-visible");
+            document.querySelector<HTMLElement>(
+                "#winnerPopup"
+            );
+
+        popup?.addEventListener(
+            "click",
+            (event: MouseEvent) => {
+                if (event.target === popup) {
+                    popup.classList.remove(
+                        "is-visible"
+                    );
+                }
             }
-        });
+        );
     }
 
     /**
@@ -541,14 +669,27 @@ class MemoryGame {
             document.querySelector<HTMLElement>(
                 ".gaming__header-right-part-exit-game"
             );
+
         const exitPopup =
-            document.querySelector<HTMLElement>("#exitPopup");
+            document.querySelector<HTMLElement>(
+                "#exitPopup"
+            );
+
         const popup =
-            document.querySelector<HTMLElement>(".exit-popup");
+            document.querySelector<HTMLElement>(
+                ".exit-popup"
+            );
+
         const backToGame =
-            document.querySelector<HTMLElement>("#backToGame");
+            document.querySelector<HTMLElement>(
+                "#backToGame"
+            );
+
         const exitGame =
-            document.querySelector<HTMLElement>("#exitGame");
+            document.querySelector<HTMLElement>(
+                "#exitGame"
+            );
+
         this.setupExitEvents(
             exitButton,
             exitPopup,
@@ -577,18 +718,25 @@ class MemoryGame {
             "click",
             () => this.openExitPopup(exitPopup)
         );
+
         backToGame?.addEventListener(
             "click",
             () => this.closeExitPopup(exitPopup)
         );
+
         exitGame?.addEventListener(
             "click",
             () => this.leaveGame()
         );
+
         exitPopup?.addEventListener(
             "click",
             (event: MouseEvent) =>
-                this.handlePopupClick(event, popup, exitPopup)
+                this.handlePopupClick(
+                    event,
+                    popup,
+                    exitPopup
+                )
         );
     }
 
@@ -604,6 +752,7 @@ class MemoryGame {
         exitPopup: HTMLElement
     ): void {
         const target = event.target;
+
         if (
             popup &&
             target instanceof Node &&
@@ -617,8 +766,11 @@ class MemoryGame {
      * Opens the exit popup.
      * @param popup Popup element.
      */
-    private openExitPopup(popup: HTMLElement | null): void {
+    private openExitPopup(
+        popup: HTMLElement | null
+    ): void {
         if (!popup) return;
+
         popup.classList.remove("is-closing");
         popup.classList.add("is-visible");
     }
@@ -627,17 +779,26 @@ class MemoryGame {
      * Closes the exit popup.
      * @param popup Popup element.
      */
-    private closeExitPopup(popup: HTMLElement | null): void {
+    private closeExitPopup(
+        popup: HTMLElement | null
+    ): void {
         if (!popup) return;
+
         popup.classList.add("is-closing");
-        setTimeout(() => this.finishClosingPopup(popup), 450);
+
+        setTimeout(
+            () => this.finishClosingPopup(popup),
+            450
+        );
     }
 
     /**
      * Finishes closing the exit popup.
      * @param popup Popup element.
      */
-    private finishClosingPopup(popup: HTMLElement): void {
+    private finishClosingPopup(
+        popup: HTMLElement
+    ): void {
         popup.classList.remove("is-visible");
         popup.classList.remove("is-closing");
     }

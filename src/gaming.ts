@@ -3,7 +3,8 @@ import "./styles/gaming-screen.scss";
 
 interface CardData {
     id: number;
-    image: string;
+    frontImage: string;
+    backImage: string;
 }
 
 /**
@@ -11,7 +12,8 @@ interface CardData {
  */
 class Card {
     id: number;
-    image: string;
+    frontImage: string;
+    backImage: string;
     isFlipped: boolean;
     isMatched: boolean;
 
@@ -21,7 +23,8 @@ class Card {
      */
     constructor(data: CardData) {
         this.id = data.id;
-        this.image = data.image;
+        this.frontImage = data.frontImage;
+        this.backImage = data.backImage;
         this.isFlipped = false;
         this.isMatched = false;
     }
@@ -114,10 +117,7 @@ class MemoryGame {
         const name = player.dataset.player;
         const current = name === this.getCurrentPlayerName();
 
-        player.classList.toggle(
-            "is-current-player",
-            current
-        );
+        player.classList.toggle("is-current-player", current);
     }
 
     /**
@@ -186,11 +186,20 @@ class MemoryGame {
         cards: Card[],
         id: number
     ): void {
-        const image =
-            `${import.meta.env.BASE_URL}assets/images/Code vibes card ${id}.png`;
+        const frontImage =
+            `${import.meta.env.BASE_URL}assets/images/Code vibes card front.png`;
 
-        cards.push(new Card({ id, image }));
-        cards.push(new Card({ id, image }));
+        const backImage =
+            `${import.meta.env.BASE_URL}assets/images/Code vibes card back ${id}.png`;
+
+        const cardData: CardData = {
+            id,
+            frontImage,
+            backImage
+        };
+
+        cards.push(new Card(cardData));
+        cards.push(new Card(cardData));
     }
 
     /**
@@ -277,14 +286,16 @@ class MemoryGame {
     private getCardMarkup(card: Card): string {
         return `
             <div class="memory__card-inner">
-                <div
+                <img
                     class="memory__card-front"
-                    style="background-image: url('${card.image}');"
-                ></div>
-                <div
+                    src="${card.frontImage}"
+                    alt="Code vibes card front"
+                >
+                <img
                     class="memory__card-back"
-                    style="background-image: url('${card.image}');"
-                ></div>
+                    src="${card.backImage}"
+                    alt="Code vibes card back"
+                >
             </div>
         `;
     }
@@ -308,7 +319,7 @@ class MemoryGame {
     /**
      * Selects a clicked card.
      * @param card Selected card.
-     * @param element Selected card element.
+     * @param element Selected element.
      */
     private selectCard(
         card: Card,
@@ -339,7 +350,7 @@ class MemoryGame {
     /**
      * Selects the first card.
      * @param card Selected card.
-     * @param element Selected card element.
+     * @param element Selected element.
      */
     private selectFirstCard(
         card: Card,
@@ -352,7 +363,7 @@ class MemoryGame {
     /**
      * Selects the second card.
      * @param card Selected card.
-     * @param element Selected card element.
+     * @param element Selected element.
      */
     private selectSecondCard(
         card: Card,
@@ -490,13 +501,8 @@ class MemoryGame {
      * Removes the flipped class.
      */
     private removeFlippedClasses(): void {
-        this.firstCardElement?.classList.remove(
-            "is-flipped"
-        );
-
-        this.secondCardElement?.classList.remove(
-            "is-flipped"
-        );
+        this.firstCardElement?.classList.remove("is-flipped");
+        this.secondCardElement?.classList.remove("is-flipped");
     }
 
     /**

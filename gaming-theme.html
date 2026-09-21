@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -5,180 +6,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/assets/images/chess_favicon.png">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/assets/images/chess_favicon.png"
+    >
+
     <title>Gaming Theme</title>
 </head>
 
 <body>
+
     <section class="gaming__main-container">
+
         <header class="gaming__header">
+
             <div class="gaming__header-left-part">
+
                 <div class="gaming__blue-orange-box">
-                    <div class="gaming__player-score gaming__player-score--orange" data-player="orange">
-                        <img class="gaming__label gaming__label--orange" src="public/assets/images/label (2).png" alt="Orange player">
-                        <span class="gaming__player-name">orange</span>
-                        <span id="player1Score">0</span>
+
+                    <div
+                        class="gaming__player-score gaming__player-score--orange"
+                        data-player="orange"
+                    >
+                        <img
+                            class="gaming__label gaming__label--orange"
+                            src="/assets/images/label (2).png"
+                            alt="Orange player"
+                        >
+
+                        <span class="gaming__player-name">
+                            orange
+                        </span>
+
+                        <span id="player1Score">
+                            0
+                        </span>
                     </div>
 
-                    <div class="gaming__player-score gaming__player-score--blue" data-player="blue">
-                        <img class="gaming__label gaming__label--blue" src="public/assets/images/label.png" alt="Blue player">
-                        <span class="gaming__player-name">Blue</span>
-                        <span id="player2Score">0</span>
+                    <div
+                        class="gaming__player-score gaming__player-score--blue"
+                        data-player="blue"
+                    >
+                        <img
+                            class="gaming__label gaming__label--blue"
+                            src="/assets/images/label.png"
+                            alt="Blue player"
+                        >
+
+                        <span class="gaming__player-name">
+                            Blue
+                        </span>
+
+                        <span id="player2Score">
+                            0
+                        </span>
                     </div>
+
                 </div>
 
                 <div class="gaming__header-current-player">
-                    <img src="public/assets/images/current_player_logo.png" alt="Current player">
+                    <img
+                        src="/assets/images/current_player_logo.png"
+                        alt="Current player"
+                    >
                 </div>
+
             </div>
 
             <div class="gaming__header-right-part-exit-game">
-                <img src="public/assets/images/exit_button.png" alt="Exit game">
+                <img
+                    src="/assets/images/exit_button.png"
+                    alt="Exit game"
+                >
             </div>
+
         </header>
 
         <div class="memory">
             <div class="memory__card-container"></div>
         </div>
+
     </section>
 
-    <div class="game-over-popup-overlay" id="gameOverPopup">
+    <div
+        class="game-over-popup-overlay"
+        id="gameOverPopup"
+    >
         <div class="game-over-popup">
+
             <img
                 class="game-over-popup__title"
-                src="public/assets/images/game_over.png"
+                src="/assets/images/game_over.png"
                 alt="Game Over"
             >
 
             <div class="game-over-popup__score-container">
+
                 <img
                     class="game-over-popup__final-score"
-                    src="public/assets/images/final_score.png"
+                    src="/assets/images/final_score.png"
                     alt="Final Score"
                 >
 
                 <div class="game-over-popup__blue-orange-box">
-                    <div class="game-over-popup__player-score game-over-popup__player-score--orange">
+
+                    <div
+                        class="game-over-popup__player-score game-over-popup__player-score--orange"
+                    >
                         <img
-                            src="public/assets/images/label (2).png"
+                            src="/assets/images/label (2).png"
                             alt="Orange player"
                         >
-                        <span class="game-over-popup__player-name">orange</span>
-                        <span id="gameOverOrangeScore">0</span>
+
+                        <span class="game-over-popup__player-name">
+                            orange
+                        </span>
+
+                        <span id="gameOverOrangeScore">
+                            0
+                        </span>
                     </div>
 
-                    <div class="game-over-popup__player-score game-over-popup__player-score--blue">
+                    <div
+                        class="game-over-popup__player-score game-over-popup__player-score--blue"
+                    >
                         <img
-                            src="public/assets/images/label.png"
+                            src="/assets/images/label.png"
                             alt="Blue player"
                         >
-                        <span class="game-over-popup__player-name">Blue</span>
-                        <span id="gameOverBlueScore">0</span>
+
+                        <span class="game-over-popup__player-name">
+                            Blue
+                        </span>
+
+                        <span id="gameOverBlueScore">
+                            0
+                        </span>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
     </div>
 
-    <div class="winner-popup-overlay" id="winnerPopup">
+    <div
+        class="winner-popup-overlay"
+        id="winnerPopup"
+    >
         <div class="winner-popup">
+
             <img
                 class="winner-popup__confetti"
-                src="public/assets/images/Confetti.png"
+                src="/assets/images/Confetti.png"
                 alt="Confetti"
             >
 
-            <div class="winner-popup__container" id="blueWinner">
+            <div
+                class="winner-popup__container"
+                id="blueWinner"
+            >
                 <img
                     class="winner-popup__text--blue"
-                    src="public/assets/images/winner_text_blue.png"
+                    src="/assets/images/winner_text_blue.png"
                     alt="Blue winner"
                 >
 
                 <img
                     class="winner-popup__chess--blue"
-                    src="public/assets/images/winner_chess_blue.png"
+                    src="/assets/images/winner_chess_blue.png"
                     alt="Blue chess winner"
                 >
 
                 <div class="winner-popup__score winner-popup__score--blue">
-                    <span id="blueWinnerScore">0</span>
+                    <span id="blueWinnerScore">
+                        0
+                    </span>
                 </div>
 
                 <img
                     class="winner-popup__back-home"
                     id="blueBackHome"
-                    src="public/assets/images/back_to_start.png"
+                    src="/assets/images/back_to_start.png"
                     alt="Back to start"
                 >
             </div>
 
-            <div class="winner-popup__container" id="orangeWinner">
+            <div
+                class="winner-popup__container"
+                id="orangeWinner"
+            >
                 <img
                     class="winner-popup__text--orange"
-                    src="public/assets/images/winner_text_orange.png"
+                    src="/assets/images/winner_text_orange.png"
                     alt="Orange winner"
                 >
 
                 <img
                     class="winner-popup__player--orange"
-                    src="public/assets/images/winner_player_orange.png"
+                    src="/assets/images/winner_player_orange.png"
                     alt="Orange player winner"
                 >
 
                 <div class="winner-popup__score winner-popup__score--orange">
-                    <span id="orangeWinnerScore">0</span>
+                    <span id="orangeWinnerScore">
+                        0
+                    </span>
                 </div>
 
                 <img
                     class="winner-popup__back-home"
                     id="orangeBackHome"
-                    src="public/assets/images/back_to_start.png"
+                    src="/assets/images/back_to_start.png"
                     alt="Back to start"
                 >
             </div>
 
-            <div class="winner-popup__container" id="drawWinner">
+            <div
+                class="winner-popup__container"
+                id="drawWinner"
+            >
                 <img
                     class="winner-popup__text--draw"
-                    src="public/assets/images/draw_text_gaming_theme.png"
+                    src="/assets/images/draw_text_gaming_theme.png"
                     alt="Draw"
                 >
 
                 <img
                     class="winner-popup__icon--draw"
-                    src="public/assets/images/draw_icon_gaming_theme.png"
+                    src="/assets/images/draw_icon_gaming_theme.png"
                     alt="Draw icon"
                 >
 
                 <img
                     class="winner-popup__back-home"
                     id="drawBackHome"
-                    src="public/assets/images/back_to_start.png"
+                    src="/assets/images/back_to_start.png"
                     alt="Back to start"
                 >
             </div>
+
         </div>
     </div>
 
-    <div class="exit-popup-overlay" id="exitPopup">
+    <div
+        class="exit-popup-overlay"
+        id="exitPopup"
+    >
         <div class="exit-popup">
+
             <img
                 class="exit-popup__image"
-                src="public/assets/images/popup_exit_button.png"
+                src="/assets/images/popup_exit_button.png"
                 alt="Exit game popup"
             >
 
-            <div class="exit-popup__back-area" id="backToGame"></div>
-            <div class="exit-popup__exit-area" id="exitGame"></div>
+            <div
+                class="exit-popup__back-area"
+                id="backToGame"
+            ></div>
+
+            <div
+                class="exit-popup__exit-area"
+                id="exitGame"
+            ></div>
+
         </div>
     </div>
 
-    <script type="module" src="/src/gaming.ts"></script>
+    <script
+        type="module"
+        src="/src/gaming.ts"
+    ></script>
 
 </body>
 
 </html>
+
+<div class="memory__card-container"></div>
+
+<div class="memory__card">
+    <div class="memory__card-inner">
+        <img class="memory__card-front" ...>
+        <img class="memory__card-back" ...>
+    </div>
+</div>
