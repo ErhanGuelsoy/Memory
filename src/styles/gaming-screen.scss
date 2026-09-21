@@ -58,21 +58,6 @@ body {
         gap: 4px;
         box-sizing: border-box;
         flex-shrink: 0;
-        transition: box-shadow 0.3s ease, transform 0.3s ease;
-    }
-
-    &__player-score.is-current-player {
-        transform: scale(1.03);
-    }
-
-    &__player-score--orange.is-current-player {
-        box-shadow: 0 0 12px rgba(245, 126, 58, 0.8);
-        border-radius: 6px;
-    }
-
-    &__player-score--blue.is-current-player {
-        box-shadow: 0 0 12px rgba(55, 125, 214, 0.8);
-        border-radius: 6px;
     }
 
     &__label {

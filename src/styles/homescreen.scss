@@ -83,16 +83,21 @@ body {
         &:hover img:first-child {
             transform: rotate(-25deg);
         }
+    }
 
-        img:last-child {
-            transition: transform 0.3s ease, filter 0.3s ease;
-            transform-origin: center;
-        }
+    &__arrow {
+        display: block;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        background-image: url("/assets/images/Arrow 1.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
 
-        &:hover img:last-child {
-            transform: scale(1.16);
-            filter: drop-shadow(0 0 0.8px currentColor);
-        }
+    &__buttonContainer:hover &__arrow {
+        background-image: url("/assets/images/arrow play button.png");
     }
 
     &__style {
