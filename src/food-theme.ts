@@ -73,7 +73,10 @@ class MemoryGame {
     private setupStartingPlayer(): void {
         const selectedPlayer =
             localStorage.getItem("selectedPlayer") || "blue";
-        this.currentPlayer = selectedPlayer === "orange" ? 1 : 2;
+
+        this.currentPlayer =
+            selectedPlayer === "orange" ? 1 : 2;
+
         this.updateCurrentPlayerIndicator();
     }
 
@@ -82,14 +85,53 @@ class MemoryGame {
      */
     private updateCurrentPlayerIndicator(): void {
         const players =
-            document.querySelectorAll<HTMLElement>("[data-player]");
+            document.querySelectorAll<HTMLElement>(
+                "[data-player]"
+            );
 
         players.forEach((player) => {
             const active =
-                player.dataset.player === this.getCurrentPlayerName();
+                player.dataset.player ===
+                this.getCurrentPlayerName();
 
-            player.classList.toggle("is-current-player", active);
+            player.classList.toggle(
+                "is-current-player",
+                active
+            );
         });
+
+        this.updateCurrentPlayerLogo();
+    }
+
+    /**
+     * Updates the current player logo.
+     */
+    private updateCurrentPlayerLogo(): void {
+        const logo =
+            document.querySelector<HTMLImageElement>(
+                "#currentPlayerLogo"
+            );
+
+        if (!logo) return;
+
+        const basePath =
+            `${import.meta.env.BASE_URL}assets/images/`;
+
+        const player =
+            this.getCurrentPlayerName();
+
+        logo.src =
+            `${basePath}chess current player blue.png`;
+
+        logo.classList.toggle(
+            "is-orange",
+            player === "orange"
+        );
+
+        logo.alt =
+            player === "orange"
+                ? "Current player: Orange"
+                : "Current player: Blue";
     }
 
     /**
@@ -97,7 +139,9 @@ class MemoryGame {
      * @returns Current player name.
      */
     private getCurrentPlayerName(): string {
-        return this.currentPlayer === 1 ? "orange" : "blue";
+        return this.currentPlayer === 1
+            ? "orange"
+            : "blue";
     }
 
     /**
@@ -112,15 +156,24 @@ class MemoryGame {
         if (!container) return;
 
         const count =
-            Number(localStorage.getItem("cardCount")) || 16;
+            Number(
+                localStorage.getItem("cardCount")
+            ) || 16;
 
-        container.dataset.cardCount = String(count);
-        this.totalPairs = count / 2;
+        container.dataset.cardCount =
+            String(count);
 
-        const cards = this.buildCards();
+        this.totalPairs =
+            count / 2;
+
+        const cards =
+            this.buildCards();
 
         this.shuffleCards(cards);
-        this.renderCards(cards, container);
+        this.renderCards(
+            cards,
+            container
+        );
     }
 
     /**
@@ -130,12 +183,27 @@ class MemoryGame {
     private buildCards(): Card[] {
         const cards: Card[] = [];
 
-        for (let i = 1; i <= this.totalPairs; i++) {
+        for (
+            let i = 1;
+            i <= this.totalPairs;
+            i++
+        ) {
             const image =
                 `${import.meta.env.BASE_URL}assets/images/food card ${i}.png`;
 
-            cards.push(new Card({ id: i, image }));
-            cards.push(new Card({ id: i, image }));
+            cards.push(
+                new Card({
+                    id: i,
+                    image
+                })
+            );
+
+            cards.push(
+                new Card({
+                    id: i,
+                    image
+                })
+            );
         }
 
         return cards;
@@ -145,13 +213,27 @@ class MemoryGame {
      * Shuffles the cards.
      * @param cards Cards to shuffle.
      */
-    private shuffleCards(cards: Card[]): void {
-        for (let i = cards.length - 1; i > 0; i--) {
+    private shuffleCards(
+        cards: Card[]
+    ): void {
+        for (
+            let i = cards.length - 1;
+            i > 0;
+            i--
+        ) {
             const randomIndex =
-                Math.floor(Math.random() * (i + 1));
+                Math.floor(
+                    Math.random() *
+                    (i + 1)
+                );
 
-            [cards[i], cards[randomIndex]] =
-                [cards[randomIndex], cards[i]];
+            [
+                cards[i],
+                cards[randomIndex]
+            ] = [
+                cards[randomIndex],
+                cards[i]
+            ];
         }
     }
 
@@ -172,7 +254,11 @@ class MemoryGame {
 
             element.addEventListener(
                 "click",
-                () => this.handleCardClick(card, element)
+                () =>
+                    this.handleCardClick(
+                        card,
+                        element
+                    )
             );
         });
     }
@@ -182,12 +268,19 @@ class MemoryGame {
      * @param card Card object.
      * @returns Card element.
      */
-    private createCardElement(card: Card): HTMLElement {
+    private createCardElement(
+        card: Card
+    ): HTMLElement {
         const element =
             document.createElement("div");
 
-        element.classList.add("memory__card");
-        element.dataset.card = String(card.id);
+        element.classList.add(
+            "memory__card"
+        );
+
+        element.dataset.card =
+            String(card.id);
+
         element.innerHTML =
             this.getCardMarkup(card);
 
@@ -199,7 +292,9 @@ class MemoryGame {
      * @param card Card object.
      * @returns Card markup.
      */
-    private getCardMarkup(card: Card): string {
+    private getCardMarkup(
+        card: Card
+    ): string {
         const cardBack =
             `${import.meta.env.BASE_URL}assets/images/food_card.png`;
 
@@ -225,23 +320,38 @@ class MemoryGame {
     /**
      * Handles a card click.
      * @param card Selected card.
-     * @param element Selected element.
+     * @param element Card element.
      */
     private handleCardClick(
         card: Card,
         element: HTMLElement
     ): void {
-        if (this.isCardBlocked(card)) return;
-
-        card.flip();
-        element.classList.add("is-flipped");
-
-        if (!this.firstCard) {
-            this.selectFirstCard(card, element);
+        if (
+            this.isCardBlocked(card)
+        ) {
             return;
         }
 
-        this.selectSecondCard(card, element);
+        card.flip();
+
+        element.classList.add(
+            "is-flipped"
+        );
+
+        if (!this.firstCard) {
+            this.selectFirstCard(
+                card,
+                element
+            );
+
+            return;
+        }
+
+        this.selectSecondCard(
+            card,
+            element
+        );
+
         this.checkMatch();
     }
 
@@ -250,11 +360,15 @@ class MemoryGame {
      * @param card Selected card.
      * @returns True when blocked.
      */
-    private isCardBlocked(card: Card): boolean {
-        return this.gameFinished ||
+    private isCardBlocked(
+        card: Card
+    ): boolean {
+        return (
+            this.gameFinished ||
             this.lockBoard ||
             card.isFlipped ||
-            card.isMatched;
+            card.isMatched
+        );
     }
 
     /**
@@ -267,7 +381,8 @@ class MemoryGame {
         element: HTMLElement
     ): void {
         this.firstCard = card;
-        this.firstCardElement = element;
+        this.firstCardElement =
+            element;
     }
 
     /**
@@ -280,30 +395,46 @@ class MemoryGame {
         element: HTMLElement
     ): void {
         this.secondCard = card;
-        this.secondCardElement = element;
+        this.secondCardElement =
+            element;
     }
 
     /**
      * Checks the selected cards.
      */
     private checkMatch(): void {
-        if (!this.firstCard || !this.secondCard) return;
+        if (
+            !this.firstCard ||
+            !this.secondCard
+        ) {
+            return;
+        }
 
-        if (this.firstCard.id === this.secondCard.id) {
+        if (
+            this.firstCard.id ===
+            this.secondCard.id
+        ) {
             this.handleMatch();
             return;
         }
 
         this.lockBoard = true;
 
-        setTimeout(() => this.unflipCards(), 1000);
+        setTimeout(
+            () => this.unflipCards(),
+            1000
+        );
     }
 
     /**
      * Handles a matching pair.
      */
     private handleMatch(): void {
-        if (!this.hasSelectedCards()) return;
+        if (
+            !this.hasSelectedCards()
+        ) {
+            return;
+        }
 
         this.firstCard!.match();
         this.secondCard!.match();
@@ -333,15 +464,22 @@ class MemoryGame {
      * Marks selected cards as matched.
      */
     private markCardsAsMatched(): void {
-        this.firstCardElement?.classList.add("matched");
-        this.secondCardElement?.classList.add("matched");
+        this.firstCardElement?.classList.add(
+            "matched"
+        );
+
+        this.secondCardElement?.classList.add(
+            "matched"
+        );
     }
 
     /**
      * Adds a point to the current player.
      */
     private addPoint(): void {
-        if (this.currentPlayer === 1) {
+        if (
+            this.currentPlayer === 1
+        ) {
             this.player1Score++;
         } else {
             this.player2Score++;
@@ -375,10 +513,13 @@ class MemoryGame {
         score: number
     ): void {
         const element =
-            document.querySelector<HTMLElement>(selector);
+            document.querySelector<HTMLElement>(
+                selector
+            );
 
         if (element) {
-            element.textContent = String(score);
+            element.textContent =
+                String(score);
         }
     }
 
@@ -401,7 +542,11 @@ class MemoryGame {
      * Turns unmatched cards back over.
      */
     private unflipCards(): void {
-        if (!this.hasSelectedCards()) return;
+        if (
+            !this.hasSelectedCards()
+        ) {
+            return;
+        }
 
         this.firstCard!.isFlipped = false;
         this.secondCard!.isFlipped = false;
@@ -429,7 +574,9 @@ class MemoryGame {
      */
     private switchPlayer(): void {
         this.currentPlayer =
-            this.currentPlayer === 1 ? 2 : 1;
+            this.currentPlayer === 1
+                ? 2
+                : 1;
 
         this.updateCurrentPlayerIndicator();
     }
@@ -450,7 +597,8 @@ class MemoryGame {
      */
     private checkGameWon(): void {
         if (
-            this.matchedPairs !== this.totalPairs ||
+            this.matchedPairs !==
+                this.totalPairs ||
             this.gameFinished
         ) {
             return;
@@ -472,7 +620,10 @@ class MemoryGame {
         if (!popup) return;
 
         this.updateGameOverScore();
-        popup.classList.add("is-visible");
+
+        popup.classList.add(
+            "is-visible"
+        );
 
         setTimeout(
             () => this.showFinalResult(),
@@ -501,7 +652,10 @@ class MemoryGame {
     private showFinalResult(): void {
         this.hideGameOverPopup();
 
-        if (this.player1Score === this.player2Score) {
+        if (
+            this.player1Score ===
+            this.player2Score
+        ) {
             this.showDrawPopup();
             return;
         }
@@ -518,7 +672,9 @@ class MemoryGame {
                 "#gameOverPopup"
             );
 
-        popup?.classList.remove("is-visible");
+        popup?.classList.remove(
+            "is-visible"
+        );
     }
 
     /**
@@ -535,13 +691,22 @@ class MemoryGame {
                 "#drawWinner"
             );
 
-        if (!popup || !drawWinner) return;
+        if (!popup || !drawWinner) {
+            return;
+        }
 
         this.hideWinnerContainers();
 
-        drawWinner.style.display = "flex";
-        drawWinner.classList.add("is-visible");
-        popup.classList.add("is-visible");
+        drawWinner.style.display =
+            "flex";
+
+        drawWinner.classList.add(
+            "is-visible"
+        );
+
+        popup.classList.add(
+            "is-visible"
+        );
     }
 
     /**
@@ -557,7 +722,10 @@ class MemoryGame {
 
         this.hideWinnerContainers();
         this.updateWinnerPopup();
-        popup.classList.add("is-visible");
+
+        popup.classList.add(
+            "is-visible"
+        );
     }
 
     /**
@@ -570,8 +738,12 @@ class MemoryGame {
             );
 
         winners.forEach((winner) => {
-            winner.classList.remove("is-visible");
-            winner.style.display = "none";
+            winner.classList.remove(
+                "is-visible"
+            );
+
+            winner.style.display =
+                "none";
         });
     }
 
@@ -589,14 +761,20 @@ class MemoryGame {
                 "#blueWinner"
             );
 
-        if (!orange || !blue) return;
+        if (!orange || !blue) {
+            return;
+        }
 
-        if (this.player1Score > this.player2Score) {
+        if (
+            this.player1Score >
+            this.player2Score
+        ) {
             this.showWinner(
                 orange,
                 "#orangeWinnerScore",
                 this.player1Score
             );
+
             return;
         }
 
@@ -618,9 +796,17 @@ class MemoryGame {
         selector: string,
         score: number
     ): void {
-        this.updateScoreElement(selector, score);
-        winner.style.display = "flex";
-        winner.classList.add("is-visible");
+        this.updateScoreElement(
+            selector,
+            score
+        );
+
+        winner.style.display =
+            "flex";
+
+        winner.classList.add(
+            "is-visible"
+        );
     }
 
     /**
@@ -652,7 +838,9 @@ class MemoryGame {
         popup?.addEventListener(
             "click",
             (event: MouseEvent) => {
-                if (event.target === popup) {
+                if (
+                    event.target === popup
+                ) {
                     popup.classList.remove(
                         "is-visible"
                     );
@@ -716,12 +904,16 @@ class MemoryGame {
     ): void {
         exitButton?.addEventListener(
             "click",
-            () => this.openExitPopup(exitPopup)
+            () => this.openExitPopup(
+                exitPopup
+            )
         );
 
         backToGame?.addEventListener(
             "click",
-            () => this.closeExitPopup(exitPopup)
+            () => this.closeExitPopup(
+                exitPopup
+            )
         );
 
         exitGame?.addEventListener(
@@ -758,7 +950,9 @@ class MemoryGame {
             target instanceof Node &&
             !popup.contains(target)
         ) {
-            this.closeExitPopup(exitPopup);
+            this.closeExitPopup(
+                exitPopup
+            );
         }
     }
 
@@ -771,8 +965,13 @@ class MemoryGame {
     ): void {
         if (!popup) return;
 
-        popup.classList.remove("is-closing");
-        popup.classList.add("is-visible");
+        popup.classList.remove(
+            "is-closing"
+        );
+
+        popup.classList.add(
+            "is-visible"
+        );
     }
 
     /**
@@ -784,10 +983,15 @@ class MemoryGame {
     ): void {
         if (!popup) return;
 
-        popup.classList.add("is-closing");
+        popup.classList.add(
+            "is-closing"
+        );
 
         setTimeout(
-            () => this.finishClosingPopup(popup),
+            () =>
+                this.finishClosingPopup(
+                    popup
+                ),
             450
         );
     }
@@ -799,8 +1003,13 @@ class MemoryGame {
     private finishClosingPopup(
         popup: HTMLElement
     ): void {
-        popup.classList.remove("is-visible");
-        popup.classList.remove("is-closing");
+        popup.classList.remove(
+            "is-visible"
+        );
+
+        popup.classList.remove(
+            "is-closing"
+        );
     }
 
     /**
@@ -813,4 +1022,5 @@ class MemoryGame {
 }
 
 const game = new MemoryGame();
+
 game.init();
