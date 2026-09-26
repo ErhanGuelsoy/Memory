@@ -19,17 +19,22 @@ body {
 }
 
 section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100vh;
   overflow: hidden;
 }
 
 .settings {
-  width: 100%;
+  width: 1103px;
   height: 100vh;
   overflow: hidden;
 
   &__mainScreen {
+    display: flex;
+    margin-left: 600px;
     width: 100%;
   }
 
@@ -40,7 +45,6 @@ section {
     width: 251px;
     height: 67px;
     margin-top: 80px;
-    margin-left: 220px;
     opacity: 1;
   }
 
@@ -70,7 +74,6 @@ section {
     position: relative;
     width: 1103px;
     height: 412px;
-    left: 220px;
     margin-top: 42px;
   }
 
@@ -117,9 +120,9 @@ section {
     border-radius: 4px;
 
     img {
+      display: block;
       width: 24px;
       height: 24px;
-      display: block;
       flex-shrink: 0;
     }
 
@@ -145,29 +148,29 @@ section {
       &::before {
         content: "";
         position: absolute;
-        left: 8px;
         top: 8px;
+        left: 8px;
+        z-index: 2;
         width: 8px;
         height: 8px;
         background-color: #000;
         border-radius: 50%;
-        z-index: 2;
       }
 
       &::after {
         content: "";
         position: absolute;
-        display: block;
-        left: calc(100% + 8px);
         top: 50%;
+        left: calc(100% + 8px);
+        display: block;
         width: 41px;
         height: 41px;
-        transform: translateY(-50%);
         background-image: url("/assets/images/Line 3.png");
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
         opacity: 1;
+        transform: translateY(-50%);
       }
     }
 
@@ -175,29 +178,29 @@ section {
       &::before {
         content: "";
         position: absolute;
-        left: 8px;
         top: 8px;
+        left: 8px;
+        z-index: 2;
         width: 8px;
         height: 8px;
         background-color: #000;
         border-radius: 50%;
-        z-index: 2;
       }
 
       &::after {
         content: "";
         position: absolute;
-        display: block;
-        left: calc(100% + 8px);
         top: 50%;
+        left: calc(100% + 8px);
+        display: block;
         width: 41px;
         height: 41px;
-        transform: translateY(-50%);
         background-image: url("/assets/images/Line 3.png");
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
         opacity: 1;
+        transform: translateY(-50%);
       }
     }
 
@@ -213,11 +216,11 @@ section {
 
 .option-themes {
   &__bar {
-    width: 360px;
-    height: 132px;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 360px;
+    height: 132px;
     padding-left: 58px;
   }
 
@@ -236,10 +239,10 @@ section {
     cursor: pointer;
 
     img {
+      display: block;
       width: 24px;
       height: 24px;
       flex-shrink: 0;
-      display: block;
     }
 
     h2 {
@@ -264,29 +267,29 @@ section {
       &::before {
         content: "";
         position: absolute;
-        left: 8px;
         top: 8px;
+        left: 8px;
+        z-index: 2;
         width: 8px;
         height: 8px;
         background-color: #000;
         border-radius: 50%;
-        z-index: 2;
       }
 
       &::after {
         content: "";
         position: absolute;
-        display: block;
-        left: calc(100% + 8px);
         top: 50%;
+        left: calc(100% + 8px);
+        display: block;
         width: 41px;
         height: 41px;
-        transform: translateY(-50%);
         background-image: url("/assets/images/Line 3.png");
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
         opacity: 1;
+        transform: translateY(-50%);
       }
     }
 
@@ -294,29 +297,29 @@ section {
       &::before {
         content: "";
         position: absolute;
-        left: 8px;
         top: 8px;
+        left: 8px;
+        z-index: 2;
         width: 8px;
         height: 8px;
         background-color: #000;
         border-radius: 50%;
-        z-index: 2;
       }
 
       &::after {
         content: "";
         position: absolute;
-        display: block;
-        left: calc(100% + 8px);
         top: 50%;
+        left: calc(100% + 8px);
+        display: block;
         width: 41px;
         height: 41px;
-        transform: translateY(-50%);
         background-image: url("/assets/images/Line 3.png");
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
         opacity: 1;
+        transform: translateY(-50%);
       }
     }
 
@@ -333,18 +336,18 @@ section {
 .game {
   &__component-container {
     position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    right: 0;
-    top: 0;
-    border-radius: 16px;
     overflow: hidden;
+    border-radius: 16px;
 
     img {
+      display: block;
       width: 100%;
       height: 100%;
-      display: block;
       object-fit: contain;
     }
   }
@@ -353,29 +356,29 @@ section {
 .option-player {
   &__choose-player {
     position: absolute;
+    left: 0;
     display: flex;
     flex-direction: column;
+    gap: 16px;
     width: 360px;
     height: auto;
-    left: 0;
-    gap: 16px;
 
     > img {
       position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
       width: 40px;
       height: 40px;
-      left: 0;
-      top: 0;
       object-fit: contain;
-      display: block;
     }
 
     > .option__text {
+      display: flex;
+      align-items: center;
       width: max-content;
       height: 40px;
       margin: 0 0 0 56px;
-      display: flex;
-      align-items: center;
       font-family: "Almarai", sans-serif;
       font-weight: 700;
       font-size: 24px;
@@ -396,11 +399,11 @@ section {
     margin-top: 200px;
 
     > h2 {
+      display: flex;
+      align-items: center;
       width: max-content;
       height: 40px;
       margin: 0 0 16px 56px;
-      display: flex;
-      align-items: center;
       font-family: "Almarai", sans-serif;
       font-weight: 700;
       font-size: 24px;
@@ -410,12 +413,12 @@ section {
 
     > img {
       position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
       width: 40px;
       height: 40px;
-      left: 0;
-      top: 0;
       object-fit: contain;
-      display: block;
     }
 
     .option__text-cards {
@@ -427,12 +430,12 @@ section {
 .selectionBoard {
   &__bar {
     position: absolute;
+    top: 457px;
+    right: 0;
     display: flex;
     align-items: center;
-    height: 81px;
-    right: 0;
-    top: 457px;
     gap: 20px;
+    height: 81px;
     padding: 10px 20px;
     background-color: rgba(246, 246, 246, 1);
     box-sizing: border-box;
@@ -455,11 +458,11 @@ section {
       align-items: center;
       justify-content: center;
       gap: 8px;
-      border: none;
-      background-color: rgba(240, 234, 110, 1);
       width: 126px;
       height: 53px;
       padding: 14px 20px;
+      border: none;
+      background-color: rgba(240, 234, 110, 1);
       font-family: "Red Rose", sans-serif;
       font-weight: 700;
       font-size: 20px;
@@ -467,10 +470,10 @@ section {
       cursor: pointer;
 
       img {
+        display: block;
         width: 24px;
         height: 24px;
         object-fit: contain;
-        display: block;
       }
 
       span {
@@ -536,12 +539,13 @@ section {
 }
 
 @media (max-width: 1200px) {
-  .settings__text {
-    margin-left: 40px;
+  .settings {
+    width: calc(100% - 40px);
+    max-width: 1103px;
   }
 
   .option__bar-container {
-    width: calc(100% - 80px);
+    width: 100%;
   }
 }
 
@@ -556,7 +560,7 @@ section {
   }
 
   .settings {
-    width: 100%;
+    width: calc(100% - 40px);
     height: 100vh;
     overflow: hidden;
   }
@@ -565,15 +569,12 @@ section {
     width: 251px;
     height: 67px;
     margin-top: 50px;
-    margin-left: 20px;
   }
 
   .option__bar-container {
-    width: calc(100% - 40px);
+    width: 100%;
     height: calc(100vh - 157px);
     margin-top: 40px;
-    margin-left: 20px;
-    margin-right: 20px;
   }
 
   .game__component-container {
@@ -607,9 +608,10 @@ section {
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 81px;
     min-height: 81px;
+    height: 81px;
     margin-top: 0;
     flex-wrap: nowrap;
   }
 }
+

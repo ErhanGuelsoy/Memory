@@ -1,3 +1,6 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@400&family=Red+Rose:wght@700&display=swap");
+
 body {
     background-color: #303131;
     width: 100vw;
@@ -10,7 +13,7 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 991px;
+        width: 1000px;
         height: 229px;
         top: 339px;
         left: 50%;
@@ -26,8 +29,8 @@ body {
         height: 54px;
         color: #FFFFFF;
         opacity: 1;
-        font-family: "Red Rose";
-        font-weight: 700;
+        font-family: "Almarai", sans-serif;
+        font-weight: 400;
         font-style: normal;
         font-size: 48px;
         line-height: 100%;
@@ -43,7 +46,7 @@ body {
         height: 175px;
         opacity: 1;
         color: #FFFFFF;
-        font-family: "Red Rose";
+        font-family: "Red Rose", sans-serif;
         font-weight: 700;
         font-style: normal;
         font-size: 140px;
@@ -76,6 +79,11 @@ body {
         img:first-child {
             position: relative;
             z-index: 2;
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
             cursor: pointer;
             transition: transform 0.3s ease;
             transform-origin: center;
@@ -104,24 +112,30 @@ body {
     &__style {
         position: relative;
         z-index: 1;
-        font-family: "Red Rose";
+        width: auto;
+        height: auto;
+        padding: 24px;
+        margin: 0;
+        border: 0;
+        background-color: #F0EA6E;
+        color: #000000;
+        cursor: pointer;
+        font-family: "Red Rose", sans-serif;
         font-weight: 700;
         font-style: normal;
         font-size: 40px;
         line-height: 100%;
         letter-spacing: 0;
-        background-color: #F0EA6E;
-        border: 0;
-        cursor: pointer;
+        text-align: center;
     }
 
-    button {
-        width: 250px;
-        height: 98px;
-        padding: 24px;
-        gap: 20px;
-        opacity: 1;
-        background-image: url("/assets/images/stadia_controller.png");
+    &__buttonContainer .play__style {
+        font-family: "Red Rose", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 40px;
+        line-height: 100%;
+        letter-spacing: 0;
     }
 }
 
@@ -135,18 +149,13 @@ body {
         transform: rotate(37.42deg);
         opacity: 0.05;
         z-index: 5;
-        background-color: rgba(240, 234, 110, 1);
-        -webkit-mask-image: url("/assets/images/stadia_controller.png");
-        mask-image: url("/assets/images/stadia_controller.png");
-        -webkit-mask-size: contain;
-        mask-size: contain;
-        -webkit-mask-repeat: no-repeat;
-        mask-repeat: no-repeat;
-        -webkit-mask-position: center;
-        mask-position: center;
 
         img {
-            display: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
         }
     }
 }
