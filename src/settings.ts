@@ -107,7 +107,7 @@ function findTheme(
 
 /**
  * Applies the selected theme.
- * @param theme Selected theme element.
+ * @param theme Theme element.
  * @param preview Preview image.
  */
 function applyTheme(
@@ -279,6 +279,54 @@ function setupHoverEvents(
 }
 
 /**
+ * Adds hover preview behaviour to one theme.
+ * @param theme Theme element.
+ * @param themes All theme elements.
+ * @param preview Preview image element.
+ */
+function setupThemeHoverEvent(
+    theme: HTMLElement,
+    themes: NodeListOf<HTMLElement>,
+    preview: HTMLImageElement
+): void {
+    theme.addEventListener("mouseenter", () => {
+        themes.forEach((item) =>
+            item.classList.remove("is-hovered")
+        );
+
+        theme.classList.add("is-hovered");
+        updatePreview(theme, preview);
+    });
+
+    theme.addEventListener("mouseleave", () => {
+        theme.classList.remove("is-hovered");
+
+        const selectedTheme =
+            document.querySelector<HTMLElement>(
+                "[data-theme].is-selected"
+            );
+
+        if (selectedTheme) {
+            updatePreview(selectedTheme, preview);
+        }
+    });
+}
+
+/**
+ * Sets up hover preview events for all themes.
+ * @param themes Theme elements.
+ * @param preview Preview image element.
+ */
+function setupThemeHoverEvents(
+    themes: NodeListOf<HTMLElement>,
+    preview: HTMLImageElement
+): void {
+    themes.forEach((theme) =>
+        setupThemeHoverEvent(theme, themes, preview)
+    );
+}
+
+/**
  * Sets up one theme event.
  * @param theme Theme element.
  * @param themes All theme elements.
@@ -298,7 +346,7 @@ function setupThemeEvent(
 /**
  * Sets up theme events.
  * @param themes Theme elements.
- * @param preview Preview image.
+ * @param preview Preview image element.
  */
 function setupThemeEvents(
     themes: NodeListOf<HTMLElement>,
@@ -418,7 +466,7 @@ function init(): void {
     setupPlayerEvents(players);
     setupBoardEvents(cardOptions);
 
-    setupHoverEvents(themes);
+    setupThemeHoverEvents(themes, preview);
     setupHoverEvents(players);
     setupHoverEvents(cardOptions);
 
