@@ -1,3 +1,4 @@
+
 import "./styles/style.scss";
 import "./styles/settings-page.scss";
 
@@ -221,6 +222,21 @@ function areAllSettingsSelected(): boolean {
 }
 
 /**
+ * Updates the visual state of the start button.
+ * The button gets the active state only when
+ * theme, player and board size are selected.
+ * @param startButton Start button element.
+ */
+function updateStartButtonState(
+    startButton: HTMLButtonElement
+): void {
+    startButton.classList.toggle(
+        "is-ready",
+        areAllSettingsSelected()
+    );
+}
+
+/**
  * Starts the selected game when all settings are selected.
  */
 function startGame(): void {
@@ -330,16 +346,19 @@ function setupThemeHoverEvents(
  * Sets up one theme event.
  * @param theme Theme element.
  * @param themes All theme elements.
- * @param preview Preview image.
+ * @param preview Preview image element.
+ * @param startButton Start button element.
  */
 function setupThemeEvent(
     theme: HTMLElement,
     themes: NodeListOf<HTMLElement>,
-    preview: HTMLImageElement
+    preview: HTMLImageElement,
+    startButton: HTMLButtonElement
 ): void {
     theme.addEventListener("click", () => {
         selectTheme(theme, themes);
         updatePreview(theme, preview);
+        updateStartButtonState(startButton);
     });
 }
 
@@ -347,13 +366,20 @@ function setupThemeEvent(
  * Sets up theme events.
  * @param themes Theme elements.
  * @param preview Preview image element.
+ * @param startButton Start button element.
  */
 function setupThemeEvents(
     themes: NodeListOf<HTMLElement>,
-    preview: HTMLImageElement
+    preview: HTMLImageElement,
+    startButton: HTMLButtonElement
 ): void {
     themes.forEach((theme) =>
-        setupThemeEvent(theme, themes, preview)
+        setupThemeEvent(
+            theme,
+            themes,
+            preview,
+            startButton
+        )
     );
 }
 
@@ -361,26 +387,34 @@ function setupThemeEvents(
  * Sets up one player event.
  * @param player Player element.
  * @param players All player elements.
+ * @param startButton Start button element.
  */
 function setupPlayerEvent(
     player: HTMLElement,
-    players: NodeListOf<HTMLElement>
+    players: NodeListOf<HTMLElement>,
+    startButton: HTMLButtonElement
 ): void {
-    player.addEventListener(
-        "click",
-        () => selectPlayer(player, players)
-    );
+    player.addEventListener("click", () => {
+        selectPlayer(player, players);
+        updateStartButtonState(startButton);
+    });
 }
 
 /**
  * Sets up player events.
  * @param players Player elements.
+ * @param startButton Start button element.
  */
 function setupPlayerEvents(
-    players: NodeListOf<HTMLElement>
+    players: NodeListOf<HTMLElement>,
+    startButton: HTMLButtonElement
 ): void {
     players.forEach((player) =>
-        setupPlayerEvent(player, players)
+        setupPlayerEvent(
+            player,
+            players,
+            startButton
+        )
     );
 }
 
@@ -388,26 +422,34 @@ function setupPlayerEvents(
  * Sets up one board size event.
  * @param cards Board size element.
  * @param cardOptions All board size elements.
+ * @param startButton Start button element.
  */
 function setupBoardEvent(
     cards: HTMLElement,
-    cardOptions: NodeListOf<HTMLElement>
+    cardOptions: NodeListOf<HTMLElement>,
+    startButton: HTMLButtonElement
 ): void {
-    cards.addEventListener(
-        "click",
-        () => selectBoardSize(cards, cardOptions)
-    );
+    cards.addEventListener("click", () => {
+        selectBoardSize(cards, cardOptions);
+        updateStartButtonState(startButton);
+    });
 }
 
 /**
  * Sets up board size events.
  * @param cardOptions Board size elements.
+ * @param startButton Start button element.
  */
 function setupBoardEvents(
-    cardOptions: NodeListOf<HTMLElement>
+    cardOptions: NodeListOf<HTMLElement>,
+    startButton: HTMLButtonElement
 ): void {
     cardOptions.forEach((cards) =>
-        setupBoardEvent(cards, cardOptions)
+        setupBoardEvent(
+            cards,
+            cardOptions,
+            startButton
+        )
     );
 }
 
@@ -462,22 +504,44 @@ function init(): void {
 
     if (!preview || !startButton) return;
 
-    setupThemeEvents(themes, preview);
-    setupPlayerEvents(players);
-    setupBoardEvents(cardOptions);
+    setupThemeEvents(
+        themes,
+        preview,
+        startButton
+    );
 
-    setupThemeHoverEvents(themes, preview);
+    setupPlayerEvents(
+        players,
+        startButton
+    );
+
+    setupBoardEvents(
+        cardOptions,
+        startButton
+    );
+
+    setupThemeHoverEvents(
+        themes,
+        preview
+    );
+
     setupHoverEvents(players);
     setupHoverEvents(cardOptions);
 
     setupOutsideClick();
 
-    startButton.addEventListener("click", startGame);
+    startButton.addEventListener(
+        "click",
+        startGame
+    );
 
     loadSettings(
         themes,
         preview
     );
+
+    updateStartButtonState(startButton);
 }
 
 init();
+

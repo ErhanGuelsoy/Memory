@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -468,6 +469,7 @@ section {
       font-size: 20px;
       line-height: 100%;
       cursor: pointer;
+      transition: background-color 0.15s ease;
 
       img {
         display: block;
@@ -481,7 +483,23 @@ section {
       }
 
       &:hover {
-        background-color: #e8e05d;
+        background-color: rgba(190, 190, 190, 1);
+      }
+
+      &:active {
+        background-color: rgba(175, 175, 175, 1);
+      }
+
+      &.is-ready {
+        background-color: rgba(240, 234, 110, 1);
+      }
+
+      &.is-ready:hover {
+        background-color: rgba(240, 234, 110, 1);
+      }
+
+      &.is-ready:active {
+        background-color: rgba(240, 234, 110, 1);
       }
     }
   }
@@ -614,4 +632,3 @@ section {
     flex-wrap: nowrap;
   }
 }
-
