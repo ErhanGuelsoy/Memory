@@ -3,19 +3,22 @@ body {
     margin: 0;
     width: 100%;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(48, 49, 49, 1);
+    background-color: rgba(255, 255, 255, 1);
     overflow: hidden;
 }
 
 .gaming {
     &__main-container {
         position: relative;
-        width: 1217px;
-        height: 644px;
-        background-color: rgba(48, 49, 49, 1);
+        width: 1219px;
+        height: 684px;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 54px;
+        background-color: rgba(255, 255, 255, 1);
         box-sizing: border-box;
     }
 
@@ -172,11 +175,12 @@ body {
 
 .memory {
     width: 100%;
-    height: calc(100% - 62px);
+    height: 522px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 1);
 
     &__card-container {
         box-sizing: border-box;
