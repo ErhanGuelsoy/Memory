@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&family=Red+Rose:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&family=Red+Rose:wght@400;700&family=Klee+One:wght@400;600&display=swap"
         rel="stylesheet">
 
     <link rel="icon" type="image/png" href="./assets/images/chess_favicon.png">
@@ -139,7 +139,8 @@
 
             <div class="winner-popup__container" id="orangeWinner">
 
-                <img class="winner-popup__text" src="./assets/images/winner_text_orange.png" alt="Orange player winner">
+                <img class="winner-popup__text" src="./assets/images/winner_text_orange.png"
+                    alt="Orange player winner">
 
                 <div class="winner-popup__score winner-popup__score--orange">
 
@@ -178,11 +179,28 @@
 
         <div class="exit-popup">
 
-            <img class="exit-popup__image" src="./assets/images/popup_exit_button_food.png" alt="Exit game popup">
+            <div class="exit-popup__content">
 
-            <div class="exit-popup__back-area" id="backToGame"></div>
+                <div class="exit-popup__title">
+                </div>
 
-            <div class="exit-popup__exit-area" id="exitGame"></div>
+                <div class="exit-popup__message">
+                    Are you sure you want to quit the game
+                </div>
+
+                <div class="exit-popup__buttons">
+
+                    <button class="exit-popup__button exit-popup__button--back" id="backToGame" type="button">
+                        No, back to game
+                    </button>
+
+                    <button class="exit-popup__button exit-popup__button--exit" id="exitGame" type="button">
+                        Exit game
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 
