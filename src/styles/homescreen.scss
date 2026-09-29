@@ -1,9 +1,31 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Almarai:wght@400&family=Red+Rose:wght@700&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
 
 body {
     background-color: #303131;
     width: 100vw;
     height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#field {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .play {
@@ -11,7 +33,7 @@ body {
         position: absolute;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         width: 1000px;
         height: 229px;
         top: 339px;
@@ -20,35 +42,44 @@ body {
         opacity: 1;
     }
 
-    &__playtimetext {
-        position: absolute;
-        left: 0;
-        top: 0;
+    &__toPlayText {
+        position: relative;
         display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        height: 229px;
+    }
+
+    &__playtimetext {
+        position: relative;
+        display: block;
+        width: 100%;
         height: 54px;
+        margin: 0 0 14px 0;
         color: #FFFFFF;
         opacity: 1;
         font-family: "Almarai", sans-serif;
         font-weight: 400;
         font-style: normal;
         font-size: 48px;
-        line-height: 100%;
+        line-height: 54px;
         letter-spacing: 0;
     }
 
     &__text {
-        position: absolute;
-        display: flex;
-        top: 0;
-        left: 0;
-        height: 175px;
-        opacity: 1;
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 161px;
+        margin: 0;
         color: #FFFFFF;
+        opacity: 1;
         font-family: "Red Rose", sans-serif;
         font-weight: 700;
         font-style: normal;
         font-size: 140px;
-        line-height: 100%;
+        line-height: 161px;
         letter-spacing: 0;
     }
 
@@ -68,6 +99,7 @@ body {
         box-sizing: border-box;
         transition: width 0.3s ease, height 0.3s ease;
         cursor: pointer;
+        z-index: 20;
 
         &:hover {
             width: 269.2288818359375px;
@@ -133,11 +165,12 @@ body {
         position: absolute;
         width: 414px;
         height: 301px;
+        top: 546px;
         left: -88px;
-        bottom: 0;
-        transform: rotate(37.42deg);
-        opacity: 0.05;
-        z-index: 5;
+        transform: rotate(-0.42deg);
+        opacity: 1;
+        z-index: 10;
+        pointer-events: none;
 
         img {
             display: block;
