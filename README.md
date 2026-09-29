@@ -45,14 +45,7 @@ npm run dev
 bash
 npm run build
 
-
 The production build is generated in the `dist` folder. Vite compiles the TypeScript source code into JavaScript files for production.
-
-## 🌐 Live Version
-
-The production version of the Memory Game is available online.
-
-The live version uses the generated files from the `dist` folder, including the compiled JavaScript files.
 
 ## 👨‍💻 Author
 
