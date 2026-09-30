@@ -122,6 +122,74 @@ function applyTheme(
 }
 
 /**
+ * Updates the selection board texts and size.
+ */
+function updateSelectionBoard(): void {
+    const selectionBar =
+        document.querySelector<HTMLElement>(
+            ".selectionBoard__bar"
+        );
+
+    const themeText =
+        document.querySelector<HTMLElement>(
+            "#selected-theme"
+        );
+
+    const playerText =
+        document.querySelector<HTMLElement>(
+            "#selected-player"
+        );
+
+    const cardsText =
+        document.querySelector<HTMLElement>(
+            "#selected-cards"
+        );
+
+    if (!selectionBar || !themeText || !playerText || !cardsText) {
+        return;
+    }
+
+    const theme =
+        document.querySelector<HTMLElement>(
+            "[data-theme].is-selected"
+        );
+
+    const player =
+        document.querySelector<HTMLElement>(
+            "[data-player].is-selected"
+        );
+
+    const cards =
+        document.querySelector<HTMLElement>(
+            "[data-cards].is-selected"
+        );
+
+    themeText.textContent =
+        theme?.dataset.theme === "foods"
+            ? "Foods Themes"
+            : theme
+                ? "Code Vibes Themes"
+                : "Game Theme";
+
+    playerText.textContent =
+        player?.dataset.player === "orange"
+            ? "Orange"
+            : player
+                ? "Blue"
+                : "Player";
+
+    cardsText.textContent =
+        cards?.dataset.cards
+            ? `${cards.dataset.cards} Cards`
+            : "Board Size";
+
+    selectionBar.classList.toggle(
+        "is-complete",
+        Boolean(theme && player && cards)
+    );
+}
+
+/**
  * Loads only the saved theme.
  * Player and board size are intentionally not loaded.
  * @param themes Theme elements.
@@ -223,8 +291,6 @@ function areAllSettingsSelected(): boolean {
 
 /**
  * Updates the visual state of the start button.
- * The button gets the active state only when
- * theme, player and board size are selected.
  * @param startButton Start button element.
  */
 function updateStartButtonState(
@@ -358,6 +424,7 @@ function setupThemeEvent(
     theme.addEventListener("click", () => {
         selectTheme(theme, themes);
         updatePreview(theme, preview);
+        updateSelectionBoard();
         updateStartButtonState(startButton);
     });
 }
@@ -396,6 +463,7 @@ function setupPlayerEvent(
 ): void {
     player.addEventListener("click", () => {
         selectPlayer(player, players);
+        updateSelectionBoard();
         updateStartButtonState(startButton);
     });
 }
@@ -431,6 +499,7 @@ function setupBoardEvent(
 ): void {
     cards.addEventListener("click", () => {
         selectBoardSize(cards, cardOptions);
+        updateSelectionBoard();
         updateStartButtonState(startButton);
     });
 }
@@ -540,8 +609,8 @@ function init(): void {
         preview
     );
 
+    updateSelectionBoard();
     updateStartButtonState(startButton);
 }
 
 init();
-
