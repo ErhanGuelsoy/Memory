@@ -488,12 +488,12 @@ section {
       height: 53px;
       padding: 14px 20px;
       border: none;
-      background-color: rgba(240, 234, 110, 1);
+      background: rgba(219, 219, 214, 1);
       font-family: "Red Rose", sans-serif;
       font-weight: 700;
       font-size: 20px;
       line-height: 100%;
-      cursor: pointer;
+      cursor: not-allowed;
       transition: background-color 0.15s ease;
 
       img {
@@ -508,23 +508,24 @@ section {
       }
 
       &:hover {
-        background-color: rgba(190, 190, 190, 1);
+        background: rgba(219, 219, 214, 1);
       }
 
       &:active {
-        background-color: rgba(175, 175, 175, 1);
+        background: rgba(219, 219, 214, 1);
       }
 
       &.is-ready {
-        background-color: rgba(240, 234, 110, 1);
+        background: rgba(240, 234, 110, 1);
+        cursor: pointer;
       }
 
       &.is-ready:hover {
-        background-color: rgba(240, 234, 110, 1);
+        background: rgba(240, 234, 110, 1);
       }
 
       &.is-ready:active {
-        background-color: rgba(240, 234, 110, 1);
+        background: rgba(240, 234, 110, 1);
       }
     }
   }

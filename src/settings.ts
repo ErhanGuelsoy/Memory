@@ -107,7 +107,7 @@ function findTheme(
 }
 
 /**
- * Applies the selected theme.
+ * Updates the preview without selecting the theme.
  * @param theme Theme element.
  * @param preview Preview image.
  */
@@ -117,7 +117,6 @@ function applyTheme(
 ): void {
     if (!theme) return;
 
-    theme.classList.add("is-selected");
     updatePreview(theme, preview);
 }
 
@@ -180,7 +179,7 @@ function updateSelectionBoard(): void {
 
     cardsText.textContent =
         cards?.dataset.cards
-            ? `${cards.dataset.cards} Cards`
+            ? `Board-${cards.dataset.cards} Cards`
             : "Board Size";
 
     selectionBar.classList.toggle(
@@ -190,8 +189,7 @@ function updateSelectionBoard(): void {
 }
 
 /**
- * Loads only the saved theme.
- * Player and board size are intentionally not loaded.
+ * Loads the saved theme only for the preview.
  * @param themes Theme elements.
  * @param preview Preview image.
  */
@@ -296,9 +294,12 @@ function areAllSettingsSelected(): boolean {
 function updateStartButtonState(
     startButton: HTMLButtonElement
 ): void {
+    const isReady =
+        areAllSettingsSelected();
+
     startButton.classList.toggle(
         "is-ready",
-        areAllSettingsSelected()
+        isReady
     );
 }
 
@@ -312,7 +313,8 @@ function startGame(): void {
     }
 
     const theme =
-        localStorage.getItem("selectedTheme") || "code-vibes";
+        localStorage.getItem("selectedTheme") ||
+        "code-vibes";
 
     const baseUrl = import.meta.env.BASE_URL;
 
@@ -404,7 +406,11 @@ function setupThemeHoverEvents(
     preview: HTMLImageElement
 ): void {
     themes.forEach((theme) =>
-        setupThemeHoverEvent(theme, themes, preview)
+        setupThemeHoverEvent(
+            theme,
+            themes,
+            preview
+        )
     );
 }
 
