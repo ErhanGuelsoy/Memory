@@ -170,6 +170,7 @@ class MemoryGame {
             this.buildCards();
 
         this.shuffleCards(cards);
+
         this.renderCards(
             cards,
             container

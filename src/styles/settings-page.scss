@@ -119,13 +119,6 @@ section {
     cursor: pointer;
     border-radius: 4px;
 
-    img {
-      display: block;
-      width: 24px;
-      height: 24px;
-      flex-shrink: 0;
-    }
-
     h2 {
       margin: 0;
       font-family: "Almarai", sans-serif;
@@ -140,68 +133,31 @@ section {
       font-weight: 700;
     }
 
-    &.is-selected {
-      h2 {
-        font-weight: 700;
-      }
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: 8px;
-        left: 8px;
-        z-index: 2;
-        width: 8px;
-        height: 8px;
-        background-color: #000;
-        border-radius: 50%;
-      }
-
-      &::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: calc(100% + 8px);
-        display: block;
-        width: 41px;
-        height: 41px;
-        background-image: url("/assets/images/Line 3.png");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        opacity: 1;
-        transform: translateY(-50%);
-      }
+    &.is-selected h2 {
+      font-weight: 700;
     }
 
-    &.is-hovered {
-      &::before {
-        content: "";
-        position: absolute;
-        top: 8px;
-        left: 8px;
-        z-index: 2;
-        width: 8px;
-        height: 8px;
-        background-color: #000;
-        border-radius: 50%;
-      }
+    &:hover .selection-circle__point,
+    &.is-hovered .selection-circle__point,
+    &.is-selected .selection-circle__point {
+      opacity: 1;
+    }
 
-      &::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: calc(100% + 8px);
-        display: block;
-        width: 41px;
-        height: 41px;
-        background-image: url("/assets/images/Line 3.png");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        opacity: 1;
-        transform: translateY(-50%);
-      }
+    &.is-selected::after,
+    &.is-hovered::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: calc(100% + 8px);
+      display: block;
+      width: 41px;
+      height: 41px;
+      background-image: url("/assets/images/Line 3.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      opacity: 1;
+      transform: translateY(-50%);
     }
 
     &.selection-missing {
@@ -238,13 +194,6 @@ section {
     border-radius: 4px;
     cursor: pointer;
 
-    img {
-      display: block;
-      width: 24px;
-      height: 24px;
-      flex-shrink: 0;
-    }
-
     h2 {
       margin: 0;
       font-family: "Almarai", sans-serif;
@@ -259,68 +208,31 @@ section {
       font-weight: 700;
     }
 
-    &.is-selected {
-      h2 {
-        font-weight: 700;
-      }
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: 8px;
-        left: 8px;
-        z-index: 2;
-        width: 8px;
-        height: 8px;
-        background-color: #000;
-        border-radius: 50%;
-      }
-
-      &::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: calc(100% + 8px);
-        display: block;
-        width: 41px;
-        height: 41px;
-        background-image: url("/assets/images/Line 3.png");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        opacity: 1;
-        transform: translateY(-50%);
-      }
+    &.is-selected h2 {
+      font-weight: 700;
     }
 
-    &.is-hovered {
-      &::before {
-        content: "";
-        position: absolute;
-        top: 8px;
-        left: 8px;
-        z-index: 2;
-        width: 8px;
-        height: 8px;
-        background-color: #000;
-        border-radius: 50%;
-      }
+    &:hover .selection-circle__point,
+    &.is-hovered .selection-circle__point,
+    &.is-selected .selection-circle__point {
+      opacity: 1;
+    }
 
-      &::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: calc(100% + 8px);
-        display: block;
-        width: 41px;
-        height: 41px;
-        background-image: url("/assets/images/Line 3.png");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        opacity: 1;
-        transform: translateY(-50%);
-      }
+    &.is-selected::after,
+    &.is-hovered::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: calc(100% + 8px);
+      display: block;
+      width: 41px;
+      height: 41px;
+      background-image: url("/assets/images/Line 3.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      opacity: 1;
+      transform: translateY(-50%);
     }
 
     &.selection-missing {
@@ -330,6 +242,35 @@ section {
     &.selection-clicked {
       animation: selectionClicked 0.5s ease-in-out;
     }
+  }
+}
+
+.selection-circle {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  &__base {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  &__point {
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.1s ease;
   }
 }
 
@@ -461,9 +402,11 @@ section {
     span {
       display: block;
       font-family: "Almarai", sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      line-height: 1;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 100%;
+      letter-spacing: 0;
     }
   }
 
@@ -488,10 +431,13 @@ section {
       padding: 14px 20px;
       border: none;
       background: rgba(219, 219, 214, 1);
+      color: rgba(48, 49, 49, 1);
       font-family: "Red Rose", sans-serif;
       font-weight: 700;
+      font-style: normal;
       font-size: 20px;
       line-height: 100%;
+      letter-spacing: 0;
       cursor: not-allowed;
       transition: background-color 0.15s ease;
 

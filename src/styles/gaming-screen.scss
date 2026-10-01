@@ -78,6 +78,16 @@ body {
     flex-shrink: 0;
   }
 
+  &__label--orange {
+    width: 24px;
+    height: 20px;
+  }
+
+  &__label--blue {
+    width: 24px;
+    height: 20px;
+  }
+
   &__player-name {
     width: 52px;
     height: 30px;
@@ -148,10 +158,11 @@ body {
     flex-shrink: 0;
   }
 
-  &__header-current-player img {
-    width: auto;
-    height: auto;
+  &__header-current-player img,
+  &__current-player-logo {
     display: block;
+    width: 24px;
+    height: 20px;
     object-fit: contain;
     flex-shrink: 0;
   }
@@ -376,6 +387,16 @@ body {
   height: 30px;
   object-fit: contain;
   flex-shrink: 0;
+}
+
+.game-over-popup__player-score--orange img {
+  width: 36px;
+  height: 30px;
+}
+
+.game-over-popup__player-score--blue img {
+  width: 36px;
+  height: 30px;
 }
 
 .game-over-popup__player-name {
