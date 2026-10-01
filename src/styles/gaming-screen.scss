@@ -7,7 +7,6 @@ body {
   justify-content: center;
   align-items: flex-start;
   background-color: rgba(48, 49, 49, 1);
-  overflow: hidden;
 }
 
 .gaming {
@@ -27,7 +26,6 @@ body {
     opacity: 1;
     transform: translateX(-50%);
   }
-
   &__header {
     position: relative;
     width: 100%;
@@ -38,7 +36,6 @@ body {
     box-sizing: border-box;
     flex-shrink: 0;
   }
-
   &__header-left-part {
     width: 292px;
     height: 62px;
@@ -46,7 +43,6 @@ body {
     align-items: center;
     box-sizing: border-box;
   }
-
   &__blue-orange-box {
     width: 292px;
     height: 62px;
@@ -59,7 +55,6 @@ body {
     background: rgba(134, 233, 214, 0.2);
     flex-shrink: 0;
   }
-
   &__player-score {
     width: 106px;
     height: 30px;
@@ -69,7 +64,6 @@ body {
     box-sizing: border-box;
     flex-shrink: 0;
   }
-
   &__label {
     display: block;
     width: 24px;
@@ -77,17 +71,14 @@ body {
     object-fit: contain;
     flex-shrink: 0;
   }
-
   &__label--orange {
     width: 24px;
     height: 20px;
   }
-
   &__label--blue {
     width: 24px;
     height: 20px;
   }
-
   &__player-name {
     width: 52px;
     height: 30px;
@@ -101,7 +92,6 @@ body {
     box-sizing: border-box;
     flex-shrink: 0;
   }
-
   &__player-score > span:last-child {
     min-width: 14px;
     width: 14px;
@@ -112,23 +102,18 @@ body {
     box-sizing: border-box;
     flex-shrink: 0;
   }
-
   &__player-score--orange {
     color: rgba(245, 126, 58, 1);
   }
-
   &__player-score--orange > span:last-child {
     margin-left: 8px;
   }
-
   &__player-score--blue {
     color: rgba(55, 125, 214, 1);
   }
-
   &__player-score--blue > span:last-child {
     margin-left: -14px;
   }
-
   &__header-current-player {
     position: absolute;
     top: 15px;
@@ -141,7 +126,6 @@ body {
     transform: translateX(-50%);
     box-sizing: border-box;
   }
-
   &__current-player-text {
     width: 188px;
     height: 32px;
@@ -157,7 +141,6 @@ body {
     box-sizing: border-box;
     flex-shrink: 0;
   }
-
   &__header-current-player img,
   &__current-player-logo {
     display: block;
@@ -166,7 +149,6 @@ body {
     object-fit: contain;
     flex-shrink: 0;
   }
-
   &__header-right-part-exit-game {
     width: 207px;
     height: 62px;
@@ -182,7 +164,6 @@ body {
     cursor: pointer;
     flex-shrink: 0;
   }
-
   &__header-right-part-exit-game span {
     width: 119px;
     height: 30px;
@@ -210,7 +191,6 @@ body {
   align-items: flex-start;
   box-sizing: border-box;
   flex-shrink: 0;
-
   &__card-container {
     box-sizing: border-box;
     display: grid;
@@ -223,38 +203,32 @@ body {
     align-content: start;
     justify-content: start;
   }
-
   &__card-container[data-card-count="24"] {
     width: 610px;
     height: 402px;
     grid-template-columns: repeat(6, 90px);
     grid-template-rows: repeat(4, 90px);
   }
-
   &__card-container[data-card-count="36"] {
     width: 550px;
     height: 550px;
     grid-template-columns: repeat(6, 80px);
     grid-template-rows: repeat(6, 80px);
   }
-
   &__card-container[data-card-count="24"] &__card {
     width: 90px;
     height: 90px;
   }
-
   &__card-container[data-card-count="36"] &__card {
     width: 80px;
     height: 80px;
   }
-
   &__card {
     width: 120px;
     height: 120px;
     perspective: 1000px;
     cursor: pointer;
   }
-
   &__card-inner {
     position: relative;
     width: 100%;
@@ -263,11 +237,9 @@ body {
     transition: transform 0.6s ease;
     box-sizing: border-box;
   }
-
   &__card.is-flipped &__card-inner {
     transform: rotateY(180deg);
   }
-
   &__card-front,
   &__card-back {
     position: absolute;
@@ -283,19 +255,15 @@ body {
     -webkit-backface-visibility: hidden;
     box-sizing: border-box;
   }
-
   &__card-front {
     transform: rotateY(0deg);
   }
-
   &__card-back {
     transform: rotateY(180deg);
   }
-
   &__card:hover {
     transform: scale(1.02);
   }
-
   &__card.matched {
     cursor: default;
   }
@@ -552,28 +520,49 @@ body {
 }
 
 .winner-popup__back-home {
-  display: block !important;
-  width: 204px !important;
-  height: 62px !important;
-  min-width: 204px !important;
-  max-width: 204px !important;
-  min-height: 62px !important;
-  max-height: 62px !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: 0 !important;
+  width: 204px;
+  height: 62px;
+  min-width: 204px;
+  max-width: 204px;
+  min-height: 62px;
+  max-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px;
+  margin: 0;
   box-sizing: border-box;
+  border: 1px solid rgba(77, 213, 188, 1);
+  background:rgba(134, 233, 214, 0.2);
+  color: rgba(255, 255, 255, 1);
   opacity: 1;
   cursor: pointer;
-  object-fit: fill;
   flex: 0 0 62px;
+}
+
+.winner-popup__back-home span {
+  width: 156px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Red Rose", cursive;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
 @keyframes winner-popup-slide-down {
   from {
     transform: translateY(-100vh);
   }
-
   to {
     transform: translateY(0);
   }
@@ -687,7 +676,6 @@ body {
   from {
     transform: translateY(-100vh);
   }
-
   to {
     transform: translateY(0);
   }
@@ -697,7 +685,6 @@ body {
   from {
     transform: translateY(0);
   }
-
   to {
     transform: translateY(-100vh);
   }
