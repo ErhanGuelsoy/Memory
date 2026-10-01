@@ -1,4 +1,3 @@
-
 import "./styles/style.scss";
 import "./styles/settings-page.scss";
 
@@ -37,14 +36,14 @@ function updatePreview(
 
     if (themeName === "code-vibes") {
         preview.src =
-            `${baseUrl}assets/images/Frame 629.png`;
+            `${baseUrl}assets/images/theme_visual.svg`;
         preview.alt = "Code Vibes game preview";
         return;
     }
 
     if (themeName === "foods") {
         preview.src =
-            `${baseUrl}assets/images/food_frame.png`;
+            `${baseUrl}assets/images/theme_visual_food.svg`;
         preview.alt = "Foods game preview";
     }
 }
