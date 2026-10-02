@@ -16,7 +16,7 @@ function selectTheme(
 
     theme.classList.add("is-selected");
 
-    localStorage.setItem(
+    sessionStorage.setItem(
         "selectedTheme",
         theme.dataset.theme || "code-vibes"
     );
@@ -63,7 +63,7 @@ function selectPlayer(
 
     player.classList.add("is-selected");
 
-    localStorage.setItem(
+    sessionStorage.setItem(
         "selectedPlayer",
         player.dataset.player || "blue"
     );
@@ -84,7 +84,7 @@ function selectBoardSize(
 
     cards.classList.add("is-selected");
 
-    localStorage.setItem(
+    sessionStorage.setItem(
         "cardCount",
         cards.dataset.cards || "16"
     );
@@ -106,6 +106,36 @@ function findTheme(
 }
 
 /**
+ * Finds the selected player.
+ * @param players Player elements.
+ * @param selectedPlayer Saved player.
+ * @returns Selected player element.
+ */
+function findPlayer(
+    players: NodeListOf<HTMLElement>,
+    selectedPlayer: string
+): HTMLElement | undefined {
+    return Array.from(players).find(
+        (item) => item.dataset.player === selectedPlayer
+    );
+}
+
+/**
+ * Finds the selected board size.
+ * @param cardOptions Board size elements.
+ * @param cardCount Saved card count.
+ * @returns Selected board size element.
+ */
+function findCardOption(
+    cardOptions: NodeListOf<HTMLElement>,
+    cardCount: string
+): HTMLElement | undefined {
+    return Array.from(cardOptions).find(
+        (item) => item.dataset.cards === cardCount
+    );
+}
+
+/**
  * Updates the preview without selecting the theme.
  * @param theme Theme element.
  * @param preview Preview image.
@@ -117,6 +147,66 @@ function applyTheme(
     if (!theme) return;
 
     updatePreview(theme, preview);
+}
+
+/**
+ * Restores all saved selections.
+ * @param themes Theme elements.
+ * @param players Player elements.
+ * @param cardOptions Board size elements.
+ * @param preview Preview image.
+ */
+function loadSettings(
+    themes: NodeListOf<HTMLElement>,
+    players: NodeListOf<HTMLElement>,
+    cardOptions: NodeListOf<HTMLElement>,
+    preview: HTMLImageElement
+): void {
+    const themeName =
+        sessionStorage.getItem("selectedTheme");
+
+    const playerName =
+        sessionStorage.getItem("selectedPlayer");
+
+    const cardCount =
+        sessionStorage.getItem("cardCount");
+
+    themes.forEach((item) =>
+        item.classList.remove("is-selected")
+    );
+
+    players.forEach((item) =>
+        item.classList.remove("is-selected")
+    );
+
+    cardOptions.forEach((item) =>
+        item.classList.remove("is-selected")
+    );
+
+    const theme = themeName
+        ? findTheme(themes, themeName)
+        : undefined;
+
+    const player = playerName
+        ? findPlayer(players, playerName)
+        : undefined;
+
+    const cards = cardCount
+        ? findCardOption(cardOptions, cardCount)
+        : undefined;
+
+    if (theme) {
+        theme.classList.add("is-selected");
+        applyTheme(theme, preview);
+    }
+
+    if (player) {
+        player.classList.add("is-selected");
+    }
+
+    if (cards) {
+        cards.classList.add("is-selected");
+    }
 }
 
 /**
@@ -184,24 +274,6 @@ function updateSelectionBoard(): void {
     selectionBar.classList.toggle(
         "is-complete",
         Boolean(theme && player && cards)
-    );
-}
-
-/**
- * Loads the saved theme only for the preview.
- * @param themes Theme elements.
- * @param preview Preview image.
- */
-function loadSettings(
-    themes: NodeListOf<HTMLElement>,
-    preview: HTMLImageElement
-): void {
-    const themeName =
-        localStorage.getItem("selectedTheme") || "code-vibes";
-
-    applyTheme(
-        findTheme(themes, themeName),
-        preview
     );
 }
 
@@ -312,7 +384,7 @@ function startGame(): void {
     }
 
     const theme =
-        localStorage.getItem("selectedTheme") ||
+        sessionStorage.getItem("selectedTheme") ||
         "code-vibes";
 
     const baseUrl = import.meta.env.BASE_URL;
@@ -611,6 +683,8 @@ function init(): void {
 
     loadSettings(
         themes,
+        players,
+        cardOptions,
         preview
     );
 
