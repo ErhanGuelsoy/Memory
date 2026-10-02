@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -29,15 +28,25 @@
                 <div class="gaming__blue-orange-box">
 
                     <div class="gaming__player-score gaming__player-score--orange" data-player="orange">
-                        <img class="gaming__chess gaming__chess--orange" src="./assets/images/chess_pawn_orange.svg"
+
+                        <img
+                            class="gaming__chess gaming__chess--orange"
+                            src="./assets/images/chess_pawn_orange.svg"
                             alt="Orange chess">
+
                         <span id="player1Score">0</span>
+
                     </div>
 
                     <div class="gaming__player-score gaming__player-score--blue" data-player="blue">
-                        <img class="gaming__chess gaming__chess--blue" src="./assets/images/chess_pawn_blue.svg"
+
+                        <img
+                            class="gaming__chess gaming__chess--blue"
+                            src="./assets/images/chess_pawn_blue.svg"
                             alt="Blue chess">
+
                         <span id="player2Score">0</span>
+
                     </div>
 
                 </div>
@@ -50,8 +59,11 @@
                     Current Player:
                 </span>
 
-                <img id="currentPlayerLogo" class="gaming__current-player-logo"
-                    src="./assets/images/chess_current_player_blue.svg" alt="Current player: Blue">
+                <img
+                    id="currentPlayerLogo"
+                    class="gaming__current-player-logo"
+                    src="./assets/images/chess_current_player_blue.svg"
+                    alt="Current player: Blue">
 
             </div>
 
@@ -59,16 +71,31 @@
 
                 <span class="gaming__exit-icon" aria-hidden="true">
 
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
 
-                        <path d="M9 5H5C4.45 5 4 5.45 4 6V18C4 18.55 4.45 19 5 19H9" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" />
-
-                        <path d="M12 12H20" fill="none" stroke="currentColor" stroke-width="2.5"
+                        <path
+                            d="M9 5H5C4.45 5 4 5.45 4 6V18C4 18.55 4.45 19 5 19H9"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
                             stroke-linecap="round" />
 
-                        <path d="M17 8L21 12L17 16" fill="none" stroke="currentColor" stroke-width="2.5"
-                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M12 12H20"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            stroke-linecap="round" />
+
+                        <path
+                            d="M17 8L21 12L17 16"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round" />
 
                     </svg>
 
@@ -84,41 +111,60 @@
 
         <main class="memory">
 
-            <div class="memory__card-container" data-card-count="16">
+            <div
+                class="memory__card-container"
+                data-card-count="16">
             </div>
 
         </main>
 
     </section>
 
-    <div class="game-over-food-popup-overlay" id="gameOverPopup">
+    <div
+        class="game-over-food-popup-overlay"
+        id="gameOverPopup">
 
         <div class="game-over-food-popup">
 
-            <img class="game-over-food-popup__title" src="./assets/images/game_over_food.png" alt="Game Over">
+            <div class="game-over-food-popup__title">
+                GAME OVER
+            </div>
 
             <div class="game-over-food-popup__score-container">
 
-                <img class="game-over-food-popup__final-score" src="./assets/images/final_score_food.png"
-                    alt="Final Score">
+                <div class="game-over-food-popup__final-score">
+                    FINAL SCORE
+                </div>
 
                 <div class="gaming__blue-orange-box game-over-food-popup__score-box">
 
-                    <div class="gaming__player-score gaming__player-score--orange" data-player="orange">
+                    <div
+                        class="gaming__player-score gaming__player-score--orange"
+                        data-player="orange">
 
-                        <img class="gaming__chess gaming__chess--orange" src="./assets/images/chess_pawn_orange.svg"
+                        <img
+                            class="gaming__chess gaming__chess--orange"
+                            src="./assets/images/chess_pawn_orange.svg"
                             alt="Orange chess">
 
-                        <span id="gameOverOrangeScore">0</span>
+                        <span id="gameOverOrangeScore">
+                            0
+                        </span>
 
                     </div>
 
-                    <div class="gaming__player-score gaming__player-score--blue" data-player="blue">
+                    <div
+                        class="gaming__player-score gaming__player-score--blue"
+                        data-player="blue">
 
-                        <img class="gaming__chess gaming__chess--blue" src="./assets/images/chess_pawn_blue.svg"
+                        <img
+                            class="gaming__chess gaming__chess--blue"
+                            src="./assets/images/chess_pawn_blue.svg"
                             alt="Blue chess">
 
-                        <span id="gameOverBlueScore">0</span>
+                        <span id="gameOverBlueScore">
+                            0
+                        </span>
 
                     </div>
 
@@ -130,11 +176,15 @@
 
     </div>
 
-    <div class="winner-popup-overlay" id="winnerPopup">
+    <div
+        class="winner-popup-overlay"
+        id="winnerPopup">
 
         <div class="winner-popup">
 
-            <div class="winner-popup__container" id="blueWinner">
+            <div
+                class="winner-popup__container"
+                id="blueWinner">
 
                 <div class="winner-popup__winner-title">
 
@@ -150,7 +200,9 @@
 
                 <div class="winner-popup__score winner-popup__score--blue">
 
-                    <img class="winner-popup__chess" src="./assets/images/winner_chess_blue_orange_layout.png"
+                    <img
+                        class="winner-popup__chess"
+                        src="./assets/images/winner_chess_blue_orange_layout.png"
                         alt="Blue winner chess">
 
                     <span id="blueWinnerScore">
@@ -159,7 +211,10 @@
 
                 </div>
 
-                <button class="winner-popup__back-home" id="blueBackHome" type="button">
+                <button
+                    class="winner-popup__back-home"
+                    id="blueBackHome"
+                    type="button">
 
                     <span>
                         HOME
@@ -169,7 +224,9 @@
 
             </div>
 
-            <div class="winner-popup__container" id="orangeWinner">
+            <div
+                class="winner-popup__container"
+                id="orangeWinner">
 
                 <div class="winner-popup__winner-title">
 
@@ -185,7 +242,9 @@
 
                 <div class="winner-popup__score winner-popup__score--orange">
 
-                    <img class="winner-popup__chess" src="./assets/images/winner_chess_orange.png"
+                    <img
+                        class="winner-popup__chess"
+                        src="./assets/images/winner_chess_orange.png"
                         alt="Orange winner chess">
 
                     <span id="orangeWinnerScore">
@@ -194,7 +253,10 @@
 
                 </div>
 
-                <button class="winner-popup__back-home" id="orangeBackHome" type="button">
+                <button
+                    class="winner-popup__back-home"
+                    id="orangeBackHome"
+                    type="button">
 
                     <span>
                         HOME
@@ -204,15 +266,31 @@
 
             </div>
 
-            <div class="winner-popup__container" id="drawWinner">
+            <div
+                class="winner-popup__container winner-popup__container--draw"
+                id="drawWinner">
 
-                <img class="winner-popup__draw-start-text" src="./assets/images/draw_start_text.png" alt="Draw start">
+                <div class="winner-popup__draw-title">
 
-                <img class="winner-popup__draw-text" src="./assets/images/Draw_text.png" alt="Draw">
+                    <span class="winner-popup__draw-title-top">
+                        It's a
+                    </span>
 
-                <img class="winner-popup__draw-frame" src="./assets/images/Draw_frame.png" alt="Draw frame">
+                    <span class="winner-popup__draw-title-bottom">
+                        DRAW
+                    </span>
 
-                <button class="winner-popup__back-home" id="drawBackHome" type="button">
+                </div>
+
+                <img
+                    class="winner-popup__draw-frame"
+                    src="./assets/images/Draw_frame.png"
+                    alt="Draw frame">
+
+                <button
+                    class="winner-popup__back-home"
+                    id="drawBackHome"
+                    type="button">
 
                     <span>
                         HOME
@@ -226,7 +304,9 @@
 
     </div>
 
-    <div class="exit-popup-overlay" id="exitPopup">
+    <div
+        class="exit-popup-overlay"
+        id="exitPopup">
 
         <div class="exit-popup">
 
@@ -238,13 +318,19 @@
 
                 <div class="exit-popup__buttons">
 
-                    <button class="exit-popup__button exit-popup__button--back" id="backToGame" type="button">
+                    <button
+                        class="exit-popup__button exit-popup__button--back"
+                        id="backToGame"
+                        type="button">
 
                         No, back to game
 
                     </button>
 
-                    <button class="exit-popup__button exit-popup__button--exit" id="exitGame" type="button">
+                    <button
+                        class="exit-popup__button exit-popup__button--exit"
+                        id="exitGame"
+                        type="button">
 
                         Exit game
 
@@ -258,8 +344,7 @@
 
     </div>
 
-    <script type="module" src="/src/food-theme.ts">
-    </script>
+    <script type="module" src="/src/food-theme.ts"></script>
 
 </body>
 

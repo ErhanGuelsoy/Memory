@@ -373,7 +373,8 @@ section {
     right: 0;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 10px;
+    width: 720px;
     height: 81px;
     padding: 14px 20px;
     background: rgba(246, 246, 246, 1);
@@ -381,7 +382,7 @@ section {
     transition: width 0.2s ease;
 
     &.is-complete {
-      width: 660px;
+      width: 720px;
     }
 
     &.selection-error {
@@ -392,10 +393,22 @@ section {
   &__option {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     height: 53px;
-    min-width: 0;
+    flex-shrink: 0;
     white-space: nowrap;
+
+    &:nth-of-type(1) {
+      width: 180px;
+    }
+
+    &:nth-of-type(2) {
+      width: 100px;
+    }
+
+    &:nth-of-type(3) {
+      width: 145px;
+    }
 
     span {
       display: block;
@@ -406,6 +419,10 @@ section {
       line-height: 100%;
       letter-spacing: 0;
     }
+
+    &:nth-of-type(2) span {
+      transform: translateX(16px);
+    }
   }
 
   &__arrow {
@@ -414,6 +431,10 @@ section {
     height: 41px;
     flex-shrink: 0;
     object-fit: contain;
+
+    &:first-of-type {
+      transform: translateX(px);
+    }
   }
 
   &__start-button {
@@ -437,7 +458,7 @@ section {
       line-height: 100%;
       letter-spacing: 0;
       cursor: not-allowed;
-      transition: transform 0.22s ease, background-color 0.15s ease;
+      transition: width 0.22s ease, height 0.22s ease, background-color 0.15s ease;
 
       img {
         display: block;
@@ -464,8 +485,10 @@ section {
       }
 
       &.is-ready:hover {
+        width: 139.65658569335938px;
+        height: 60.65658950805664px;
         background: rgba(240, 234, 110, 1);
-        transform: scale(1.07);
+        transform: scale(1);
       }
 
       &.is-ready:active {
@@ -601,9 +624,5 @@ section {
     height: 81px;
     margin-top: 0;
     flex-wrap: nowrap;
-
-    &.is-complete {
-      width: 100%;
-    }
   }
 }

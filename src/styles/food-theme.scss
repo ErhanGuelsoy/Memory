@@ -352,10 +352,24 @@ body {
 }
 
 .game-over-food-popup__title {
-    display: block;
-    width: 969px;
-    height: 130px;
-    object-fit: contain;
+    width: 770px;
+    height: 188px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    font-family: "Klee One", cursive;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 130px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    box-sizing: border-box;
     flex-shrink: 0;
 }
 
@@ -367,28 +381,46 @@ body {
     align-items: center;
     justify-content: flex-start;
     gap: 24px;
+    padding: 0;
     box-sizing: border-box;
     opacity: 1;
+    flex-shrink: 0;
 }
 
 .game-over-food-popup__final-score {
-    display: block;
     width: 222px;
-    height: 70px;
-    object-fit: contain;
+    height: 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Klee One", cursive;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 32px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    white-space: nowrap;
     flex-shrink: 0;
 }
 
 .game-over-food-popup__score-box {
-    width: 222px;
-    height: 54px;
+    width: 220px;
+    height: 76px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
-    gap: 10px;
-    border-radius: 10px;
+    gap: 40px;
+    padding-right: 16px;
+    padding-left: 16px;
     box-sizing: border-box;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 1);
+    opacity: 1;
     flex-shrink: 0;
 }
 
@@ -430,7 +462,7 @@ body {
     position: absolute;
     width: 540px;
     height: auto;
-    top: 162px;
+    top: 90px;
     left: 50%;
     display: none;
     flex-direction: column;
@@ -581,20 +613,67 @@ body {
     box-sizing: border-box;
 }
 
-.winner-popup__draw-start-text {
-    display: block;
-    width: auto;
-    height: auto;
-    margin: 0;
-    object-fit: contain;
+.winner-popup__container--draw {
+    width: 376px;
+    height: 544px;
+    top: 90px;
+    gap: 8px;
 }
 
-.winner-popup__draw-text {
-    display: block;
-    width: auto;
-    height: auto;
+.winner-popup__draw-title {
+    width: 376px;
+    height: 251px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
     margin: 0;
-    object-fit: contain;
+    padding: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.winner-popup__draw-title-top {
+    width: 253px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    font-family: "Klee One", cursive;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 40px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-align: center;
+    color: rgba(243, 131, 45, 1);
+    white-space: nowrap;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.winner-popup__draw-title-bottom {
+    width: 376px;
+    height: 185px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    font-family: "Klee One", cursive;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 128px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-align: center;
+    color: rgba(243, 131, 45, 1);
+    white-space: nowrap;
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .winner-popup__draw-frame {
@@ -603,6 +682,11 @@ body {
     height: auto;
     margin: 0;
     object-fit: contain;
+    flex-shrink: 0;
+}
+
+.winner-popup__container--draw .winner-popup__back-home {
+    margin: 20px auto 0;
 }
 
 @keyframes winner-popup-slide-down {
@@ -659,23 +743,6 @@ body {
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-}
-
-.exit-popup__title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 48px;
-    margin: 0 0 20px;
-    font-family: "Klee One", cursive;
-    font-weight: 600;
-    font-style: normal;
-    font-size: 28px;
-    line-height: 40px;
-    letter-spacing: 0;
-    color: rgba(164, 82, 18, 1);
-    text-align: center;
 }
 
 .exit-popup__message {
