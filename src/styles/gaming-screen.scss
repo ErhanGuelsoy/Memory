@@ -319,17 +319,47 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 124px;
+  gap: 44px;
   opacity: 1;
   box-sizing: border-box;
 }
 
 .game-over-popup__title {
-  display: block;
+  position: relative;
   width: 990.5048828125px;
   height: 125.19993591308594px;
-  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  opacity: 1;
   flex-shrink: 0;
+}
+
+.game-over-popup__title span {
+  position: absolute;
+  top: 4px;
+  left: 9px;
+  width: 981.5048828125px;
+  height: 121.19993591308594px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Red Rose", cursive;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 96px;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: rgba(77, 213, 188, 1);
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: none;
 }
 
 .game-over-popup__score-container {
@@ -345,11 +375,35 @@ body {
 }
 
 .game-over-popup__final-score {
-  display: block;
-  width: auto;
+  width: 323px;
   height: 32px;
-  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   flex-shrink: 0;
+}
+
+.game-over-popup__final-score span {
+  width: 323px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Red Rose", cursive;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  white-space: nowrap;
 }
 
 .game-over-popup__blue-orange-box {
@@ -480,8 +534,6 @@ body {
   animation: winner-popup-slide-down 0.6s ease-out;
 }
 
-/* BLUE WINNER */
-
 #winnerPopup #blueWinner {
   position: absolute;
   top: 208px;
@@ -568,8 +620,6 @@ body {
   flex-shrink: 0;
 }
 
-/* ORANGE WINNER */
-
 #winnerPopup #orangeWinner {
   position: absolute;
   top: 208px;
@@ -655,8 +705,6 @@ body {
   object-fit: fill;
   flex-shrink: 0;
 }
-
-/* DRAW */
 
 .winner-popup__text--draw {
   width: 419.9739990234375px;

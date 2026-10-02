@@ -6,27 +6,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&family=Red+Rose:wght@400;700&family=Klee+One:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&family=Klee+One:wght@400;600&family=Red+Rose:wght@400;700&display=swap"
         rel="stylesheet">
 
     <link rel="icon" type="image/png" href="./assets/images/chess_favicon.png">
 
     <title>Food Theme</title>
-
 </head>
 
 <body>
+
     <section class="gaming__main-container">
 
-    
         <header class="gaming__header">
 
             <div class="gaming__header-left-part">
+
                 <div class="gaming__blue-orange-box">
 
                     <div class="gaming__player-score gaming__player-score--orange" data-player="orange">
@@ -42,28 +41,37 @@
                     </div>
 
                 </div>
+
             </div>
 
             <div class="gaming__header-current-player">
+
                 <span class="gaming__current-player-text">
                     Current Player:
                 </span>
 
                 <img id="currentPlayerLogo" class="gaming__current-player-logo"
                     src="./assets/images/chess_current_player_blue.svg" alt="Current player: Blue">
+
             </div>
 
             <div class="gaming__header-right-part-exit-game">
 
                 <span class="gaming__exit-icon" aria-hidden="true">
+
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
                         <path d="M9 5H5C4.45 5 4 5.45 4 6V18C4 18.55 4.45 19 5 19H9" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" />
+
                         <path d="M12 12H20" fill="none" stroke="currentColor" stroke-width="2.5"
                             stroke-linecap="round" />
+
                         <path d="M17 8L21 12L17 16" fill="none" stroke="currentColor" stroke-width="2.5"
                             stroke-linecap="round" stroke-linejoin="round" />
+
                     </svg>
+
                 </span>
 
                 <span class="gaming__exit-text">
@@ -75,12 +83,16 @@
         </header>
 
         <main class="memory">
-            <div class="memory__card-container" data-card-count="16"></div>
+
+            <div class="memory__card-container" data-card-count="16">
+            </div>
+
         </main>
 
     </section>
 
     <div class="game-over-food-popup-overlay" id="gameOverPopup">
+
         <div class="game-over-food-popup">
 
             <img class="game-over-food-popup__title" src="./assets/images/game_over_food.png" alt="Game Over">
@@ -93,15 +105,21 @@
                 <div class="gaming__blue-orange-box game-over-food-popup__score-box">
 
                     <div class="gaming__player-score gaming__player-score--orange" data-player="orange">
+
                         <img class="gaming__chess gaming__chess--orange" src="./assets/images/chess_pawn_orange.svg"
                             alt="Orange chess">
+
                         <span id="gameOverOrangeScore">0</span>
+
                     </div>
 
                     <div class="gaming__player-score gaming__player-score--blue" data-player="blue">
+
                         <img class="gaming__chess gaming__chess--blue" src="./assets/images/chess_pawn_blue.svg"
                             alt="Blue chess">
+
                         <span id="gameOverBlueScore">0</span>
+
                     </div>
 
                 </div>
@@ -109,56 +127,111 @@
             </div>
 
         </div>
+
     </div>
 
     <div class="winner-popup-overlay" id="winnerPopup">
+
         <div class="winner-popup">
 
             <div class="winner-popup__container" id="blueWinner">
-                <img class="winner-popup__text" src="./assets/images/winner_blue_chess.png" alt="Blue player winner">
 
-                <div class="winner-popup__score winner-popup__score--blue">
-                    <img class="winner-popup__chess" src="./assets/images/winner_chess_blue_orange_layout.png"
-                        alt="Blue winner chess">
-                    <span id="blueWinnerScore">0</span>
+                <div class="winner-popup__winner-title">
+
+                    <span class="winner-popup__winner-title-top">
+                        The winner is
+                    </span>
+
+                    <span class="winner-popup__winner-title-bottom">
+                        Blue Player
+                    </span>
+
                 </div>
 
-                <img class="winner-popup__back-home" id="blueBackHome" src="./assets/images/back_home_button.png"
-                    alt="Back to settings">
+                <div class="winner-popup__score winner-popup__score--blue">
+
+                    <img class="winner-popup__chess" src="./assets/images/winner_chess_blue_orange_layout.png"
+                        alt="Blue winner chess">
+
+                    <span id="blueWinnerScore">
+                        0
+                    </span>
+
+                </div>
+
+                <button class="winner-popup__back-home" id="blueBackHome" type="button">
+
+                    <span>
+                        HOME
+                    </span>
+
+                </button>
+
             </div>
 
             <div class="winner-popup__container" id="orangeWinner">
-                <img class="winner-popup__text" src="./assets/images/winner_text_orange.png" alt="Orange player winner">
 
-                <div class="winner-popup__score winner-popup__score--orange">
-                    <img class="winner-popup__chess" src="./assets/images/winner_chess_orange.png"
-                        alt="Orange winner chess">
-                    <span id="orangeWinnerScore">0</span>
+                <div class="winner-popup__winner-title">
+
+                    <span class="winner-popup__winner-title-top">
+                        The winner is
+                    </span>
+
+                    <span class="winner-popup__winner-title-bottom">
+                        Orange Player
+                    </span>
+
                 </div>
 
-                <img class="winner-popup__back-home" id="orangeBackHome" src="./assets/images/back_home_button.png"
-                    alt="Back to settings">
+                <div class="winner-popup__score winner-popup__score--orange">
+
+                    <img class="winner-popup__chess" src="./assets/images/winner_chess_orange.png"
+                        alt="Orange winner chess">
+
+                    <span id="orangeWinnerScore">
+                        0
+                    </span>
+
+                </div>
+
+                <button class="winner-popup__back-home" id="orangeBackHome" type="button">
+
+                    <span>
+                        HOME
+                    </span>
+
+                </button>
+
             </div>
 
             <div class="winner-popup__container" id="drawWinner">
+
                 <img class="winner-popup__draw-start-text" src="./assets/images/draw_start_text.png" alt="Draw start">
 
                 <img class="winner-popup__draw-text" src="./assets/images/Draw_text.png" alt="Draw">
 
                 <img class="winner-popup__draw-frame" src="./assets/images/Draw_frame.png" alt="Draw frame">
 
-                <img class="winner-popup__back-home" id="drawBackHome" src="./assets/images/back_home_button.png"
-                    alt="Back to settings">
+                <button class="winner-popup__back-home" id="drawBackHome" type="button">
+
+                    <span>
+                        HOME
+                    </span>
+
+                </button>
+
             </div>
 
         </div>
+
     </div>
 
     <div class="exit-popup-overlay" id="exitPopup">
+
         <div class="exit-popup">
 
             <div class="exit-popup__content">
-                
+
                 <div class="exit-popup__message">
                     Are you sure you want to quit the game?
                 </div>
@@ -166,11 +239,15 @@
                 <div class="exit-popup__buttons">
 
                     <button class="exit-popup__button exit-popup__button--back" id="backToGame" type="button">
+
                         No, back to game
+
                     </button>
 
                     <button class="exit-popup__button exit-popup__button--exit" id="exitGame" type="button">
+
                         Exit game
+
                     </button>
 
                 </div>
@@ -178,10 +255,11 @@
             </div>
 
         </div>
+
     </div>
 
-    <script type="module" src="/src/food-theme.ts"></script>
-
+    <script type="module" src="/src/food-theme.ts">
+    </script>
 
 </body>
 

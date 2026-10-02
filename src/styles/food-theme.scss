@@ -430,7 +430,7 @@ body {
     position: absolute;
     width: 540px;
     height: auto;
-    top: 90px;
+    top: 162px;
     left: 50%;
     display: none;
     flex-direction: column;
@@ -447,12 +447,60 @@ body {
     animation: winner-popup-slide-down 0.6s ease-out;
 }
 
-.winner-popup__text {
-    display: block;
-    width: auto;
-    height: auto;
+.winner-popup__winner-title {
+    width: 540px;
+    height: 153px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
     margin: 0;
-    object-fit: contain;
+    padding: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.winner-popup__winner-title-top {
+    width: 253px;
+    height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    font-family: "Klee One", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: rgba(164, 82, 18, 1);
+    text-align: center;
+    white-space: nowrap;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.winner-popup__winner-title-bottom {
+    width: 540px;
+    height: 116px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    font-family: "Klee One", cursive;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 80px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: rgba(164, 82, 18, 1);
+    text-align: center;
+    white-space: nowrap;
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .winner-popup__score {
@@ -497,15 +545,63 @@ body {
 }
 
 .winner-popup__back-home {
-    display: block;
-    width: 140px;
-    height: 65px;
-    box-sizing: border-box;
+    width: 97px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     margin: -5px auto 0;
-    padding: 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 0;
     border-radius: 10px;
+    background: rgba(243, 131, 45, 1);
     opacity: 1;
     cursor: pointer;
+    flex-shrink: 0;
+}
+
+.winner-popup__back-home span {
+    width: 57px;
+    height: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    font-family: "Delius Unicase", cursive;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 1);
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.winner-popup__draw-start-text {
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0;
+    object-fit: contain;
+}
+
+.winner-popup__draw-text {
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0;
+    object-fit: contain;
+}
+
+.winner-popup__draw-frame {
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0;
     object-fit: contain;
 }
 
