@@ -91,7 +91,7 @@ class MemoryGame {
      */
     private setupStartingPlayer(): void {
         const selectedPlayer =
-            localStorage.getItem("selectedPlayer") || "blue";
+            sessionStorage.getItem("selectedPlayer") || "blue";
 
         this.currentPlayer =
             selectedPlayer === "orange" ? 1 : 2;
@@ -170,7 +170,7 @@ class MemoryGame {
         if (!container) return;
 
         const count =
-            Number(localStorage.getItem("cardCount")) || 16;
+            Number(sessionStorage.getItem("cardCount")) || 16;
 
         this.prepareBoard(
             container,
